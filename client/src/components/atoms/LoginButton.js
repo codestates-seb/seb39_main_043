@@ -3,6 +3,7 @@ import styled from 'styled-components';
 const LoginButtonWrapper = styled.div`
   width: 442px;
   height: 60px;
+  border: 1px solid black;
 `;
 
 const LoginButton = () => {
