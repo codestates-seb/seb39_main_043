@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { FaRegIdCard } from 'react-icons/fa';
 
 const InputJoinNicknameWrapper = styled.div`
   width: 440px;
@@ -7,19 +8,25 @@ const InputJoinNicknameWrapper = styled.div`
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   background-color: #f9f9f9;
-  input {
-    width: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .join-nickname {
+    width: 360px;
     height: 40px;
-    margin: 20px auto 20px 20px;
+    margin-left: 10px;
     background-color: #f9f9f9;
     border: none;
+    font-size: 24px;
   }
 `;
 
 const InputJoinNickname = () => {
   return (
     <InputJoinNicknameWrapper>
-      <input></input>
+      <FaRegIdCard size={40}></FaRegIdCard>
+      <input className="join-nickname" placeholder="별명을 입력하세요"></input>
     </InputJoinNicknameWrapper>
   );
 };
