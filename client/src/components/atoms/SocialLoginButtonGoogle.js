@@ -9,15 +9,21 @@ const SocialLoginButtonGoogleWrapper = styled.div`
   justify-content: center;
   align-items: center;
 
+  .google-logo {
+    width: 24px;
+    height: 24px;
+  }
   .btn-name {
     font-size: 24px;
+    margin-left: 10px;
   }
 `;
 
 const SocialLoginButtonGoogle = () => {
   return (
     <SocialLoginButtonGoogleWrapper>
-      <span className="btn-name">(IMG) 구글</span>
+      <img className="google-logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/300px-Google_%22G%22_Logo.svg.png" alt="google logo" />
+      <span className="btn-name">구글</span>
     </SocialLoginButtonGoogleWrapper>
   );
 };
