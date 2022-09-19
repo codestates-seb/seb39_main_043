@@ -6,13 +6,14 @@ const ScheduleDateTimeContentWrapper = styled.div`
     font-size: 16px;
     line-height: 1;
     border: none;
+    width: 300px;
   }
 `;
 
 const ScheduleDateTimeContent = () => {
   return (
     <ScheduleDateTimeContentWrapper>
-      <input className="input-schedule-time" placeholder="yy.mm.dd ~ yy.mm.dd"></input>
+      <input className="input-schedule-time" placeholder="yy.mm.dd.hh:mm ~ yy.mm.dd.hh:mm"></input>
     </ScheduleDateTimeContentWrapper>
   );
 };

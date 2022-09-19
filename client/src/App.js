@@ -1,5 +1,7 @@
+import ScheduleDateTimeContent from './components/atoms/ScheduleDateTimeContent';
+
 function App() {
-  return;
+  return <ScheduleDateTimeContent></ScheduleDateTimeContent>;
 }
 
 export default App;
