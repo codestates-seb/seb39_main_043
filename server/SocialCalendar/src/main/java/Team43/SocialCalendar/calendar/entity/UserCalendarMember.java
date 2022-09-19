@@ -10,7 +10,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @Setter
-@Entity
+@Entity(name = "user_calendar_member")
 public class UserCalendarMember {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
