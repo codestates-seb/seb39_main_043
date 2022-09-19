@@ -1,6 +1,4 @@
 import styled from 'styled-components';
-import Schedule from './Schedule';
-import Test from './Test';
 
 const ScheduleContainerWrapper = styled.div`
   width: 183px;
@@ -16,20 +14,8 @@ const ScheduleContainerWrapper = styled.div`
   }
 `;
 
-const Test1 = () => {
-  return <div className="test1"></div>;
-};
-
-const Test2 = () => {
-  return <div className="test2"></div>;
-};
-
 const ScheduleContainer = ({ date }) => {
-  return (
-    <Test1>
-      <Test2></Test2>
-    </Test1>
-  );
+  return <ScheduleContainerWrapper></ScheduleContainerWrapper>;
 };
 
 export default ScheduleContainer;

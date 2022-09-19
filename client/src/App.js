@@ -1,7 +1,7 @@
-import ScheduleDateTimeContent from './components/atoms/ScheduleDateTimeContent';
+import LoginForm from './components/molecules/LoginForm';
 
 function App() {
-  return <ScheduleDateTimeContent></ScheduleDateTimeContent>;
+  return <LoginForm></LoginForm>;
 }
 
 export default App;
