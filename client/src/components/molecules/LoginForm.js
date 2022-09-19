@@ -1,7 +1,12 @@
 import atoms from '../atoms';
 
 const LoginForm = () => {
-  return <atoms.CalendarAddButton></atoms.CalendarAddButton>;
+  return (
+    <>
+      <atoms.InputLoginId />
+      <atoms.InputLoginPassword />
+    </>
+  );
 };
 
 export default LoginForm;
