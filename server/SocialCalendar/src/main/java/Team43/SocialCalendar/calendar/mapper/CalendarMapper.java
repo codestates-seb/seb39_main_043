@@ -53,7 +53,7 @@ public interface CalendarMapper {
     }
 
     default List<UserCalendarMemberResponseDto> userCalendarMemberToUserCalendarMemberResponseDtos(
-                                                            List<UserCalendarMember> calendarMembers) {
+            List<UserCalendarMember> calendarMembers) {
         return calendarMembers.stream()
                 .map(calendarMember -> UserCalendarMemberResponseDto
                         .builder()
