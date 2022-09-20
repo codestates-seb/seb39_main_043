@@ -4,7 +4,7 @@ const UserCommentContainerWrapper = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
-  height: 30px;
+  margin: 8px 0;
 `;
 
 const UserCommentContainer = ({ className, children }) => {
