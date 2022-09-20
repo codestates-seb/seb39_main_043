@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
-const FocusMonthWrapper = styled.span`
+const FocusMonthWrapper = styled.div`
   font-size: 24px;
-
-  .month {
-    margin-left: 10px;
-  }
+  width: 125px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 const FocusMonth = ({ year, month, className }) => {
