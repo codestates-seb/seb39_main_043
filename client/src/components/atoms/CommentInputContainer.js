@@ -11,8 +11,8 @@ const Container = styled.div`
   padding: 4px;
 `;
 
-const CommentInputContainer = () => {
-  return <Container />;
+const CommentInputContainer = ({ className, children }) => {
+  return <Container className={className}>{children}</Container>;
 };
 
 export default CommentInputContainer;
