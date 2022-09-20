@@ -8,9 +8,9 @@ const FocusMonthWrapper = styled.span`
   }
 `;
 
-const FocusMonth = ({ year, month }) => {
+const FocusMonth = ({ year, month, className }) => {
   return (
-    <FocusMonthWrapper>
+    <FocusMonthWrapper className={className}>
       <span className="year">{year}년</span>
       <span className="month">{month}월</span>
     </FocusMonthWrapper>
