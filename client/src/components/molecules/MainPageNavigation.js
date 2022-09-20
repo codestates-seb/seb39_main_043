@@ -24,14 +24,14 @@ const CurrentCalendarTitle = styled(atoms.CurrentCalendarTitle)`
 const UserProfile = styled(atoms.UserProfile)`
   margin-left: 14px;
 `;
-const MainPageNavigation = () => {
+const MainPageNavigation = ({ year, month }) => {
   return (
     <>
       <atoms.NavigationBar>
         <HamburgerIcon />
         <LogoIcon />
         <PrevMonthIcon />
-        <atoms.FocusMonth year={2022} month={10} />
+        <atoms.FocusMonth year={year} month={month} />
         <atoms.NextMonthIcon />
         <CalendarIcon />
         <CurrentCalendarTitle />
