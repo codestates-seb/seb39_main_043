@@ -7,8 +7,8 @@ const Container = styled.img`
   border: 1px solid black;
 `;
 
-const CalendarProfile = ({ imgURL }) => {
-  return <Container src={imgURL} />;
+const CalendarProfile = ({ className, imgURL }) => {
+  return <Container className={className} src={imgURL} />;
 };
 
 export default CalendarProfile;

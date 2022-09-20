@@ -16,8 +16,8 @@ const Container = styled.button`
   }
 `;
 
-const CalendarAddButton = () => {
-  return <Container>캘린더 추가</Container>;
+const CalendarAddButton = ({ className }) => {
+  return <Container className={className}>캘린더 추가</Container>;
 };
 
 export default CalendarAddButton;

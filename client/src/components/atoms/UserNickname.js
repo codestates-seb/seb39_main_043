@@ -4,8 +4,8 @@ const Container = styled.span`
   font-size: 16px;
 `;
 
-const UserNickname = ({ content }) => {
-  return <Container>{content}</Container>;
+const UserNickname = ({ className, content }) => {
+  return <Container className={className}>{content}</Container>;
 };
 
 export default UserNickname;
