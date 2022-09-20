@@ -1,12 +1,18 @@
 import styled from "styled-components";
 
-const Container = styled.div`
+const DiaryModalContainerWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 840px;
-  height: 840px;
+  padding: 32px;
+  border: 1px solid #b5b5b5;
+  border-radius: 0 0 10px 10px;
+  border-top: none;
 `;
 
-const DiaryModalContainer = () => {
-  return <Container />;
+const DiaryModalContainer = ({ className, children }) => {
+  return <DiaryModalContainerWrapper className={className}>{children}</DiaryModalContainerWrapper>;
 };
 
 export default DiaryModalContainer;
