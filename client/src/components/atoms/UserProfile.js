@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { CgProfile } from 'react-icons/cg';
+import styled from "styled-components";
+import { CgProfile } from "react-icons/cg";
 
 const UserProfileWrapper = styled.div`
   width: 40px;
@@ -17,8 +17,8 @@ const UserProfileWrapper = styled.div`
   }
 `;
 
-const UserProfile = ({ imgUrl }) => {
-  return <UserProfileWrapper>{imgUrl ? <img className="profile-image" src={imgUrl} /> : <CgProfile size={40} />}</UserProfileWrapper>;
+const UserProfile = ({ className, imgUrl }) => {
+  return <UserProfileWrapper className={className}>{imgUrl ? <img className="profile-image" src={imgUrl} /> : <CgProfile size={40} />}</UserProfileWrapper>;
 };
 
 export default UserProfile;
