@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const ScheduleWrapper = styled.div`
-  width: 180px;
+  width: 179px;
   height: 30px;
   background-color: #fff2df;
   border: 1px solid black;
