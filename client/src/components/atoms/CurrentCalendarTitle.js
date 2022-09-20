@@ -8,9 +8,9 @@ const CurrentCalendarTitleWrapeer = styled.div`
   }
 `;
 
-const CurrentCalendarTitle = () => {
+const CurrentCalendarTitle = ({ className }) => {
   return (
-    <CurrentCalendarTitleWrapeer>
+    <CurrentCalendarTitleWrapeer className={className}>
       <span className="current-calendar-text">현재 캘린더</span>
       <span>{' 스터디'}</span>
     </CurrentCalendarTitleWrapeer>
