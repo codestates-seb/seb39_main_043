@@ -52,6 +52,7 @@ import ProfileMessage from "./ProfileMessage";
 import ProfileName from "./ProfileName";
 import Schedule from "./Schedule";
 import ScheduleContainer from "./ScheduleContainer";
+import ScheduleDetailContent from "./ScheduleDetailContent";
 import ScheduleDetailInput from "./ScheduleDetailInput";
 import ScheduleDetailTitle from "./ScheduleDetailTitle";
 import ScheduleTitle from "./ScheduleTitle";
@@ -117,6 +118,7 @@ export default {
   ProfileName,
   Schedule,
   ScheduleContainer,
+  ScheduleDetailContent,
   ScheduleDetailInput,
   ScheduleDetailTitle,
   ScheduleTitle,
