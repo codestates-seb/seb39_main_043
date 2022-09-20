@@ -21,8 +21,12 @@ const ModalButtonWrapper = styled.button`
   }
 `;
 
-const ModalButton = ({ color, value }) => {
-  return <ModalButtonWrapper color={color}>{value}</ModalButtonWrapper>;
+const ModalButton = ({ className, color, value }) => {
+  return (
+    <ModalButtonWrapper className={className} color={color}>
+      {value}
+    </ModalButtonWrapper>
+  );
 };
 
 export default ModalButton;
