@@ -6,7 +6,7 @@ const InputTitleWrapper = styled.input`
   font-size: 24px;
   text-align: center;
   border: none;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #b5b5b5;
 `;
 
 const InputTitle = ({ placeholder }) => {

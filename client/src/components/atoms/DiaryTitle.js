@@ -5,7 +5,7 @@ const Container = styled.span`
 `;
 
 const DiaryTitle = ({ content }) => {
-  <Container>{content}</Container>;
+  return <Container>{content}</Container>;
 };
 
 export default DiaryTitle;

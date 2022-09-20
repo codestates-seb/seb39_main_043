@@ -1,17 +1,19 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const ModalContentContainerWrapper = styled.div`
   width: 550px;
   display: flex;
   flex-direction: column;
-  height: 100px; //   임시 설정 (원래는 설정 x)
-  border: 1px solid black;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  align-items: center;
+  border: 1px solid #b5b5b5;
+  border-top: none;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  padding: 16px;
 `;
 
-const ModalContentContainer = () => {
-  return <ModalContentContainerWrapper></ModalContentContainerWrapper>;
+const ModalContentContainer = ({ children }) => {
+  return <ModalContentContainerWrapper>{children}</ModalContentContainerWrapper>;
 };
 
 export default ModalContentContainer;

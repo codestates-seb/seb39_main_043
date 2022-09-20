@@ -4,8 +4,8 @@ const ScheduleDetailTitleWrapper = styled.span`
   font-size: 16px;
 `;
 
-const ScheduleDetailTitle = ({ value }) => {
-  return <ScheduleDetailTitleWrapper>{value}</ScheduleDetailTitleWrapper>;
+const ScheduleDetailTitle = ({ className, value }) => {
+  return <ScheduleDetailTitleWrapper className={className}>{value}</ScheduleDetailTitleWrapper>;
 };
 
 export default ScheduleDetailTitle;

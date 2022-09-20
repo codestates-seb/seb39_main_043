@@ -5,7 +5,7 @@ const Container = styled.div`
 `;
 
 const DiaryContentContainer = ({ content }) => {
-  <Container>{content}</Container>;
+  return <Container>{content}</Container>;
 };
 
 export default DiaryContentContainer;

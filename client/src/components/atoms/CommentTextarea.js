@@ -6,6 +6,7 @@ const Container = styled.textarea`
   height: 60px;
   border: none;
   resize: none;
+  padding: 8px;
 `;
 
 const CommentTextarea = () => {
