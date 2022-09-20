@@ -1,7 +1,7 @@
 import { GiHamburgerMenu } from 'react-icons/gi';
 
-const HamburgerIcon = () => {
-  return <GiHamburgerMenu size={40} />;
+const HamburgerIcon = ({ className }) => {
+  return <GiHamburgerMenu size={40} className={className} />;
 };
 
 export default HamburgerIcon;
