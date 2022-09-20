@@ -14,8 +14,13 @@ const ScheduleContainerWrapper = styled.div`
   }
 `;
 
-const ScheduleContainer = ({ date }) => {
-  return <ScheduleContainerWrapper></ScheduleContainerWrapper>;
+const ScheduleContainer = ({ date, children }) => {
+  return (
+    <ScheduleContainerWrapper>
+      <div className="date">{date}</div>
+      {children}
+    </ScheduleContainerWrapper>
+  );
 };
 
 export default ScheduleContainer;
