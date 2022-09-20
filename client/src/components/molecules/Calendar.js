@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import atoms from '../atoms';
-import makeViewDays from './test';
+import makeViewDays from './makeViewDays';
 
 const CalendarWrapper = styled.div`
   .day-of-week {
