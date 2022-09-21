@@ -9,6 +9,7 @@ const ModalButtonWrapper = styled.button`
   color: white;
   font-weight: bold;
   font-size: 16px;
+  margin-top: 16px;
 
   background-color: ${(props) => props.color};
 
@@ -21,9 +22,9 @@ const ModalButtonWrapper = styled.button`
   }
 `;
 
-const ModalButton = ({ className, color, value }) => {
+const ModalButton = ({ className, color, value, onClick }) => {
   return (
-    <ModalButtonWrapper className={className} color={color}>
+    <ModalButtonWrapper className={className} color={color} onClick={onClick}>
       {value}
     </ModalButtonWrapper>
   );

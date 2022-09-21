@@ -5,8 +5,8 @@ const Conatiner = styled.div`
   border: 1px solid #d5d5d5;
 `;
 
-const MypageSidebarContainer = () => {
-  return <Conatiner />;
+const MypageSidebarContainer = ({ children }) => {
+  return <Conatiner>{children}</Conatiner>;
 };
 
 export default MypageSidebarContainer;

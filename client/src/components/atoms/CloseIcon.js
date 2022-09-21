@@ -8,10 +8,10 @@ const Container = styled.span`
   }
 `;
 
-const CloseIcon = () => {
+const CloseIcon = ({ id, onClick }) => {
   return (
     <Container>
-      <MdClose />
+      <MdClose id={id} onClick={onClick} />
     </Container>
   );
 };

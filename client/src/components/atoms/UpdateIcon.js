@@ -8,9 +8,9 @@ const Container = styled.span`
   }
 `;
 
-const UpdateIcon = () => {
+const UpdateIcon = ({ onClick }) => {
   return (
-    <Container>
+    <Container onClick={onClick}>
       <FiEdit />
     </Container>
   );
