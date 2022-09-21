@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
+const today = new Date();
 
 const dateSlice = createSlice({
   name: 'date',
-  initialState: { year: 2022, month: 9 },
+  initialState: { year: today.getFullYear(), month: today.getMonth() + 1 },
   reducers: {
     changeDate: (state, action) => {
       state.year = action.payload.year;
