@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import atoms from '../atoms';
-import makeViewDays from './test';
+import makeViewDays from './makeViewDays';
+import { useSelector } from 'react-redux';
 
 const CalendarWrapper = styled.div`
   .day-of-week {
@@ -9,11 +10,10 @@ const CalendarWrapper = styled.div`
   }
   .week {
     width: 1280px;
+    height: calc((100vh - 80px) / 5);
     display: flex;
   }
 `;
-let year = 2022;
-let month = 9;
 
 const dayOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
 const weeks = [1, 2, 3, 4, 5];
@@ -29,7 +29,10 @@ const event = [
   { year: 2022, month: 10, day: 1, content: 'test7' },
 ];
 const Calendar = () => {
+  const year = useSelector((state) => state.date.year);
+  const month = useSelector((state) => state.date.month);
   const days = makeViewDays(`${year}-${month}-01`);
+
   return (
     <CalendarWrapper>
       <div className="day-of-week">
@@ -40,7 +43,7 @@ const Calendar = () => {
       {weeks.map((el) => (
         <div className="week">
           {days.slice(7 * (el - 1), 7 * el).map((el) => {
-            let tmpEvent = event.filter((event) => event.day === el.day && event.month === el.month);
+            let tmpEvent = event.filter((event) => event.day === el.day && event.month === el.month && event.year === el.year);
             return (
               <atoms.ScheduleContainer date={el.day}>
                 {tmpEvent.map((el) => (
