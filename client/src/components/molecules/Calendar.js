@@ -10,6 +10,7 @@ const CalendarWrapper = styled.div`
   }
   .week {
     width: 1280px;
+    height: calc((100vh - 80px) / 5);
     display: flex;
   }
 `;
