@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const ScheduleContainerWrapper = styled.div`
   width: 183px;
-  height: 183px;
+  height: auto;
   border: 1px solid black;
   display: flex;
   flex-direction: column;
