@@ -17,7 +17,7 @@ const UserProfileWrapper = styled.div`
   }
 `;
 
-const UserProfile = ({ className, imgUrl }) => {
+const UserProfile = ({ imgUrl, className }) => {
   return <UserProfileWrapper className={className}>{imgUrl ? <img className="profile-image" src={imgUrl} /> : <CgProfile size={40} />}</UserProfileWrapper>;
 };
 
