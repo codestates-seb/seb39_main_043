@@ -6,6 +6,11 @@ const Container = styled.div`
   align-items: center;
   width: 100%;
   height: 40px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #f5f5f5;
+  }
 `;
 
 const MypageSidebarItem = ({ content }) => {

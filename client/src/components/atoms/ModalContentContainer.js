@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const ModalContentContainerWrapper = styled.div`
-  width: 550px;
+  width: 440px;
   display: flex;
   flex-direction: column;
   align-items: center;

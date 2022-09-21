@@ -4,7 +4,7 @@ const ModalNavigationBarWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: right;
-  width: 550px;
+  width: 440px;
   height: 40px;
   background-color: #f5f5f5;
   border: 1px solid #b5b5b5;
