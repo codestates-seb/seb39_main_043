@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import atoms from '../atoms';
+import { useSelector, useDispatch } from 'react-redux';
+import dateSlice from '../../slices/dateSlice';
 
 const HamburgerIcon = styled(atoms.HamburgerIcon)`
   margin-left: 14px;
@@ -24,15 +26,29 @@ const CurrentCalendarTitle = styled(atoms.CurrentCalendarTitle)`
 const UserProfile = styled(atoms.UserProfile)`
   margin-left: 14px;
 `;
-const MainPageNavigation = ({ year, month }) => {
+
+const MainPageNavigation = () => {
+  const year = useSelector((state) => state.date.year);
+  const month = useSelector((state) => state.date.month);
+  const dispatch = useDispatch();
+  // const onClickChangeDate = (year, month, change) => {
+  //   if (change === 'plus') {
+  //     if (month === 12) return dispatch(dateSlice.actions.changeDate({ year: year + 1, month: 1 }));
+  //     else return dispatch(dateSlice.actions.changeDate({ year: year, month: month + 1 }));
+  //   } else {
+  //     if (month === 1) return dispatch(dateSlice.actions.changeDate({ year: year - 1, month: 12 }));
+  //     else return dispatch(dateSlice.actions.changeDate({ year: year, month: month - 1 }));
+  //   }
+  // };
+
   return (
     <>
       <atoms.NavigationBar>
         <HamburgerIcon />
         <LogoIcon />
-        <PrevMonthIcon />
+        <PrevMonthIcon onClick={() => (month === 1 ? dispatch(dateSlice.actions.changeDate({ year: year - 1, month: 12 })) : dispatch(dateSlice.actions.changeDate({ year: year, month: month - 1 })))} />
         <atoms.FocusMonth year={year} month={month} />
-        <atoms.NextMonthIcon />
+        <atoms.NextMonthIcon onClick={() => (month === 12 ? dispatch(dateSlice.actions.changeDate({ year: year + 1, month: 1 })) : dispatch(dateSlice.actions.changeDate({ year: year, month: month + 1 })))} />
         <CalendarIcon />
         <CurrentCalendarTitle />
         <UserProfile />
