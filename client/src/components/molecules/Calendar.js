@@ -42,7 +42,7 @@ const Calendar = () => {
       {weeks.map((el) => (
         <div className="week">
           {days.slice(7 * (el - 1), 7 * el).map((el) => {
-            let tmpEvent = event.filter((event) => event.day === el.day && event.month === el.month);
+            let tmpEvent = event.filter((event) => event.day === el.day && event.month === el.month && event.year === el.year);
             return (
               <atoms.ScheduleContainer date={el.day}>
                 {tmpEvent.map((el) => (
