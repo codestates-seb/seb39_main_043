@@ -1,7 +1,7 @@
 const makeViewDays = (standardDate) => {
   const week = ['일', '월', '화', '수', '목', '금', '토'];
-  const leapYear = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-  const notLeapYear = [0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+  const leapYear = [0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+  const notLeapYear = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
   const dateInfo = standardDate.split('-').map((el) => Number(el));
   let year = dateInfo[0];
   let month = dateInfo[1];
@@ -30,7 +30,7 @@ const makeViewDays = (standardDate) => {
       let tmp = { year: year, month: el.month, day: 1 + idx };
       return tmp;
     });
-    let frontMonthEndDate = leapYear[frontMonth];
+    let frontMonthEndDate = notLeapYear[frontMonth];
     while (addFrontCount !== 0) {
       viewDays.unshift({ year: year, month: frontMonth, day: frontMonthEndDate-- });
       addFrontCount--;
