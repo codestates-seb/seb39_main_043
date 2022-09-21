@@ -14,33 +14,33 @@ const makeViewDays = (standardDate) => {
   let viewDays;
 
   if (isLeap) {
-    viewDays = new Array(leapYear[month]).fill({ month: month, day: 1 });
+    viewDays = new Array(leapYear[month]).fill({ year: year, month: month, day: 1 });
     viewDays = viewDays.map((el, idx) => {
-      let tmp = { month: el.month, day: 1 + idx };
+      let tmp = { year: year, month: el.month, day: 1 + idx };
       return tmp;
     });
     let frontMonthEndDate = leapYear[frontMonth];
     while (addFrontCount !== 0) {
-      viewDays.unshift({ month: frontMonth, day: frontMonthEndDate-- });
+      viewDays.unshift({ year: year, month: frontMonth, day: frontMonthEndDate-- });
       addFrontCount--;
     }
   } else {
-    viewDays = new Array(notLeapYear[month]).fill({ month: month, day: 1 });
+    viewDays = new Array(notLeapYear[month]).fill({ year: year, month: month, day: 1 });
     viewDays = viewDays.map((el, idx) => {
-      let tmp = { month: el.month, day: 1 + idx };
+      let tmp = { year: year, month: el.month, day: 1 + idx };
       return tmp;
     });
     let frontMonthEndDate = leapYear[frontMonth];
     while (addFrontCount !== 0) {
-      viewDays.unshift({ month: frontMonth, day: frontMonthEndDate-- });
+      viewDays.unshift({ year: year, month: frontMonth, day: frontMonthEndDate-- });
       addFrontCount--;
     }
   }
   let addEndCount = 1;
   while (viewDays.length < 35) {
-    viewDays.push({ month: month + 1, day: addEndCount++ });
+    viewDays.push({ year: year, month: month + 1, day: addEndCount++ });
   }
-  console.log(viewDays);
+  // console.log(viewDays);
   return viewDays;
 };
 
