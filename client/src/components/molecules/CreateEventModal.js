@@ -3,7 +3,9 @@ import styled from "styled-components";
 import atoms from "../atoms";
 
 // <--- styled component --->
-const CreateEventModalWrapper = styled.div``;
+const CreateEventModalWrapper = styled.div`
+  background-color: white;
+`;
 
 const ItemWrapper = styled.div`
   display: flex;
@@ -19,21 +21,27 @@ const ItemWrapper = styled.div`
 `;
 
 // <--- CreateEventModal --->
-const CreateEventModal = () => {
+const CreateEventModal = ({ className, onClick, onKeyDown, submitInfo }) => {
+  let obj = {};
+
+  const handleTitleChange = (event) => {
+    obj.title = event.target.value;
+  };
+
   const handleDateChange = (event) => {
-    setDate(event.target.value);
+    obj.date = event.target.value;
   };
 
   const handleAttendeeChange = (event) => {
-    setAttendee(event.target.value);
+    obj.attendee = event.target.value;
   };
 
   const handleLocationChange = (event) => {
-    setLocation(event.target.value);
+    obj.location = event.target.value;
   };
 
   const handleExplainChange = (event) => {
-    setExplain(event.target.value);
+    obj.explain = event.target.value;
   };
 
   // 리덕스 툴킷 사용
@@ -46,22 +54,17 @@ const CreateEventModal = () => {
     ],
   };
 
-  const [date, setDate] = useState(""); // 서버에 전달할 일시 정보
-  const [attendee, setAttendee] = useState(""); // 서버에 전달할 참석자 정보
-  const [location, setLocation] = useState(""); // 서버에 전달할 위치 정보
-  const [explain, setExplain] = useState(""); // 서버에 전달한 설명 정보
-
   return (
-    <CreateEventModalWrapper>
+    <CreateEventModalWrapper className={className} onKeyDown={onKeyDown}>
       {/* <--- 네비게이션바 --->*/}
       <atoms.ModalNavigationBar>
-        <atoms.CloseIcon />
+        <atoms.CloseIcon onClick={onClick} />
       </atoms.ModalNavigationBar>
 
       {/*<--- 컨테이너 --->*/}
       <atoms.ModalContentContainer>
         <div>
-          <atoms.InputTitle placeholder={"제목을 입력하세요"} />
+          <atoms.InputTitle placeholder={"제목을 입력하세요"} onChange={handleTitleChange} />
         </div>
 
         {dummyData.item.map((value, index) => {
@@ -76,7 +79,7 @@ const CreateEventModal = () => {
           );
         })}
 
-        <atoms.ModalButton color={"#007FDB"} value={"저장"} />
+        <atoms.ModalButton color={"#007FDB"} value={"저장"} onClick={() => submitInfo(obj)} />
       </atoms.ModalContentContainer>
     </CreateEventModalWrapper>
   );
