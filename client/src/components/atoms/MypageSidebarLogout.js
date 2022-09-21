@@ -7,6 +7,11 @@ const Container = styled.div`
   width: 100%;
   height: 40px;
   font-weight: bold;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #f5f5f5;
+  }
 `;
 
 const MypageSidebarLogout = () => {

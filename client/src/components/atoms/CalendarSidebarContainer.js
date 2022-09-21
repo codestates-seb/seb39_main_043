@@ -8,7 +8,7 @@ const Container = styled.div`
   height: 100vh;
   border: 1px solid #d5d5d5;
   padding-top: 16px;
-  overflow: scroll;
+  overflow-y: scroll;
 `;
 
 const CalendarSidebarContainer = ({ children }) => {

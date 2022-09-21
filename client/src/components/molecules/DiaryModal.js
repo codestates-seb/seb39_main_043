@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import atoms from "../atoms";
 
+// <--- styled component --->
 const DiaryModalWrapper = styled.div``;
 
 const UserWrapper = styled.div`
@@ -34,9 +35,23 @@ const StyledUserComment = styled(atoms.UserComment)`
   margin-left: 16px;
 `;
 
+// <--- DiaryModal --->
 const DiaryModal = () => {
+  // 테스트 데이터
+  const dummyData = {
+    item: [
+      { id: 0, nickName: "red", content: "댓글 1입니다." },
+      { id: 1, nickName: "orange", content: "댓글 2입니다." },
+      { id: 2, nickName: "banana", content: "댓글 3입니다." },
+      { id: 3, nickName: "green", content: "댓글 4입니다." },
+      { id: 4, nickName: "blue", content: "댓글 5입니다." },
+      { id: 5, nickName: "purple", content: "댓글 6입니다." },
+    ],
+  };
+
   return (
     <DiaryModalWrapper>
+      {/*<--- 네비게이션바 --->*/}
       <atoms.DiaryNavigationBar>
         <UserWrapper>
           <StyledUserProfile />
@@ -52,22 +67,29 @@ const DiaryModal = () => {
         </IconWrapper>
       </atoms.DiaryNavigationBar>
 
+      {/*<--- 컨테이너 --->*/}
       <atoms.DiaryModalContainer>
+        {/* 회고 내용 */}
         <atoms.DiaryContentContainer content={"재밌"} />
 
+        {/* 댓글 입력창 */}
         <StyledCommentInputContainer>
           <atoms.CommentTextarea />
           <atoms.CommentPutButton />
         </StyledCommentInputContainer>
 
-        <atoms.UserCommentContainer>
-          <UserWrapper>
-            <StyledUserProfile />
-            <atoms.UserNickname content={"red"} />
-          </UserWrapper>
+        {/* 댓글 영역 */}
+        {dummyData.item.map((value) => {
+          return (
+            <atoms.UserCommentContainer key={value.id}>
+              <UserWrapper>
+                <atoms.UserNickname content={value.nickName} />
+              </UserWrapper>
 
-          <StyledUserComment content={"댓글내용"} />
-        </atoms.UserCommentContainer>
+              <StyledUserComment content={value.content} />
+            </atoms.UserCommentContainer>
+          );
+        })}
       </atoms.DiaryModalContainer>
     </DiaryModalWrapper>
   );

@@ -1,12 +1,8 @@
 import styled from "styled-components";
 import atoms from "../atoms";
-import ModalNavigationBar from "../atoms/ModalNavigationBar";
 
+// <--- styled component --->
 const EventCommentModalWrapper = styled.div``;
-
-const StyledModalNavigationBar = styled(ModalNavigationBar)`
-  width: 440px;
-`;
 
 const CommentWrapper = styled.div`
   display: flex;
@@ -32,14 +28,8 @@ const CommentWrapper = styled.div`
 
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
-    background: #b30000;
+    background: gray;
   }
-`;
-
-const SytledUserProfile = styled(atoms.UserProfile)`
-  width: 30px;
-  height: 30px;
-  margin-right: 8px;
 `;
 
 const StyledUserNickname = styled(atoms.UserNickname)`
@@ -47,136 +37,49 @@ const StyledUserNickname = styled(atoms.UserNickname)`
   font-weight: bold;
 `;
 
+// <-- EventCommentModal -->
 const EventCommentModal = () => {
+  // 테스트 데이터
+  const dummyData = {
+    item: [
+      { id: 1, nickName: "red", content: "1시에 보자" },
+      { id: 2, nickName: "blue", content: "ABCD" },
+      { id: 3, nickName: "yellow", content: "12시에 보자" },
+      { id: 4, nickName: "black", content: "DEFG" },
+      { id: 5, nickName: "white", content: "31시에 보자" },
+      { id: 6, nickName: "beige", content: "1444시에 보자" },
+      { id: 7, nickName: "brown", content: "112312시에 보자" },
+      { id: 8, nickName: "pink", content: "2453451시에 보자" },
+      { id: 9, nickName: "purple", content: "DEFG" },
+      { id: 10, nickName: "skyblue", content: "31시에 보자" },
+      { id: 11, nickName: "green", content: "1444시에 보자" },
+      { id: 12, nickName: "orange", content: "112312시에 보자" },
+      { id: 13, nickName: "pink", content: "2453451시에 보자" },
+    ],
+  };
+
   return (
+    // <--- 네비게이션바 --->
     <EventCommentModalWrapper>
-      <StyledModalNavigationBar>
+      <atoms.ModalNavigationBar>
         <atoms.CloseIcon />
-      </StyledModalNavigationBar>
+      </atoms.ModalNavigationBar>
 
+      {/*<--- 컨테이너 --->*/}
       <atoms.CommentModalContainer>
+        {/* 일정 댓글 영역 */}
         <CommentWrapper>
-          <atoms.UserCommentContainer>
-            <SytledUserProfile imgUrl={"https://random.imagecdn.app/500/150"} />
-            <StyledUserNickname content={"red"} />
-            <atoms.UserComment content={"1시에 보자"} />
-          </atoms.UserCommentContainer>
-
-          <atoms.UserCommentContainer>
-            <SytledUserProfile imgUrl={"https://random.imagecdn.app/500/150"} />
-            <StyledUserNickname content={"red"} />
-            <atoms.UserComment content={"1시에 보자"} />
-          </atoms.UserCommentContainer>
-
-          <atoms.UserCommentContainer>
-            <SytledUserProfile imgUrl={"https://random.imagecdn.app/500/150"} />
-            <StyledUserNickname content={"red"} />
-            <atoms.UserComment content={"1시에 보자"} />
-          </atoms.UserCommentContainer>
-
-          <atoms.UserCommentContainer>
-            <SytledUserProfile imgUrl={"https://random.imagecdn.app/500/150"} />
-            <StyledUserNickname content={"red"} />
-            <atoms.UserComment content={"1시에 보자"} />
-          </atoms.UserCommentContainer>
-
-          <atoms.UserCommentContainer>
-            <SytledUserProfile imgUrl={"https://random.imagecdn.app/500/150"} />
-            <StyledUserNickname content={"red"} />
-            <atoms.UserComment content={"1시에 보자"} />
-          </atoms.UserCommentContainer>
-
-          <atoms.UserCommentContainer>
-            <SytledUserProfile imgUrl={"https://random.imagecdn.app/500/150"} />
-            <StyledUserNickname content={"red"} />
-            <atoms.UserComment content={"1시에 보자"} />
-          </atoms.UserCommentContainer>
-
-          <atoms.UserCommentContainer>
-            <SytledUserProfile imgUrl={"https://random.imagecdn.app/500/150"} />
-            <StyledUserNickname content={"red"} />
-            <atoms.UserComment content={"1시에 보자"} />
-          </atoms.UserCommentContainer>
-
-          <atoms.UserCommentContainer>
-            <SytledUserProfile imgUrl={"https://random.imagecdn.app/500/150"} />
-            <StyledUserNickname content={"red"} />
-            <atoms.UserComment content={"1시에 보자"} />
-          </atoms.UserCommentContainer>
-
-          <atoms.UserCommentContainer>
-            <SytledUserProfile imgUrl={"https://random.imagecdn.app/500/150"} />
-            <StyledUserNickname content={"red"} />
-            <atoms.UserComment content={"1시에 보자"} />
-          </atoms.UserCommentContainer>
-
-          <atoms.UserCommentContainer>
-            <SytledUserProfile imgUrl={"https://random.imagecdn.app/500/150"} />
-            <StyledUserNickname content={"red"} />
-            <atoms.UserComment content={"1시에 보자"} />
-          </atoms.UserCommentContainer>
-
-          <atoms.UserCommentContainer>
-            <SytledUserProfile imgUrl={"https://random.imagecdn.app/500/150"} />
-            <StyledUserNickname content={"red"} />
-            <atoms.UserComment content={"1시에 보자"} />
-          </atoms.UserCommentContainer>
-
-          <atoms.UserCommentContainer>
-            <SytledUserProfile imgUrl={"https://random.imagecdn.app/500/150"} />
-            <StyledUserNickname content={"red"} />
-            <atoms.UserComment content={"1시에 보자"} />
-          </atoms.UserCommentContainer>
-
-          <atoms.UserCommentContainer>
-            <SytledUserProfile imgUrl={"https://random.imagecdn.app/500/150"} />
-            <StyledUserNickname content={"red"} />
-            <atoms.UserComment content={"1시에 보자"} />
-          </atoms.UserCommentContainer>
-
-          <atoms.UserCommentContainer>
-            <SytledUserProfile imgUrl={"https://random.imagecdn.app/500/150"} />
-            <StyledUserNickname content={"red"} />
-            <atoms.UserComment content={"1시에 보자"} />
-          </atoms.UserCommentContainer>
-
-          <atoms.UserCommentContainer>
-            <SytledUserProfile imgUrl={"https://random.imagecdn.app/500/150"} />
-            <StyledUserNickname content={"red"} />
-            <atoms.UserComment content={"1시에 보자"} />
-          </atoms.UserCommentContainer>
-
-          <atoms.UserCommentContainer>
-            <SytledUserProfile imgUrl={"https://random.imagecdn.app/500/150"} />
-            <StyledUserNickname content={"red"} />
-            <atoms.UserComment content={"1시에 보자"} />
-          </atoms.UserCommentContainer>
-
-          <atoms.UserCommentContainer>
-            <SytledUserProfile imgUrl={"https://random.imagecdn.app/500/150"} />
-            <StyledUserNickname content={"red"} />
-            <atoms.UserComment content={"1시에 보자"} />
-          </atoms.UserCommentContainer>
-
-          <atoms.UserCommentContainer>
-            <SytledUserProfile imgUrl={"https://random.imagecdn.app/500/150"} />
-            <StyledUserNickname content={"red"} />
-            <atoms.UserComment content={"1시에 보자"} />
-          </atoms.UserCommentContainer>
-
-          <atoms.UserCommentContainer>
-            <SytledUserProfile imgUrl={"https://random.imagecdn.app/500/150"} />
-            <StyledUserNickname content={"red"} />
-            <atoms.UserComment content={"1시에 보자"} />
-          </atoms.UserCommentContainer>
-
-          <atoms.UserCommentContainer>
-            <SytledUserProfile imgUrl={"https://random.imagecdn.app/500/150"} />
-            <StyledUserNickname content={"red"} />
-            <atoms.UserComment content={"1시에 보자"} />
-          </atoms.UserCommentContainer>
+          {dummyData.item.map((value) => {
+            return (
+              <atoms.UserCommentContainer key={value.id}>
+                <StyledUserNickname content={value.nickName} />
+                <atoms.UserComment content={value.content} />
+              </atoms.UserCommentContainer>
+            );
+          })}
         </CommentWrapper>
 
+        {/* 댓글창 */}
         <atoms.CommentInputContainer>
           <atoms.CommentTextarea />
           <atoms.CommentPutButton />

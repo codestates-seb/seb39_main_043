@@ -1,7 +1,7 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const ScheduleTitleWrapper = styled.div`
-  width: 550px;
+  width: 100%;
   height: 40px;
   font-size: 24px;
   display: flex;
