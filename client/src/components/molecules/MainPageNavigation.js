@@ -31,7 +31,7 @@ const MainPageNavigation = () => {
   const year = useSelector((state) => state.date.year);
   const month = useSelector((state) => state.date.month);
   const dispatch = useDispatch();
-  // const onClickChangeDate = (year, month, change) => {
+  // const dateHandler = (year, month, change) => {
   //   if (change === 'plus') {
   //     if (month === 12) return dispatch(dateSlice.actions.changeDate({ year: year + 1, month: 1 }));
   //     else return dispatch(dateSlice.actions.changeDate({ year: year, month: month + 1 }));
