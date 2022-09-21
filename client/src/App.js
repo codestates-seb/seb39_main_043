@@ -1,19 +1,23 @@
-import JoinForm from './components/molecules/JoinForm';
-import LoginForm from './components/molecules/LoginForm';
-import MyPageNavigation from './components/molecules/MyPageNavigation';
-import MainPageNavigation from './components/molecules/MainPageNavigation';
-import Calendar from './components/molecules/Calendar';
-import CreateEventModal from './components/molecules/CreateEventModal';
+import { createGlobalStyle } from "styled-components";
+import { Routes, Route } from "react-router-dom";
+import MainPage from "./pages/MainPage";
+
+const GlobalStyle = createGlobalStyle`
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }`;
 
 function App() {
   return (
     <>
-      {/* <LoginForm /> */}
-      {/* <JoinForm /> */}
-      {/* <MyPageNavigation /> */}
-      <MainPageNavigation />
-      <Calendar />
-      {/* <CreateEventModal></CreateEventModal> */}
+      <GlobalStyle />
+
+      <Routes>
+        {/* <Route path="/" element={""} /> */}
+        <Route path="/mainpage" element={<MainPage />} />
+      </Routes>
     </>
   );
 }

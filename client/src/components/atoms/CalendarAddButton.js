@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const Container = styled.button`
   width: 100px;
@@ -16,8 +16,12 @@ const Container = styled.button`
   }
 `;
 
-const CalendarAddButton = ({ className }) => {
-  return <Container className={className}>캘린더 추가</Container>;
+const CalendarAddButton = ({ className, onClick }) => {
+  return (
+    <Container className={className} onClick={onClick}>
+      캘린더 추가
+    </Container>
+  );
 };
 
 export default CalendarAddButton;
