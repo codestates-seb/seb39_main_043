@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import atoms from '../atoms';
 import makeViewDays from './makeViewDays';
+import { useSelector } from 'react-redux';
 
 const CalendarWrapper = styled.div`
   .day-of-week {
@@ -12,8 +13,6 @@ const CalendarWrapper = styled.div`
     display: flex;
   }
 `;
-let year = 2022;
-let month = 9;
 
 const dayOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
 const weeks = [1, 2, 3, 4, 5];
@@ -29,7 +28,10 @@ const event = [
   { year: 2022, month: 10, day: 1, content: 'test7' },
 ];
 const Calendar = () => {
+  const year = useSelector((state) => state.date.year);
+  const month = useSelector((state) => state.date.month);
   const days = makeViewDays(`${year}-${month}-01`);
+
   return (
     <CalendarWrapper>
       <div className="day-of-week">
