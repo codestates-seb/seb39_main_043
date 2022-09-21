@@ -11,7 +11,7 @@ const StyledCalendarAddButton = styled(atoms.CalendarAddButton)`
 `;
 
 // <--- CalendarSideBar --->
-const CalendarSideBar = () => {
+const CalendarSideBar = ({ className, onClick }) => {
   // 테스트 데이터
   const dummyData = {
     item: [
@@ -28,10 +28,10 @@ const CalendarSideBar = () => {
   };
 
   return (
-    <atoms.CalendarSidebarContainer>
+    <atoms.CalendarSidebarContainer className={className}>
       {/* 캘린더 추가 버튼 */}
       <div>
-        <StyledCalendarAddButton />
+        <StyledCalendarAddButton onClick={() => onClick("CreateCalendarModal")} />
       </div>
 
       {/* 캘린더 영역 */}

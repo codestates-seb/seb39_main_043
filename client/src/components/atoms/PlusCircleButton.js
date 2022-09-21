@@ -11,9 +11,9 @@ const PlusCircleButtonWrapper = styled.span`
   }
 `;
 
-const PlusCircleButton = ({ color }) => {
+const PlusCircleButton = ({ className, color, onClick }) => {
   return (
-    <PlusCircleButtonWrapper>
+    <PlusCircleButtonWrapper className={className} onClick={onClick}>
       <AiOutlinePlusCircle size={60} color={color} />
     </PlusCircleButtonWrapper>
   );
