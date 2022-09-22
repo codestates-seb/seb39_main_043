@@ -28,7 +28,8 @@ const event = [
   { year: 2022, month: 9, day: 30, content: "test6" },
   { year: 2022, month: 10, day: 1, content: "test7" },
 ];
-const Calendar = ({ className, children }) => {
+
+const Calendar = ({ className, children, onClick }) => {
   const year = useSelector((state) => state.date.year);
   const month = useSelector((state) => state.date.month);
   const days = makeViewDays(`${year}-${month}-01`);
@@ -48,7 +49,7 @@ const Calendar = ({ className, children }) => {
             return (
               <atoms.ScheduleContainer date={el.day}>
                 {tmpEvent.map((el) => (
-                  <atoms.Schedule schedule={el.content} />
+                  <atoms.Schedule schedule={el.content} onClick={onClick} />
                 ))}
               </atoms.ScheduleContainer>
             );

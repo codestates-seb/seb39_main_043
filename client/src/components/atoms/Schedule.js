@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const ScheduleWrapper = styled.div`
   width: 179px;
@@ -15,9 +15,9 @@ const ScheduleWrapper = styled.div`
   }
 `;
 
-const Schedule = ({ schedule }) => {
+const Schedule = ({ schedule, onClick }) => {
   return (
-    <ScheduleWrapper>
+    <ScheduleWrapper onClick={onClick}>
       <span className="schedule">{schedule}</span>
     </ScheduleWrapper>
   );

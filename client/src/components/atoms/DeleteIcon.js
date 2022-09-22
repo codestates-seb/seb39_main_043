@@ -8,9 +8,9 @@ const Container = styled.span`
   }
 `;
 
-const DeleteIcon = () => {
+const DeleteIcon = ({ onClick }) => {
   return (
-    <Container>
+    <Container onClick={onClick}>
       <FaRegTrashAlt />
     </Container>
   );
