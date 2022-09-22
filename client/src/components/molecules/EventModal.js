@@ -3,7 +3,9 @@ import styled from "styled-components";
 import atoms from "../atoms";
 
 // <--- styled component
-const EventModalWrapper = styled.div``;
+const EventModalWrapper = styled.div`
+  background-color: white;
+`;
 
 const ItemWrapper = styled.div`
   display: flex;
@@ -25,7 +27,7 @@ const IconWrapper = styled.div`
 `;
 
 // <--- Event Modal --->
-const EventModal = () => {
+const EventModal = ({ className, onClick }) => {
   // 테스트 데이터
   const todo = {
     time: "2022.09.13 ~ 2022.09.14",
@@ -34,28 +36,22 @@ const EventModal = () => {
     explain: "옷 신발 가방",
   };
 
-  const [event, setEvent] = useState("beforeDiary"); // event 상태에 따라 일정 보기(회고 작성), 일정 수정, 회고 보기 모드로 변경
-
-  // <-- 리덕스 툴킷 사용
-  const [date, setDate] = useState(""); // 서버에 전달할 일시 정보
-  const [attendee, setAttendee] = useState(""); // 서버에 전달할 참석자 정보
-  const [location, setLocation] = useState(""); // 서버에 전달할 위치 정보
-  const [explain, setExplain] = useState(""); // 서버에 전달한 설명 정보
+  const [event, setEvent] = useState("afterDiary"); // event 상태에 따라 일정 보기(회고 작성), 일정 수정, 회고 보기 모드로 변경
 
   const handleDateChange = (event) => {
-    setDate(event.target.value);
+    todo.time = event.target.value;
   };
 
   const handleAttendeeChange = (event) => {
-    setAttendee(event.target.value);
+    todo.attendee = event.target.value;
   };
 
   const handleLocationChange = (event) => {
-    setLocation(event.target.value);
+    todo.location = event.target.value;
   };
 
   const handleExplainChange = (event) => {
-    setExplain(event.target.value);
+    todo.explain = event.target.value;
   };
   // 리덕스 툴킷 사용 -->
 
@@ -69,15 +65,20 @@ const EventModal = () => {
     setEvent("beforeDiary");
   };
 
+  // 일정 삭제
+  const deleteSchedule = () => {
+    alert("일정을 삭제하겠습니까?");
+  };
+
   return (
-    <EventModalWrapper>
+    <EventModalWrapper className={className}>
       {/* <--- 네비게이션바 --->*/}
       <atoms.ModalNavigationBar>
         <IconWrapper>
-          <atoms.CommentIcon />
+          <atoms.CommentIcon onClick={onClick.openComment} />
           <atoms.UpdateIcon onClick={updateMode} />
-          <atoms.DeleteIcon />
-          <atoms.CloseIcon />
+          <atoms.DeleteIcon onClick={deleteSchedule} />
+          <atoms.CloseIcon onClick={onClick.closeEvent} />
         </IconWrapper>
       </atoms.ModalNavigationBar>
 
@@ -93,7 +94,7 @@ const EventModal = () => {
             <atoms.ScheduleDetailTitle value={"일시"} />
           </div>
           {event === "updateSchedule" && <atoms.ScheduleDetailInput borderColor={"#b5b5b5"} defaultValue={todo.time} onChange={handleDateChange} />}
-          {event === ("beforeDiary" || "afterDiary") && <atoms.ScheduleDetailContent content={todo.time} />}
+          {event !== "updateSchedule" && <atoms.ScheduleDetailContent content={todo.time} />}
         </ItemWrapper>
 
         <ItemWrapper>
@@ -102,7 +103,7 @@ const EventModal = () => {
             <atoms.ScheduleDetailTitle value={"참석자"} />
           </div>
           {event === "updateSchedule" && <atoms.ScheduleDetailInput borderColor={"#b5b5b5"} defaultValue={todo.attendee} onChange={handleAttendeeChange} />}
-          {event === ("beforeDiary" || "afterDiary") && <atoms.ScheduleDetailContent content={todo.attendee} />}
+          {event !== "updateSchedule" && <atoms.ScheduleDetailContent content={todo.attendee} />}
         </ItemWrapper>
 
         <ItemWrapper>
@@ -111,7 +112,7 @@ const EventModal = () => {
             <atoms.ScheduleDetailTitle value={"위치"} />
           </div>
           {event === "updateSchedule" && <atoms.ScheduleDetailInput borderColor={"#b5b5b5"} defaultValue={todo.location} onChange={handleLocationChange} />}
-          {event === ("beforeDiary" || "afterDiary") && <atoms.ScheduleDetailContent content={todo.location} />}
+          {event !== "updateSchedule" && <atoms.ScheduleDetailContent content={todo.location} />}
         </ItemWrapper>
 
         <ItemWrapper>
@@ -120,7 +121,7 @@ const EventModal = () => {
             <atoms.ScheduleDetailTitle value={"설명"} />
           </div>
           {event === "updateSchedule" && <atoms.ScheduleDetailInput borderColor={"#b5b5b5"} defaultValue={todo.explain} onChange={handleExplainChange} />}
-          {event === ("beforeDiary" || "afterDiary") && <atoms.ScheduleDetailContent content={todo.explain} />}
+          {event !== "updateSchedule" && <atoms.ScheduleDetailContent content={todo.explain} />}
         </ItemWrapper>
 
         {event === "beforeDiary" && <atoms.ModalButton color={"#007FDB"} value={"회고 작성"} />}
