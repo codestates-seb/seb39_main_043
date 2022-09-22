@@ -1,11 +1,14 @@
-import atoms from '../atoms';
+import styled from "styled-components";
+import atoms from "../atoms";
 
-const LoginForm = () => {
+const LoginFormWrapper = styled.div``;
+
+const LoginForm = ({ className }) => {
   return (
-    <>
+    <LoginFormWrapper className={className}>
       <atoms.InputLoginId />
       <atoms.InputLoginPassword />
-    </>
+    </LoginFormWrapper>
   );
 };
 
