@@ -52,12 +52,32 @@ const CreateCalendarModal = styled(molecules.CreateCalendarModal)`
   left: calc(50% - 220px);
 `;
 
+// 일정 조회 모달
+const EventModal = styled(molecules.EventModal)`
+  position: absolute;
+  top: 20vh;
+  left: calc(50% - 220px);
+
+  &.comment-mode {
+    left: calc(50% - 440px);
+  }
+`;
+
+// 댓글 창 모달
+const EventCommentModal = styled(molecules.EventCommentModal)`
+  position: absolute;
+  top: 20vh;
+  left: 50%;
+`;
+
 //<------------------ COMPONENT ------------------>
 const MainPage = () => {
   const [isCreateEventModal, setIsCreateEventModal] = useState(false); // + 버튼 클릭 시 일정 작성 모달
   const [isCalendarSidebarModal, setIsCalendarSidebarModal] = useState(false); // 캘린더 사이드바 모달
   const [isMypageSidebarModal, setIsMypageSidebarModal] = useState(false); // 마이페이지 사이드바 모달
   const [isCreateCalendarModal, setIsCreateCalendarModal] = useState(false); // 캘린더 생성 모달
+  const [isEventModal, setIsEventModal] = useState(false); // 일정 조회 모달
+  const [isEventCommentModal, setIsEventCommentModal] = useState(false); // 댓글창 모달
 
   // 모달 open 함수
   const openModal = (target) => {
@@ -76,6 +96,14 @@ const MainPage = () => {
 
       case "CreateCalendarModal":
         setIsCreateCalendarModal(true);
+        break;
+
+      case "EventModal":
+        setIsEventModal(true);
+        break;
+
+      case "EventCommentModal":
+        setIsEventCommentModal(true);
         break;
 
       default:
@@ -111,6 +139,32 @@ const MainPage = () => {
           default:
         }
 
+      case "EventModal":
+        switch (e.type) {
+          case "click":
+            setIsEventModal(false);
+            break;
+
+          case "keydown":
+            if (e.key === "Escape") setIsEventModal(false);
+            break;
+
+          default:
+        }
+
+      case "EventCommentModal":
+        switch (e.type) {
+          case "click":
+            setIsEventCommentModal(false);
+            break;
+
+          case "keydown":
+            if (e.key === "Escape") setIsEventCommentModal(false);
+            break;
+
+          default:
+        }
+
       default:
     }
   };
@@ -125,7 +179,17 @@ const MainPage = () => {
   return (
     <MainPageWrapper>
       <molecules.MainPageNavigation onClick={openModal} />
-      <Calendar>
+      <Calendar onClick={() => openModal("EventModal")}>
+        {isEventCommentModal && <EventCommentModal onClick={(event) => closeModal(event, "EventCommentModal")} />}
+        {isEventModal && (
+          <EventModal
+            className={isEventCommentModal ? "comment-mode" : ""}
+            onClick={{
+              closeEvent: (event) => closeModal(event, "CreateCalendarModal"),
+              openComment: () => openModal("EventCommentModal"),
+            }}
+          />
+        )}
         {isCalendarSidebarModal && <CalendarSidebar onClick={openModal} />}
         {isCreateCalendarModal && <CreateCalendarModal onClick={(event) => closeModal(event, "CreateCalendarModal")} submitInfo={submitInfo} />}
         {isMypageSidebarModal && <MypageSidebar />}
