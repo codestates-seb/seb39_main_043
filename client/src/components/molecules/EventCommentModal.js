@@ -2,7 +2,9 @@ import styled from "styled-components";
 import atoms from "../atoms";
 
 // <--- styled component --->
-const EventCommentModalWrapper = styled.div``;
+const EventCommentModalWrapper = styled.div`
+  background-color: white;
+`;
 
 const CommentWrapper = styled.div`
   display: flex;
@@ -38,7 +40,7 @@ const StyledUserNickname = styled(atoms.UserNickname)`
 `;
 
 // <-- EventCommentModal -->
-const EventCommentModal = () => {
+const EventCommentModal = ({ className, onClick }) => {
   // 테스트 데이터
   const dummyData = {
     item: [
@@ -60,9 +62,9 @@ const EventCommentModal = () => {
 
   return (
     // <--- 네비게이션바 --->
-    <EventCommentModalWrapper>
+    <EventCommentModalWrapper className={className}>
       <atoms.ModalNavigationBar>
-        <atoms.CloseIcon />
+        <atoms.CloseIcon onClick={onClick} />
       </atoms.ModalNavigationBar>
 
       {/*<--- 컨테이너 --->*/}

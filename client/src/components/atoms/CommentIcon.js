@@ -9,9 +9,9 @@ const Container = styled.span`
   }
 `;
 
-const CommentIcon = () => {
+const CommentIcon = ({ onClick }) => {
   return (
-    <Container>
+    <Container onClick={onClick}>
       <FaCommentDots />
     </Container>
   );
