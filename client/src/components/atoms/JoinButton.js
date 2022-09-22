@@ -1,11 +1,11 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const JoinButtonWrapper = styled.div`
   width: 440px;
   height: 60px;
-  border: 1px solid black;
   border-radius: 10px;
-  background-color: #d9d9d9;
+  background-color: #db9000;
+  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -14,9 +14,9 @@ const JoinButtonWrapper = styled.div`
   }
 `;
 
-const JoinButton = () => {
+const JoinButton = ({ className }) => {
   return (
-    <JoinButtonWrapper>
+    <JoinButtonWrapper className={className}>
       <span className="join-text">회원가입</span>
     </JoinButtonWrapper>
   );
