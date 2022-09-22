@@ -1,6 +1,8 @@
 import { createGlobalStyle } from "styled-components";
 import { Routes, Route } from "react-router-dom";
 import MainPage from "./pages/MainPage";
+import LoginPage from "./pages/LoginPage";
+import JoinPage from "./pages/JoinPage";
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -15,8 +17,9 @@ function App() {
       <GlobalStyle />
 
       <Routes>
-        {/* <Route path="/" element={""} /> */}
+        <Route path="/" element={<LoginPage />} />
         <Route path="/mainpage" element={<MainPage />} />
+        <Route path="/joinpage" element={<JoinPage />} />
       </Routes>
     </>
   );

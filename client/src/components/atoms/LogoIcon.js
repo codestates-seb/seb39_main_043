@@ -1,8 +1,6 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const LogoIconWrapper = styled.div`
-  width: 80px;
-  height: 40px;
   font-size: 14px;
   display: flex;
   align-items: center;
@@ -17,7 +15,11 @@ const LogoIconWrapper = styled.div`
 const LogoIcon = ({ className }) => {
   return (
     <LogoIconWrapper className={className}>
-      <div className="logo-icon">Social Calendar</div>
+      <div className="logo-icon">
+        Social
+        <br />
+        Calendar
+      </div>
     </LogoIconWrapper>
   );
 };

@@ -62,6 +62,7 @@ import UserComment from "./UserComment";
 import UserCommentContainer from "./UserCommentContainer";
 import UserNickname from "./UserNickname";
 import UserProfile from "./UserProfile";
+import WarningBox from "./WarningBox";
 
 export default {
   CalendarAddButton,
@@ -128,4 +129,5 @@ export default {
   UserCommentContainer,
   UserNickname,
   UserProfile,
+  WarningBox,
 };
