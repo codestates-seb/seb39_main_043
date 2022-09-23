@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import atoms from '../atoms';
+import styled from "styled-components";
+import atoms from "../atoms";
 
 const HamburgerIcon = styled(atoms.HamburgerIcon)`
   margin-left: 14px;
@@ -24,16 +24,16 @@ const CurrentCalendarTitle = styled(atoms.CurrentCalendarTitle)`
 const UserProfile = styled(atoms.UserProfile)`
   margin-left: 14px;
 `;
-const MyPageNavigation = () => {
+const MyPageNavigation = ({ onClick }) => {
   return (
     <>
       <atoms.NavigationBar>
-        <HamburgerIcon />
+        <HamburgerIcon onClick={() => onClick("CalendarSidebarModal")} />
         <LogoIcon />
         <MyPageText />
         <CalendarIcon />
         <CurrentCalendarTitle />
-        <UserProfile />
+        <UserProfile onClick={() => onClick("MypageSidebarModal")} />
       </atoms.NavigationBar>
     </>
   );
