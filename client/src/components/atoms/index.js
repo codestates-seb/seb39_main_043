@@ -58,6 +58,7 @@ import ScheduleDetailTitle from "./ScheduleDetailTitle";
 import ScheduleTitle from "./ScheduleTitle";
 import SocialLoginButtonGoogle from "./SocialLoginButtonGoogle";
 import UpdateIcon from "./UpdateIcon";
+import UpdateProfile from "./UpdateProfile";
 import UserComment from "./UserComment";
 import UserCommentContainer from "./UserCommentContainer";
 import UserNickname from "./UserNickname";
@@ -125,6 +126,7 @@ export default {
   ScheduleTitle,
   SocialLoginButtonGoogle,
   UpdateIcon,
+  UpdateProfile,
   UserComment,
   UserCommentContainer,
   UserNickname,
