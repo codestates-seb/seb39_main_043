@@ -36,6 +36,7 @@ const UpdateProfileWrapper = styled.div`
     border: none;
     border-radius: 8px;
     padding: 8px;
+    cursor: pointer;
   }
 `;
 
