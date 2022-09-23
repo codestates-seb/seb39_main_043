@@ -5,8 +5,8 @@ const Container = styled.div`
   font-weight: bold;
 `;
 
-const MypageItem = ({ content }) => {
-  return <Container>{content}</Container>;
+const MypageItem = ({ className, content }) => {
+  return <Container className={className}>{content}</Container>;
 };
 
 export default MypageItem;

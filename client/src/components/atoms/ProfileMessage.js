@@ -4,8 +4,8 @@ const Container = styled.span`
   font-size: 24px;
 `;
 
-const ProfileMessage = ({ content }) => {
-  return <Container>{content}</Container>;
+const ProfileMessage = ({ className, content }) => {
+  return <Container className={className}>{content}</Container>;
 };
 
 export default ProfileMessage;

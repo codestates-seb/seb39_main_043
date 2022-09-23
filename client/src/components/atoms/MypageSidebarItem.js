@@ -6,6 +6,7 @@ const Container = styled.div`
   align-items: center;
   width: 100%;
   height: 40px;
+  color: black;
   cursor: pointer;
 
   &:hover {

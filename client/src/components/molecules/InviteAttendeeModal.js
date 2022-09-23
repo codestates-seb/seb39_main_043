@@ -3,7 +3,9 @@ import styled from "styled-components";
 import atoms from "../atoms";
 
 // <--- styled component --->
-const InviteAttendeeModalWrapper = styled.div``;
+const InviteAttendeeModalWrapper = styled.div`
+  background-color: white;
+`;
 
 const AttendeeWrapper = styled.div`
   display: flex;
@@ -15,7 +17,7 @@ const AttendeeWrapper = styled.div`
 `;
 
 // <--- inviteAttendeeModal --->
-const InviteAttendeeModal = () => {
+const InviteAttendeeModal = ({ className, onClick }) => {
   const [inputValue, setInputValue] = useState(""); // 초대자 이메일
   const [attendees, setAttendess] = useState([]); // 서버에 보낼 초대자의 이메일 명단
 
@@ -43,10 +45,10 @@ const InviteAttendeeModal = () => {
   };
 
   return (
-    <InviteAttendeeModalWrapper>
+    <InviteAttendeeModalWrapper className={className}>
       {/*<--- 네비게이션 바 ---> */}
       <atoms.ModalNavigationBar>
-        <atoms.CloseIcon />
+        <atoms.CloseIcon onClick={onClick} />
       </atoms.ModalNavigationBar>
 
       {/*<--- 컨테이너 --->*/}
@@ -64,7 +66,7 @@ const InviteAttendeeModal = () => {
         })}
 
         {/* 초대 버튼 */}
-        <atoms.ModalButton color={"#007FDB"} value="초대" />
+        <atoms.ModalButton color={"#007FDB"} value="초대" onClick={onClick} />
       </atoms.ModalContentContainer>
     </InviteAttendeeModalWrapper>
   );
