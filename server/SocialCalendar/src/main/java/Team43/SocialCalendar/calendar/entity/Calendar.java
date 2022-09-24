@@ -1,6 +1,5 @@
 package Team43.SocialCalendar.calendar.entity;
 
-import Team43.SocialCalendar.audit.Auditable;
 import Team43.SocialCalendar.member.entity.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -7,7 +7,6 @@ import Team43.SocialCalendar.calendar.entity.Calendar;
 import Team43.SocialCalendar.calendar.mapper.CalendarMapper;
 import Team43.SocialCalendar.calendar.service.CalendarService;
 import Team43.SocialCalendar.member.service.MemberService;
-import Team43.SocialCalendar.response.SingleResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,14 +34,14 @@ public class CalendarController {
     public ResponseEntity postCalendar(@RequestBody CalendarPostDto calendarPostDto) {
         Calendar calendar = calendarService.createCalendar(mapper.calendarPostDtoToCalendar(calendarPostDto));
 
-        return new ResponseEntity<>(new SingleResponseDto<>(mapper.calendarToCalendarResponseDto(calendar)), HttpStatus.CREATED);
+        return new ResponseEntity<>(mapper.calendarToCalendarResponseDto(calendar), HttpStatus.CREATED);
     }
 
     @GetMapping("/{calendar-id}")
     public ResponseEntity getCalendar(@PathVariable("calendar-id") @Positive long calendarId) {
         Calendar calendar = calendarService.findCalendar(calendarId);
 
-        return new ResponseEntity<>(new SingleResponseDto<>(mapper.calendarToCalendarResponseDto(calendar)), HttpStatus.OK);
+        return new ResponseEntity<>(mapper.calendarToCalendarResponseDto(calendar), HttpStatus.OK);
     }
 
     @GetMapping
@@ -58,7 +57,7 @@ public class CalendarController {
         calendarPatchDto.setCalendarId(calendarId);
         Calendar calendar = calendarService.updateCalendar(mapper.calendarPatchDtoToCalendar(calendarPatchDto));
 
-        return new ResponseEntity<>(new SingleResponseDto<>(mapper.calendarToCalendarResponseDto(calendar)), HttpStatus.OK);
+        return new ResponseEntity<>(mapper.calendarToCalendarResponseDto(calendar), HttpStatus.OK);
     }
 
     @DeleteMapping("/{calendar-id}")
