@@ -1,5 +1,6 @@
 package Team43.SocialCalendar.calendar.controller;
 
+import Team43.SocialCalendar.calendar.dto.CalendarPatchDto;
 import Team43.SocialCalendar.calendar.dto.CalendarPostDto;
 import Team43.SocialCalendar.calendar.dto.CalendarResponseDto;
 import Team43.SocialCalendar.calendar.entity.Calendar;
@@ -49,5 +50,14 @@ public class CalendarController {
         List<Calendar> calendars = calendarService.findCalendars();
 
         return new ResponseEntity<>(calendars, HttpStatus.OK);
+    }
+
+    @PatchMapping("/{calendar-id}")
+    public ResponseEntity patchCalendar(@PathVariable("calendar-id") @Positive long calendarId,
+                                        @RequestBody CalendarPatchDto calendarPatchDto) {
+        calendarPatchDto.setCalendarId(calendarId);
+        Calendar calendar = calendarService.updateCalendar(mapper.calendarPatchDtoToCalendar(calendarPatchDto));
+
+        return new ResponseEntity<>(new SingleResponseDto<>(mapper.calendarToCalendarResponseDto(calendar)), HttpStatus.OK);
     }
 }

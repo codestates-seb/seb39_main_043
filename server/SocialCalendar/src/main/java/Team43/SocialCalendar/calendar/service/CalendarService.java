@@ -5,8 +5,10 @@ import Team43.SocialCalendar.calendar.repository.CalendarRepository;
 import Team43.SocialCalendar.exception.BusinessLogicException;
 import Team43.SocialCalendar.exception.ExceptionCode;
 import Team43.SocialCalendar.member.service.MemberService;
+import org.apache.catalina.mbeans.MBeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,6 +38,16 @@ public class CalendarService {
 
     public List<Calendar> findCalendars() {
         return (List<Calendar>) calendarRepository.findAll();
+    }
+
+    public Calendar updateCalendar(Calendar calendar) {
+        Calendar findCalendar = findVerifiedCalendar(calendar.getCalendarId());
+
+        Optional.ofNullable(calendar.getTitle()).ifPresent(title -> findCalendar.setTitle(title));
+        Optional.ofNullable(calendar.getCalendarImg()).ifPresent(image -> findCalendar.setCalendarImg(image));
+        findCalendar.setModifiedAt(LocalDateTime.now());
+
+        return calendarRepository.save(findCalendar);
     }
 
 
