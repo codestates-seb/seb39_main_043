@@ -60,4 +60,11 @@ public class CalendarController {
 
         return new ResponseEntity<>(new SingleResponseDto<>(mapper.calendarToCalendarResponseDto(calendar)), HttpStatus.OK);
     }
+
+    @DeleteMapping("/{calendar-id}")
+    public ResponseEntity deleteCalendar(@PathVariable("calendar-id") long calendarId) {
+        calendarService.deleteCalendar(calendarId);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

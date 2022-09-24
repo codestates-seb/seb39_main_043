@@ -50,6 +50,11 @@ public class CalendarService {
         return calendarRepository.save(findCalendar);
     }
 
+    public void deleteCalendar(long calendarId) {
+        Calendar calendar = findVerifiedCalendar(calendarId);
+        calendarRepository.delete(calendar);
+    }
+
 
     // 존재하는 회원인지 검증하는 메서드를 캘린더 서비스에서도 쓰기 위한 메서드
     private void verifyCalendar(Calendar calendar) {
