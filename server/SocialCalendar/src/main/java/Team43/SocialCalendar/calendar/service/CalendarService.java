@@ -7,6 +7,7 @@ import Team43.SocialCalendar.exception.ExceptionCode;
 import Team43.SocialCalendar.member.service.MemberService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -32,6 +33,11 @@ public class CalendarService {
     public Calendar findCalendar(long calendarId) {
         return findVerifiedCalendar(calendarId);
     }
+
+    public List<Calendar> findCalendars() {
+        return (List<Calendar>) calendarRepository.findAll();
+    }
+
 
     // 존재하는 회원인지 검증하는 메서드를 캘린더 서비스에서도 쓰기 위한 메서드
     private void verifyCalendar(Calendar calendar) {

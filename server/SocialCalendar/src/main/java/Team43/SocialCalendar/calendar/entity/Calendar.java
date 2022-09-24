@@ -7,12 +7,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
-public class Calendar extends Auditable {
+public class Calendar {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +28,12 @@ public class Calendar extends Auditable {
 
     @Column(length = 500)
     private String calendarImg;
+
+    @Column(nullable = false)
+    private LocalDateTime createdAt = LocalDateTime.now();
+
+    @Column
+    private LocalDateTime modifiedAt = LocalDateTime.now();
 
 
     public void setMember(Member memberId) {
