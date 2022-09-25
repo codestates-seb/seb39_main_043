@@ -30,7 +30,7 @@ public class Calendar {
     @Column(length = 500)
     private String calendarImg;
 
-    @OneToMany(mappedBy = "calendarId")
+    @OneToMany(mappedBy = "calendarId", cascade = CascadeType.PERSIST)
     private List<CalendarAttendee> calendarAttendees = new ArrayList<>();
 
     @Column(nullable = false)
