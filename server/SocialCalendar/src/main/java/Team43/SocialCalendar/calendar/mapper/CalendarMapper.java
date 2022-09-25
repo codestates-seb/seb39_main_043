@@ -48,6 +48,19 @@ public interface CalendarMapper {
         Calendar calendar = new Calendar();
         Member member = new Member();
         member.setMemberId(calendarPostDto.getMemberId());
+
+        List<CalendarAttendee> calendarAttendees = calendarPostDto.getCalendarAttendees().stream()
+                .map(calendarAttendeeDto -> {
+                    CalendarAttendee calendarAttendee = new CalendarAttendee();
+                    Member member1 = new Member();
+                    member1.setMemberId(calendarAttendeeDto.getMemberId());
+                    calendarAttendee.addCalendar(calendar);
+                    calendarAttendee.addMember(member1);
+                    return calendarAttendee;
+                }).collect(Collectors.toList());
+        calendar.setCalendarAttendees(calendarAttendees);
+
+
         calendar.setMember(member);
         calendar.setTitle(calendarPostDto.getTitle());
 

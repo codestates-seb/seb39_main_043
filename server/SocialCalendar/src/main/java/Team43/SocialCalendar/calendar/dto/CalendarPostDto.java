@@ -5,6 +5,7 @@ import lombok.Getter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
+import java.util.List;
 
 @Getter
 public class CalendarPostDto {
@@ -14,6 +15,8 @@ public class CalendarPostDto {
 
     @NotBlank
     private String title;
+
+    private List<CalendarAttendeeDto> calendarAttendees;
 
     public Member getMember() {
         Member member = new Member();
