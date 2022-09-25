@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -17,6 +18,7 @@ public class CalendarResponseDto {
     private long memberId;
     private String title;
     private String calendarImg;
+    private List<CalendarAttendeeResponseDto> calendarAttendees;
     private LocalDateTime createdAt;
 
 

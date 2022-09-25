@@ -7,6 +7,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -28,6 +30,9 @@ public class Calendar {
     @Column(length = 500)
     private String calendarImg;
 
+    @OneToMany(mappedBy = "calendarId")
+    private List<CalendarAttendee> calendarAttendees = new ArrayList<>();
+
     @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
@@ -37,5 +42,12 @@ public class Calendar {
 
     public void setMember(Member memberId) {
         this.memberId = memberId;
+    }
+
+    public void addCalendarAttendee(CalendarAttendee calendarAttendee) {
+        this.calendarAttendees.add(calendarAttendee);
+        if (calendarAttendee.getCalendarId() != this) {
+            calendarAttendee.addCalendar(this);
+        }
     }
 }

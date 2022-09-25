@@ -1,11 +1,14 @@
 package Team43.SocialCalendar.member.entity;
 
+import Team43.SocialCalendar.calendar.entity.CalendarAttendee;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -32,9 +35,20 @@ public class Member {
     @Column(length = 50)
     private String statusMessage;
 
+    @OneToMany(mappedBy = "memberId")
+    private List<CalendarAttendee> calendarAttendees = new ArrayList<>();
+
     @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
     @Column
     private LocalDateTime modifiedAt = LocalDateTime.now();
+
+
+    public void addCalendarAttendee(CalendarAttendee calendarAttendee) {
+        this.calendarAttendees.add(calendarAttendee);
+        if (calendarAttendee.getMemberId() != this) {
+            calendarAttendee.addMember(this);
+        }
+    }
 }
