@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const LoginButtonWrapper = styled.div`
   width: 440px;
@@ -14,9 +14,9 @@ const LoginButtonWrapper = styled.div`
   }
 `;
 
-const LoginButton = ({ className, color }) => {
+const LoginButton = ({ className, color, onClick }) => {
   return (
-    <LoginButtonWrapper className={className} color={color}>
+    <LoginButtonWrapper className={className} color={color} onClick={onClick}>
       <span className="login-text">로그인</span>
     </LoginButtonWrapper>
   );
