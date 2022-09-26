@@ -89,4 +89,10 @@ public class CalendarController {
                                                                             calendarAttendee), HttpStatus.CREATED);
     }
 
+    @DeleteMapping("/attendees/{calendar-attendee-id}")
+    public ResponseEntity deleteCalendarAttendee(@PathVariable("calendar-attendee-id") long calendarAttendeeId) {
+        calendarAttendeeService.deleteCalendarAttendee(calendarAttendeeId);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }
