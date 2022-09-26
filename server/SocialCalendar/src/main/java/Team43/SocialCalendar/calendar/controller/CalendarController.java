@@ -1,10 +1,14 @@
 package Team43.SocialCalendar.calendar.controller;
 
+import Team43.SocialCalendar.calendar.dto.AddCalendarAttendeeDto;
 import Team43.SocialCalendar.calendar.dto.CalendarPatchDto;
 import Team43.SocialCalendar.calendar.dto.CalendarPostDto;
 import Team43.SocialCalendar.calendar.dto.CalendarResponseDto;
 import Team43.SocialCalendar.calendar.entity.Calendar;
+import Team43.SocialCalendar.calendar.entity.CalendarAttendee;
+import Team43.SocialCalendar.calendar.mapper.CalendarAttendeeMapper;
 import Team43.SocialCalendar.calendar.mapper.CalendarMapper;
+import Team43.SocialCalendar.calendar.service.CalendarAttendeeService;
 import Team43.SocialCalendar.calendar.service.CalendarService;
 import Team43.SocialCalendar.member.service.MemberService;
 import org.springframework.http.HttpStatus;
@@ -22,12 +26,20 @@ public class CalendarController {
     private final CalendarMapper mapper;
     private final MemberService memberService;
 
+    private final CalendarAttendeeService calendarAttendeeService;
+
+    private final CalendarAttendeeMapper calendarAttendeeMapper;
+
     public CalendarController(CalendarService calendarService,
                               CalendarMapper mapper,
-                              MemberService memberService) {
+                              MemberService memberService,
+                              CalendarAttendeeService calendarAttendeeService,
+                              CalendarAttendeeMapper calendarAttendeeMapper) {
         this.calendarService = calendarService;
         this.mapper = mapper;
         this.memberService = memberService;
+        this.calendarAttendeeService = calendarAttendeeService;
+        this.calendarAttendeeMapper = calendarAttendeeMapper;
     }
 
     @PostMapping
@@ -67,4 +79,14 @@ public class CalendarController {
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @PostMapping("/attendees")
+    public ResponseEntity postCalendarAttendee(@RequestBody AddCalendarAttendeeDto addCalendarAttendeeDto) {
+        CalendarAttendee calendarAttendee = calendarAttendeeService.createCalendarAttendee(
+                calendarAttendeeMapper.addCalendarAttendeeDtoToCalendarAttendee(addCalendarAttendeeDto));
+
+        return new ResponseEntity<>(calendarAttendeeMapper.calendarAttendeeToAddCalendarAttendeeResponseDto(
+                                                                            calendarAttendee), HttpStatus.CREATED);
+    }
+
 }

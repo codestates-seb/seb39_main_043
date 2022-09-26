@@ -68,7 +68,7 @@ public class CalendarService {
     }
 
     // 존재하는 캘린더인지 확인
-    private Calendar findVerifiedCalendar(long calendarId) {
+    public Calendar findVerifiedCalendar(long calendarId) {
         Optional<Calendar> optionalCalendar = calendarRepository.findById(calendarId);
         Calendar findCalendar =
                 optionalCalendar.orElseThrow(() -> new BusinessLogicException(ExceptionCode.CALENDAR_NOT_FOUND));
