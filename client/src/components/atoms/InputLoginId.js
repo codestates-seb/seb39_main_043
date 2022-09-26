@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import { CgProfile } from 'react-icons/cg';
+import { useDispatch, useSelector } from 'react-redux';
+import userSlice from '../../slices/userSlice';
 
 const InputLoginIdWrapper = styled.div`
   width: 440px;
@@ -23,10 +25,13 @@ const InputLoginIdWrapper = styled.div`
 `;
 
 const InputLoginId = () => {
+  const dispatch = useDispatch();
+  // let id = useSelector((state) => state.user.id);
+  // console.log('id', id);
   return (
     <InputLoginIdWrapper>
       <CgProfile size={40} />
-      <input className="login-id" placeholder="아이디를 입력하세요"></input>
+      <input className="login-id" placeholder="아이디를 입력하세요" onChange={(e) => dispatch(userSlice.actions.login({ id: e.target.value }))}></input>
     </InputLoginIdWrapper>
   );
 };
