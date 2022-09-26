@@ -23,7 +23,6 @@ const UpdateProfileWrapper = styled.div`
     background-color: black;
     opacity: 0;
     transition: opacity 0.3s;
-    cursor: pointer;
     z-index: 1;
   }
 
@@ -36,18 +35,29 @@ const UpdateProfileWrapper = styled.div`
     border: none;
     border-radius: 8px;
     padding: 8px;
+    background-color: white;
     cursor: pointer;
+  }
+
+  input[type="file"] {
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
   }
 `;
 
-const UpdateProfile = ({ className, onClick }) => {
+const UpdateProfile = ({ imgUrl, className, onClick, onChange }) => {
   return (
     <UpdateProfileWrapper className={className}>
-      <img src="https://random.imagecdn.app/500/150" />
-      <span className="hover-img" onClick={onClick}>
-        <button className="update-button">
+      <img src={imgUrl} />
+      <span className="hover-img">
+        <label htmlFor="file" className="update-button">
           <MdModeEditOutline size={32} />
-        </button>
+        </label>
+        <input type="file" id="file" onChange={onChange} />
       </span>
     </UpdateProfileWrapper>
   );
