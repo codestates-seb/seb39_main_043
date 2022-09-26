@@ -22,7 +22,7 @@ public class CalendarAttendee {
     private Calendar calendarId;
 
     @ManyToOne
-    @JoinColumn(name = "member_id", unique = true)
+    @JoinColumn(name = "member_id")
     private Member memberId;
 
     public void addCalendar(Calendar calendar) {
