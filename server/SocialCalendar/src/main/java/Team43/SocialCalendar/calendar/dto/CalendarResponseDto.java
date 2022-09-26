@@ -13,11 +13,15 @@ import java.util.List;
 public class CalendarResponseDto {
 
     private long calendarId;
+    private String title;
+    private String calendarImg;
 
     @Setter(AccessLevel.NONE)
     private long memberId;
-    private String title;
-    private String calendarImg;
+    private String email;
+    private String name;
+    private String memberImg;
+
     private List<CalendarAttendeeResponseDto> calendarAttendees;
     private LocalDateTime createdAt;
 
