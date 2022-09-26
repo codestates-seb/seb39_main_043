@@ -90,8 +90,9 @@ public interface CalendarMapper {
                 .stream()
                 .map(calendarAttendee -> CalendarAttendeeResponseDto
                         .builder()
-                        .calendarId(calendarAttendee.getCalendarId().getCalendarId())
-                        .title(calendarAttendee.getCalendarId().getTitle())
+//                        .calendarId(calendarAttendee.getCalendarId().getCalendarId())
+//                        .title(calendarAttendee.getCalendarId().getTitle())
+                        .calendarAttendeeId(calendarAttendee.getCalendarAttendeeId())
                         .memberId(calendarAttendee.getMemberId().getMemberId())
                         .email(calendarAttendee.getMemberId().getEmail())
                         .name(calendarAttendee.getMemberId().getName())
