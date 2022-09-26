@@ -74,11 +74,18 @@ public interface CalendarMapper {
         List<CalendarAttendee> calendarAttendees = calendar.getCalendarAttendees();
 
         CalendarResponseDto calendarResponseDto = new CalendarResponseDto();
+
         calendarResponseDto.setCalendarId(calendar.getCalendarId());
-        calendarResponseDto.setMember(calendar.getMemberId());
         calendarResponseDto.setTitle(calendar.getTitle());
         calendarResponseDto.setCalendarImg(calendar.getCalendarImg());
+
+        calendarResponseDto.setMember(calendar.getMemberId());
+        calendarResponseDto.setEmail(calendar.getMemberId().getEmail());
+        calendarResponseDto.setName(calendar.getMemberId().getName());
+        calendarResponseDto.setMemberImg(calendar.getMemberId().getMemberImg());
+
         calendarResponseDto.setCalendarAttendees(calendarAttendeesToCalendarAttendeeResponseDtos(calendarAttendees));
+
         calendarResponseDto.setCreatedAt(calendar.getCreatedAt());
 
         return calendarResponseDto;
