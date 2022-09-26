@@ -1,24 +1,27 @@
 import styled from "styled-components";
 import { Outlet, Route, Routes, Link, useParams } from "react-router-dom";
+import { useState } from "react";
 import atoms from "../components/atoms";
 import molecules from "../components/molecules";
-import MyInfoPage from "./MyInfoPage";
 import MyCalendarPage from "./MyCalendarPage";
-import { useState } from "react";
+import MyInfoPage from "./MyInfoPage";
 
+// 마이페이지 (styled component)
 const MyPageWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 1280px;
+  max-width: 1280px;
   margin: 0 auto;
 `;
 
+// 마이페이지 탭 wrapper (styled component)
 const TapWrapper = styled.div`
   display: flex;
   position: relative;
 `;
 
+// 마이페이지 탭 (styled component)
 const MypageTab = styled(atoms.MypageTab)`
   &.active {
     color: white;
@@ -47,6 +50,7 @@ const MypageSidebar = styled(molecules.MypageSidebar)`
   z-index: 10;
 `;
 
+// <--------- MyPage --------->
 const MyPage = () => {
   const [isCalendarSidebarModal, setIsCalendarSidebarModal] = useState(false); // 캘린더 사이드바 모달
   const [isCreateCalendarModal, setIsCreateCalendarModal] = useState(false); // 캘린더 생성 모달
@@ -101,8 +105,11 @@ const MyPage = () => {
 
   return (
     <MyPageWrapper>
+      {/*<--- 네비게이션바 --->*/}
       <molecules.MyPageNavigation onClick={openModal} />
       {/* <Outlet></Outlet> */}
+
+      {/* <--- 마이페이지 탭 Wrapper 및 Container --> */}
       <TapWrapper>
         {isCalendarSidebarModal && <CalendarSidebar onClick={openModal} />}
         {isCreateCalendarModal && <CreateCalendarModal onClick={(event) => closeModal(event, "CreateCalendarModal")} submitInfo={submitInfo} />}

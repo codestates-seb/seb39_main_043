@@ -37,7 +37,6 @@ const InviteAttendeeModal = ({ className, onClick }) => {
   const deleteAttendee = (event) => {
     const index = event.target.id;
     const newAttendees = [...attendees];
-
     if (index) {
       newAttendees.splice(index, 1);
       setAttendess([...newAttendees]);
