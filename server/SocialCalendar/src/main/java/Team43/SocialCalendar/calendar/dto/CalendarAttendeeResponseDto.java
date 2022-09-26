@@ -7,8 +7,9 @@ import lombok.Getter;
 @Getter
 public class CalendarAttendeeResponseDto {
 
-    private long calendarId;
-    private String title;
+    private long calendarAttendeeId;
+//    private long calendarId;
+//    private String title;
     private long memberId;
     private String email;
     private String name;
