@@ -1,7 +1,7 @@
-import styled from "styled-components";
-import atoms from "../components/atoms";
-import molecules from "../components/molecules";
-import { Link } from "react-router-dom";
+import styled from 'styled-components';
+import atoms from '../components/atoms';
+import molecules from '../components/molecules';
+import { Link } from 'react-router-dom';
 
 const LoginPageWrapper = styled.div`
   display: flex;
@@ -45,8 +45,8 @@ const LoginPage = () => {
     <LoginPageWrapper>
       <LogoIcon />
       <LoginForm />
-      <WarningBox className={"hidden"} value={`아이디 또는 비밀번호를 잘못 입력했습니다.\n입력한 내용을 다시 확인해주세요.`} />
-      <LoginButton color={"#007FDB"} />
+      <WarningBox className={'hidden'} value={`아이디 또는 비밀번호를 잘못 입력했습니다.\n입력한 내용을 다시 확인해주세요.`} />
+      <LoginButton color={'#007FDB'} />
       <Line />
       <SocialLoginButtonGoogle />
       <div className="join-link">

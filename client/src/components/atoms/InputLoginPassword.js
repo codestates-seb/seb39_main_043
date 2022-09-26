@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import { IoKeyOutline } from 'react-icons/io5';
+import { useDispatch, useSelector } from 'react-redux';
+import userSlice from '../../slices/userSlice';
 
 const InputLoginPasswordWrapper = styled.div`
   width: 440px;
@@ -23,10 +25,13 @@ const InputLoginPasswordWrapper = styled.div`
 `;
 
 const InputLoginPassword = () => {
+  const dispatch = useDispatch();
+  let password = useSelector((state) => state.user.password);
+  console.log('password', password);
   return (
     <InputLoginPasswordWrapper>
       <IoKeyOutline size={40} />
-      <input className="login-password" placeholder="비밀번호를 입력하세요" type="password"></input>
+      <input className="login-password" placeholder="비밀번호를 입력하세요" type="password" onChange={(e) => dispatch(userSlice.actions.login({ password: e.target.value }))}></input>
     </InputLoginPasswordWrapper>
   );
 };

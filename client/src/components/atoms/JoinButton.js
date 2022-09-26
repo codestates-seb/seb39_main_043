@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const JoinButtonWrapper = styled.div`
   width: 440px;
@@ -14,9 +14,9 @@ const JoinButtonWrapper = styled.div`
   }
 `;
 
-const JoinButton = ({ className }) => {
+const JoinButton = ({ className, onClick }) => {
   return (
-    <JoinButtonWrapper className={className}>
+    <JoinButtonWrapper className={className} onClick={onClick}>
       <span className="join-text">회원가입</span>
     </JoinButtonWrapper>
   );
