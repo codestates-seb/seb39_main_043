@@ -47,8 +47,9 @@ public class CalendarController {
     @GetMapping
     public ResponseEntity getCalendars() {
         List<Calendar> calendars = calendarService.findCalendars();
+        List<CalendarResponseDto> response = mapper.calendarsToCalendarResponseDtos(calendars);
 
-        return new ResponseEntity<>(calendars, HttpStatus.OK);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PatchMapping("/{calendar-id}")

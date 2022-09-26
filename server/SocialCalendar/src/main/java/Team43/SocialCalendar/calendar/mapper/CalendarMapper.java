@@ -16,6 +16,9 @@ import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public interface CalendarMapper {
+
+    List<CalendarResponseDto> calendarsToCalendarResponseDtos(List<Calendar> calendars);
+
     @Mapping(target = "member", ignore = true)
     @Mapping(target = "memberId", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
