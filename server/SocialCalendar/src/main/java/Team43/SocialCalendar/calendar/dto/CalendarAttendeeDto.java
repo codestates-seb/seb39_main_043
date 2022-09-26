@@ -8,7 +8,5 @@ import javax.validation.constraints.Positive;
 public class CalendarAttendeeDto {
 
     @Positive
-    private long calendarId;
-
     private long memberId;
 }
