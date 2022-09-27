@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/calendars")
+@CrossOrigin(origins = "http://main-project-043.s3-website.ap-northeast-2.amazonaws.com/", allowCredentials = "true")
 public class CalendarController {
     private final CalendarService calendarService;
     private final CalendarMapper mapper;

@@ -15,6 +15,7 @@ import javax.validation.Valid;
 @Slf4j
 @RestController
 @RequestMapping("/schedules")
+@CrossOrigin(origins = "http://main-project-043.s3-website.ap-northeast-2.amazonaws.com/", allowCredentials = "true")
 public class ScheduleController {
     private final ScheduleService scheduleService;
     private final ScheduleMapper mapper;
