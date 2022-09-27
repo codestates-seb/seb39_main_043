@@ -1,6 +1,7 @@
 package Team43.SocialCalendar.calendar.entity;
 
 import Team43.SocialCalendar.member.entity.Member;
+import Team43.SocialCalendar.schedule.entity.Schedule;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -30,24 +31,34 @@ public class Calendar {
     @Column(length = 500)
     private String calendarImg;
 
-    @OneToMany(mappedBy = "calendarId", cascade = CascadeType.ALL)
-    private List<CalendarAttendee> calendarAttendees = new ArrayList<>();
-
     @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
     @Column
     private LocalDateTime modifiedAt = LocalDateTime.now();
 
-
-    public void setMember(Member memberId) {
-        this.memberId = memberId;
-    }
+    @OneToMany(mappedBy = "calendarId", cascade = CascadeType.ALL)
+    private List<CalendarAttendee> calendarAttendees = new ArrayList<>();
 
     public void addCalendarAttendee(CalendarAttendee calendarAttendee) {
         this.calendarAttendees.add(calendarAttendee);
         if (calendarAttendee.getCalendarId() != this) {
             calendarAttendee.addCalendar(this);
         }
+    }
+
+    @OneToMany(mappedBy = "calendar")
+    private List<Schedule> schedules = new ArrayList<>();
+
+    public void addSchedule(Schedule schedule) {
+
+        this.schedules.add(schedule);
+        if (schedule.getCalendar() != this) {
+            schedule.setCalendar(this);
+        }
+    }
+
+    public void setMember(Member memberId) {
+        this.memberId = memberId;
     }
 }
