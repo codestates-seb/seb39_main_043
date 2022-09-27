@@ -16,7 +16,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/members")
-@CrossOrigin(origins = "http://main-project-043.s3-website.ap-northeast-2.amazonaws.com/", allowCredentials = "true")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class MemberController {
     private final MemberService memberService;
     private final MemberMapper mapper;
