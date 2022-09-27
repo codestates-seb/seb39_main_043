@@ -32,16 +32,16 @@ public interface CalendarMapper {
             calendar.setTitle(calendarPatchDto.getTitle());
             calendar.setCalendarImg(calendarPatchDto.getCalendarImg());
 
-            List<CalendarAttendee> calendarAttendees = calendarPatchDto.getCalendarAttendees().stream()
-                    .map(calendarAttendeeDto -> {
-                        CalendarAttendee calendarAttendee = new CalendarAttendee();
-                        Member member = new Member();
-                        member.setMemberId(calendarAttendeeDto.getMemberId());
-                        calendarAttendee.addCalendar(calendar);
-                        calendarAttendee.addMember(member);
-                        return calendarAttendee;
-                    }).collect(Collectors.toList());
-            calendar.setCalendarAttendees(calendarAttendees);
+//            List<CalendarAttendee> calendarAttendees = calendarPatchDto.getCalendarAttendees().stream()
+//                    .map(calendarAttendeeDto -> {
+//                        CalendarAttendee calendarAttendee = new CalendarAttendee();
+//                        Member member = new Member();
+//                        member.setMemberId(calendarAttendeeDto.getMemberId());
+//                        calendarAttendee.addCalendar(calendar);
+//                        calendarAttendee.addMember(member);
+//                        return calendarAttendee;
+//                    }).collect(Collectors.toList());
+//            calendar.setCalendarAttendees(calendarAttendees);
 
             return calendar;
         }
