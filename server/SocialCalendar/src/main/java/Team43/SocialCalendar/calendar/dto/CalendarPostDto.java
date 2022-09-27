@@ -16,7 +16,7 @@ public class CalendarPostDto {
     @NotBlank
     private String title;
 
-    private List<CalendarAttendeeDto> calendarAttendees;
+//    private List<CalendarAttendeeDto> calendarAttendees;
 
     public Member getMember() {
         Member member = new Member();
