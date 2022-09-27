@@ -74,4 +74,5 @@ public class Member {
             schedule.setMember(this);
         }
     }
+
 }
