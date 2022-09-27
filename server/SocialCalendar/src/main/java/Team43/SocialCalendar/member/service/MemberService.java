@@ -53,11 +53,18 @@ public class MemberService {
         memberRepository.delete(findMember);
     }
 
+
     private void verifyExistsEmail(String email) {
-        Optional<Member> member = memberRepository.findByEmail(email);
-        if (member.isPresent()) {
+        Member member = memberRepository.findByEmail(email);
+        if (member != null) {
             throw new DuplicateKeyException("이미 사용중인 이메일입니다.");
         }
+    }
+
+    public long emailToMemberId(String email) {
+        Member member = memberRepository.findByEmail(email);
+
+        return member.getMemberId();
     }
 
     public Member findVerifiedMember(long memberId) {
