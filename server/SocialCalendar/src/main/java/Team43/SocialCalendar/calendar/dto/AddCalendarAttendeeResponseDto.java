@@ -21,7 +21,6 @@ public class AddCalendarAttendeeResponseDto {
     private String email;
     private String name;
 
-
     public void setCalendar(Calendar calendar) {
         this.calendarId = calendar.getCalendarId();
     }

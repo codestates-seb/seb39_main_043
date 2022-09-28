@@ -25,7 +25,6 @@ public class CalendarResponseDto {
     private List<CalendarAttendeeResponseDto> calendarAttendees;
     private LocalDateTime createdAt;
 
-
     public void setMember(Member member) {
         this.memberId = member.getMemberId();
     }

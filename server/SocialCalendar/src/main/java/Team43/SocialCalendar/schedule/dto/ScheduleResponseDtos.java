@@ -7,15 +7,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class ScheduleResponseDto {
+public class ScheduleResponseDtos {
 
     private Long memberId;
     private Long calendarId;
-
     private Long scheduleId;
     private String title;
-    private String scheduleAt;
-    private String attendees;
-    private String location;
-    private String contents;
 }

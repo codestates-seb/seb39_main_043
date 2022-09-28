@@ -16,8 +16,6 @@ public class CalendarPatchDto {
 
     private String calendarImg;
 
-//    private List<CalendarAttendeeDto> calendarAttendees;
-
     public void setCalendarId(long calendarId) {
         this.calendarId = calendarId;
     }
