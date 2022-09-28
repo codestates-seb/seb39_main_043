@@ -1,5 +1,6 @@
 package Team43.SocialCalendar.schedule.comment.entity;
 
+import Team43.SocialCalendar.common.BaseEntity;
 import Team43.SocialCalendar.schedule.entity.Schedule;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +12,7 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @Entity
-public class ScheduleComment {
+public class ScheduleComment extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

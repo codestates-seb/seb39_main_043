@@ -25,20 +25,16 @@ import java.util.stream.Collectors;
 public class CalendarController {
     private final CalendarService calendarService;
     private final CalendarMapper mapper;
-    private final MemberService memberService;
 
     private final CalendarAttendeeService calendarAttendeeService;
-
     private final CalendarAttendeeMapper calendarAttendeeMapper;
 
     public CalendarController(CalendarService calendarService,
                               CalendarMapper mapper,
-                              MemberService memberService,
                               CalendarAttendeeService calendarAttendeeService,
                               CalendarAttendeeMapper calendarAttendeeMapper) {
         this.calendarService = calendarService;
         this.mapper = mapper;
-        this.memberService = memberService;
         this.calendarAttendeeService = calendarAttendeeService;
         this.calendarAttendeeMapper = calendarAttendeeMapper;
     }

@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -56,11 +57,20 @@ public class ScheduleController {
         return new ResponseEntity<>(mapper.scheduleToScheduleResponseDto(response), HttpStatus.OK);
     }
 
+    @GetMapping("/calendars/{calendar-id}")
+    public ResponseEntity getSchedulesByCalendarId(@PathVariable("calendar-id") long calendarId) {
+
+        log.info("getSchedulesByCalendarId");
+        List<Schedule> response = scheduleService.findSchedulesByCalendarId(calendarId);
+
+        return new ResponseEntity<>(mapper.scheduleToScheduleResponseDtos(response), HttpStatus.OK);
+    }
+
     @DeleteMapping("{schedule-id}")
     public ResponseEntity deleteSchedule(@PathVariable("schedule-id") long scheduleId) {
-
         log.info("deleteSchedule");
         scheduleService.deleteSchedule(scheduleId);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 }
+
