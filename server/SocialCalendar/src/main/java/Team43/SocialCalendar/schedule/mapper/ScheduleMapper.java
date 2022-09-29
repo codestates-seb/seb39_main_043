@@ -79,9 +79,10 @@ public class ScheduleMapper {
             Long calendarId = schedule.getCalendar().getCalendarId();
             Long scheduleId = schedule.getScheduleId();
             String title = schedule.getTitle();
+            String scheduleAt = schedule.getScheduleAt();
 
             ScheduleResponseDtos scheduleResponseDtos
-                    = new ScheduleResponseDtos(memberId, calendarId, scheduleId, title);
+                    = new ScheduleResponseDtos(memberId, calendarId, scheduleId, title, scheduleAt);
             return scheduleResponseDtos;
         }
     }
