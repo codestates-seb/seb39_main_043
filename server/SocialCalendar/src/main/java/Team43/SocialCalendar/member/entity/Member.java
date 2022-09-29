@@ -2,6 +2,7 @@ package Team43.SocialCalendar.member.entity;
 
 import Team43.SocialCalendar.calendar.entity.CalendarAttendee;
 import Team43.SocialCalendar.diary.entity.Diary;
+import Team43.SocialCalendar.schedule.comment.entity.ScheduleComment;
 import Team43.SocialCalendar.schedule.entity.Schedule;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -74,5 +75,8 @@ public class Member {
             schedule.setMember(this);
         }
     }
+
+    @OneToMany(mappedBy = "member")
+    private List<ScheduleComment> scheduleComments = new ArrayList<>();
 
 }
