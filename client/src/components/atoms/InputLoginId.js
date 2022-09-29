@@ -26,12 +26,13 @@ const InputLoginIdWrapper = styled.div`
 
 const InputLoginId = () => {
   const dispatch = useDispatch();
+  const state = useSelector((state) => state.user);
   // let id = useSelector((state) => state.user.id);
   // console.log('id', id);
   return (
     <InputLoginIdWrapper>
       <CgProfile size={40} />
-      <input className="login-id" placeholder="아이디를 입력하세요" onChange={(e) => dispatch(userSlice.actions.login({ id: e.target.value }))}></input>
+      <input className="login-id" placeholder="아이디를 입력하세요" onChange={(e) => dispatch(userSlice.actions.login({ ...state, email: e.target.value }))}></input>
     </InputLoginIdWrapper>
   );
 };

@@ -30,13 +30,13 @@ const InputJoinPasswordWrapper = styled.div`
 
 const InputJoinPassword = ({ children }) => {
   const dispatch = useDispatch();
-  // let password = useSelector((state) => state.join.password);
-  // console.log('password', password);
+  let state = useSelector((state) => state.join);
+
   return (
     <InputJoinPasswordWrapper>
       <IoKeyOutline size={40} />
       <div className="join-password">
-        <input placeholder="비밀번호를 입력해주세요" type="password" onChange={(e) => dispatch(joinSlice.actions.join({ password: e.target.value }))}></input>
+        <input placeholder="비밀번호를 입력해주세요" type="password" onChange={(e) => dispatch(joinSlice.actions.join({ ...state, password: e.target.value }))}></input>
         {children}
       </div>
     </InputJoinPasswordWrapper>

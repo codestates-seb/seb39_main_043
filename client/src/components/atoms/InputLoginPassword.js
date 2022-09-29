@@ -26,12 +26,13 @@ const InputLoginPasswordWrapper = styled.div`
 
 const InputLoginPassword = () => {
   const dispatch = useDispatch();
-  let password = useSelector((state) => state.user.password);
-  console.log('password', password);
+  const state = useSelector((state) => state.user);
+  // let password = useSelector((state) => state.user.password);
+  // console.log('password', password);
   return (
     <InputLoginPasswordWrapper>
       <IoKeyOutline size={40} />
-      <input className="login-password" placeholder="비밀번호를 입력하세요" type="password" onChange={(e) => dispatch(userSlice.actions.login({ password: e.target.value }))}></input>
+      <input className="login-password" placeholder="비밀번호를 입력하세요" type="password" onChange={(e) => dispatch(userSlice.actions.login({ ...state, password: e.target.value }))}></input>
     </InputLoginPasswordWrapper>
   );
 };
