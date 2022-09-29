@@ -1,11 +1,14 @@
-import { createGlobalStyle } from "styled-components";
-import { Routes, Route } from "react-router-dom";
-import MainPage from "./pages/MainPage";
-import LoginPage from "./pages/LoginPage";
-import JoinPage from "./pages/JoinPage";
-import MyPage from "./pages/MyPage";
-import MyInfoPage from "./pages/MyInfoPage";
-import MyCalendarPage from "./pages/MyCalendarPage";
+import { createGlobalStyle } from 'styled-components';
+import { Routes, Route } from 'react-router-dom';
+import MainPage from './pages/MainPage';
+import LoginPage from './pages/LoginPage';
+import JoinPage from './pages/JoinPage';
+import MyPage from './pages/MyPage';
+import MyInfoPage from './pages/MyInfoPage';
+import MyCalendarPage from './pages/MyCalendarPage';
+import { QueryClient, QueryClientProvider } from 'react-query';
+
+const queryClient = new QueryClient();
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -23,7 +26,7 @@ const GlobalStyle = createGlobalStyle`
 
 function App() {
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
       <GlobalStyle />
 
       <Routes>
@@ -35,7 +38,7 @@ function App() {
           <Route path="mycalendarpage" element={<MyCalendarPage />} /> */}
         </Route>
       </Routes>
-    </>
+    </QueryClientProvider>
   );
 }
 
