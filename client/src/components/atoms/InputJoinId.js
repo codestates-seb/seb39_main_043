@@ -27,13 +27,13 @@ const InputJoinIdWrapper = styled.div`
 
 const InputJoinId = ({ children }) => {
   const dispatch = useDispatch();
-  // let id = useSelector((state) => state.join.id);
-  // console.log('id', id);
+  let state = useSelector((state) => state.join);
+
   return (
     <InputJoinIdWrapper>
       <CgProfile size={40} />
       <div className="join-id">
-        <input placeholder="아이디를 입력하세요" onChange={(e) => dispatch(joinSlice.actions.join({ id: e.target.value }))}></input>
+        <input placeholder="아이디를 입력하세요" onChange={(e) => dispatch(joinSlice.actions.join({ ...state, email: e.target.value }))}></input>
         {children}
       </div>
     </InputJoinIdWrapper>
