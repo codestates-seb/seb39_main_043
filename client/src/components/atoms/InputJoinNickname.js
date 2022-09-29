@@ -30,13 +30,13 @@ const InputJoinNicknameWrapper = styled.div`
 
 const InputJoinNickname = ({ children }) => {
   const dispatch = useDispatch();
-  // let nickname = useSelector((state) => state.join.nickname);
-  // console.log('nickname', nickname);
+  let state = useSelector((state) => state.join);
+
   return (
     <InputJoinNicknameWrapper>
       <FaRegIdCard size={40}></FaRegIdCard>
       <div className="join-nickname">
-        <input placeholder="별명을 입력하세요" onChange={(e) => dispatch(joinSlice.actions.join({ nickname: e.target.value }))}></input>
+        <input placeholder="별명을 입력하세요" onChange={(e) => dispatch(joinSlice.actions.join({ ...state, name: e.target.value }))}></input>
         {children}
       </div>
     </InputJoinNicknameWrapper>
