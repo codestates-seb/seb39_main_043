@@ -1,5 +1,7 @@
 package Team43.SocialCalendar.member.mapper;
 
+import Team43.SocialCalendar.calendar.entity.Calendar;
+import Team43.SocialCalendar.member.dto.AdminCalendarResponseDto;
 import Team43.SocialCalendar.member.dto.MemberPatchDto;
 import Team43.SocialCalendar.member.dto.MemberPostDto;
 import Team43.SocialCalendar.member.dto.MemberResponseDto;
@@ -7,8 +9,10 @@ import Team43.SocialCalendar.member.entity.Member;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Mapper
 @Component
@@ -44,14 +48,33 @@ public class MemberMapper {
         if (member == null) {
             return null;
         } else {
-            Long memberId = member.getMemberId();
-            String name = member.getName();
-            String email = member.getEmail();
-            String password = member.getPassword();
-            String memberImg = member.getMemberImg();
+            List<Calendar> adminCalendars = member.getAdminCalendars();
 
-            MemberResponseDto memberResponseDto = new MemberResponseDto(memberId, email, name, password, memberImg);
+            MemberResponseDto memberResponseDto = new MemberResponseDto();
+
+            memberResponseDto.setMemberId(member.getMemberId());
+            memberResponseDto.setEmail(member.getEmail());
+            memberResponseDto.setName(member.getName());
+            memberResponseDto.setPassword(member.getPassword());
+            memberResponseDto.setMemberImg(member.getMemberImg());
+
+            memberResponseDto.setAdminCalendars(adminCalendarsToAdminCalendarResponseDtos(adminCalendars));
+
+            memberResponseDto.setCreatedAt(member.getCreatedAt());
+
             return memberResponseDto;
+
+//            Long memberId = member.getMemberId();
+//            String name = member.getName();
+//            String email = member.getEmail();
+//            String password = member.getPassword();
+//            String memberImg = member.getMemberImg();
+//
+//            List<Calendar> adminCalendars = member.getAdminCalendars();
+//            LocalDateTime createdAt = member.getCreatedAt();
+//
+//            MemberResponseDto memberResponseDto = new MemberResponseDto(memberId, email, name, password, memberImg, adminCalendars, createdAt);
+//            return memberResponseDto;
         }
     }
 
@@ -65,5 +88,17 @@ public class MemberMapper {
             }
             return list;
         }
+    }
+
+    public List<AdminCalendarResponseDto> adminCalendarsToAdminCalendarResponseDtos(List<Calendar> calendars) {
+        return calendars
+                .stream()
+                .map(calendar -> AdminCalendarResponseDto
+                        .builder()
+                        .adminCalendarId(calendar.getCalendarId())
+                        .title(calendar.getTitle())
+                        .calendarImg(calendar.getCalendarImg())
+                        .build())
+                .collect(Collectors.toList());
     }
 }
