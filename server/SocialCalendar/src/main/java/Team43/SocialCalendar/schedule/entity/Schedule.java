@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @Entity
-public class Schedule extends BaseEntity {
+public class Schedule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,6 +38,12 @@ public class Schedule extends BaseEntity {
 
     @Column(length = 100)
     private String contents;
+
+    @Column(nullable = false)
+    private LocalDateTime createdAt = LocalDateTime.now();
+
+    @Column
+    private LocalDateTime modifiedAt = LocalDateTime.now();
 
     @OneToMany(mappedBy = "schedule")
     private List<ScheduleComment> scheduleComments = new ArrayList<>();
