@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Team43.SocialCalendar.SocialCalendarApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-09-27T15:45:10" hostname="anjung-gyuui-MacBookPro.local" time="0.048">
+<testsuite name="Team43.SocialCalendar.SocialCalendarApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-09-29T01:45:00" hostname="ijin-ug-ui-MacBookAir.local" time="0.083">
   <properties/>
-  <testcase name="contextLoads()" classname="Team43.SocialCalendar.SocialCalendarApplicationTests" time="0.048"/>
-  <system-out><![CDATA[00:45:07.476 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating CacheAwareContextLoaderDelegate from class [org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate]
-00:45:07.481 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating BootstrapContext using constructor [public org.springframework.test.context.support.DefaultBootstrapContext(java.lang.Class,org.springframework.test.context.CacheAwareContextLoaderDelegate)]
-00:45:07.498 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating TestContextBootstrapper for test class [Team43.SocialCalendar.SocialCalendarApplicationTests] from class [org.springframework.boot.test.context.SpringBootTestContextBootstrapper]
-00:45:07.504 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [Team43.SocialCalendar.SocialCalendarApplicationTests], using SpringBootContextLoader
-00:45:07.505 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [Team43.SocialCalendar.SocialCalendarApplicationTests]: class path resource [Team43/SocialCalendar/SocialCalendarApplicationTests-context.xml] does not exist
-00:45:07.506 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [Team43.SocialCalendar.SocialCalendarApplicationTests]: class path resource [Team43/SocialCalendar/SocialCalendarApplicationTestsContext.groovy] does not exist
-00:45:07.506 [Test worker] INFO org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [Team43.SocialCalendar.SocialCalendarApplicationTests]: no resource found for suffixes {-context.xml, Context.groovy}.
-00:45:07.506 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [Team43.SocialCalendar.SocialCalendarApplicationTests]: SocialCalendarApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-00:45:07.526 [Test worker] DEBUG org.springframework.test.context.support.ActiveProfilesUtils - Could not find an 'annotation declaring class' for annotation type [org.springframework.test.context.ActiveProfiles] and class [Team43.SocialCalendar.SocialCalendarApplicationTests]
-00:45:07.553 [Test worker] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider - Identified candidate component class: file [/Users/ahn_junggyu/Desktop/SocialCalendar/merge/seb39_main_043/server/SocialCalendar/build/classes/java/main/Team43/SocialCalendar/SocialCalendarApplication.class]
-00:45:07.553 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration Team43.SocialCalendar.SocialCalendarApplication for test class Team43.SocialCalendar.SocialCalendarApplicationTests
-00:45:07.603 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - @TestExecutionListeners is not present for class [Team43.SocialCalendar.SocialCalendarApplicationTests]: using defaults.
-00:45:07.603 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
-00:45:07.610 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@345e5a17, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@5ea502e0, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@443dbe42, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@473b3b7a, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@1734f68, org.springframework.test.context.support.DirtiesContextTestExecutionListener@77b7ffa4, org.springframework.test.context.transaction.TransactionalTestExecutionListener@5ed190be, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@402f80f5, org.springframework.test.context.event.EventPublishingTestExecutionListener@5bbc9f97, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@133e019b, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@41382722, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@7dac3fd8, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@425357dd, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@2102a4d5, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@210386e0]
-00:45:07.612 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: context [DefaultTestContext@1edb61b1 testClass = SocialCalendarApplicationTests, testInstance = [null], testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@ec2bf82 testClass = SocialCalendarApplicationTests, locations = '{}', classes = '{class Team43.SocialCalendar.SocialCalendarApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@aeab9a1, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@3a3e4aff, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@78fbff54, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@6941827a, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@3f792b9b, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@4b8729ff], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> true]], class annotated with @DirtiesContext [false] with mode [null].
+  <testcase name="contextLoads()" classname="Team43.SocialCalendar.SocialCalendarApplicationTests" time="0.083"/>
+  <system-out><![CDATA[10:44:55.926 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating CacheAwareContextLoaderDelegate from class [org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate]
+10:44:55.935 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating BootstrapContext using constructor [public org.springframework.test.context.support.DefaultBootstrapContext(java.lang.Class,org.springframework.test.context.CacheAwareContextLoaderDelegate)]
+10:44:55.964 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating TestContextBootstrapper for test class [Team43.SocialCalendar.SocialCalendarApplicationTests] from class [org.springframework.boot.test.context.SpringBootTestContextBootstrapper]
+10:44:55.975 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [Team43.SocialCalendar.SocialCalendarApplicationTests], using SpringBootContextLoader
+10:44:55.978 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [Team43.SocialCalendar.SocialCalendarApplicationTests]: class path resource [Team43/SocialCalendar/SocialCalendarApplicationTests-context.xml] does not exist
+10:44:55.978 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [Team43.SocialCalendar.SocialCalendarApplicationTests]: class path resource [Team43/SocialCalendar/SocialCalendarApplicationTestsContext.groovy] does not exist
+10:44:55.979 [Test worker] INFO org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [Team43.SocialCalendar.SocialCalendarApplicationTests]: no resource found for suffixes {-context.xml, Context.groovy}.
+10:44:55.979 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [Team43.SocialCalendar.SocialCalendarApplicationTests]: SocialCalendarApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+10:44:56.012 [Test worker] DEBUG org.springframework.test.context.support.ActiveProfilesUtils - Could not find an 'annotation declaring class' for annotation type [org.springframework.test.context.ActiveProfiles] and class [Team43.SocialCalendar.SocialCalendarApplicationTests]
+10:44:56.060 [Test worker] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider - Identified candidate component class: file [/Users/jin/Desktop/STUDY/PROJECT/hmm/seb39_main_043/server/SocialCalendar/build/classes/java/main/Team43/SocialCalendar/SocialCalendarApplication.class]
+10:44:56.061 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration Team43.SocialCalendar.SocialCalendarApplication for test class Team43.SocialCalendar.SocialCalendarApplicationTests
+10:44:56.144 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - @TestExecutionListeners is not present for class [Team43.SocialCalendar.SocialCalendarApplicationTests]: using defaults.
+10:44:56.145 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+10:44:56.158 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@600b0b7, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@345e5a17, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@5ea502e0, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@443dbe42, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@473b3b7a, org.springframework.test.context.support.DirtiesContextTestExecutionListener@1734f68, org.springframework.test.context.transaction.TransactionalTestExecutionListener@77b7ffa4, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@5ed190be, org.springframework.test.context.event.EventPublishingTestExecutionListener@402f80f5, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@5bbc9f97, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@133e019b, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@41382722, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@7dac3fd8, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@425357dd, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@2102a4d5]
+10:44:56.161 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: context [DefaultTestContext@1a6f5124 testClass = SocialCalendarApplicationTests, testInstance = [null], testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@1edb61b1 testClass = SocialCalendarApplicationTests, locations = '{}', classes = '{class Team43.SocialCalendar.SocialCalendarApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@5b1f29fa, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@13cf7d52, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@77a98a6a, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@62452cc9, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@62e6b5c8, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@45efd90f], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> true]], class annotated with @DirtiesContext [false] with mode [null].
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -26,19 +26,172 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v2.7.3)
 
-2022-09-28 00:45:08.023  INFO 10165 --- [    Test worker] T.S.SocialCalendarApplicationTests       : Starting SocialCalendarApplicationTests using Java 11.0.15 on anjung-gyuui-MacBookPro.local with PID 10165 (started by ahn_junggyu in /Users/ahn_junggyu/Desktop/SocialCalendar/merge/seb39_main_043/server/SocialCalendar)
-2022-09-28 00:45:08.023  INFO 10165 --- [    Test worker] T.S.SocialCalendarApplicationTests       : No active profile set, falling back to 1 default profile: "mysql"
-2022-09-28 00:45:08.331  INFO 10165 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2022-09-28 00:45:08.362  INFO 10165 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 26 ms. Found 4 JPA repository interfaces.
-2022-09-28 00:45:08.613  INFO 10165 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2022-09-28 00:45:08.640  INFO 10165 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.10.Final
-2022-09-28 00:45:08.725  INFO 10165 --- [    Test worker] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
-2022-09-28 00:45:08.770  INFO 10165 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2022-09-28 00:45:08.972  INFO 10165 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2022-09-28 00:45:08.985  INFO 10165 --- [    Test worker] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
-2022-09-28 00:45:09.452  INFO 10165 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2022-09-28 00:45:09.456  INFO 10165 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2022-09-28 00:45:10.031  INFO 10165 --- [    Test worker] T.S.SocialCalendarApplicationTests       : Started SocialCalendarApplicationTests in 2.401 seconds (JVM running for 2.952)
+2022-09-29 10:44:56.616  INFO 57686 --- [    Test worker] T.S.SocialCalendarApplicationTests       : Starting SocialCalendarApplicationTests using Java 11.0.14.1 on ijin-ug-ui-MacBookAir.local with PID 57686 (started by jin in /Users/jin/Desktop/STUDY/PROJECT/hmm/seb39_main_043/server/SocialCalendar)
+2022-09-29 10:44:56.617  INFO 57686 --- [    Test worker] T.S.SocialCalendarApplicationTests       : No active profile set, falling back to 1 default profile: "h2"
+2022-09-29 10:44:57.201  INFO 57686 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-09-29 10:44:57.259  INFO 57686 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 52 ms. Found 5 JPA repository interfaces.
+2022-09-29 10:44:57.674  INFO 57686 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-09-29 10:44:57.713  INFO 57686 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.10.Final
+2022-09-29 10:44:57.872  INFO 57686 --- [    Test worker] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-09-29 10:44:57.953  INFO 57686 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2022-09-29 10:44:58.137  INFO 57686 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2022-09-29 10:44:58.164  INFO 57686 --- [    Test worker] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2022-09-29 10:44:58.831 DEBUG 57686 --- [    Test worker] org.hibernate.SQL                        : 
+    
+    drop table if exists calendar CASCADE 
+2022-09-29 10:44:58.835 DEBUG 57686 --- [    Test worker] org.hibernate.SQL                        : 
+    
+    drop table if exists calendar_attendee CASCADE 
+2022-09-29 10:44:58.835 DEBUG 57686 --- [    Test worker] org.hibernate.SQL                        : 
+    
+    drop table if exists diary CASCADE 
+2022-09-29 10:44:58.835 DEBUG 57686 --- [    Test worker] org.hibernate.SQL                        : 
+    
+    drop table if exists diary_comment CASCADE 
+2022-09-29 10:44:58.836 DEBUG 57686 --- [    Test worker] org.hibernate.SQL                        : 
+    
+    drop table if exists member CASCADE 
+2022-09-29 10:44:58.836 DEBUG 57686 --- [    Test worker] org.hibernate.SQL                        : 
+    
+    drop table if exists schedule CASCADE 
+2022-09-29 10:44:58.836 DEBUG 57686 --- [    Test worker] org.hibernate.SQL                        : 
+    
+    drop table if exists schedule_comment CASCADE 
+2022-09-29 10:44:58.838 DEBUG 57686 --- [    Test worker] org.hibernate.SQL                        : 
+    
+    create table calendar (
+       calendar_id bigint generated by default as identity,
+        calendar_img varchar(500),
+        created_at timestamp not null,
+        modified_at timestamp,
+        title varchar(20) not null,
+        member_id bigint,
+        primary key (calendar_id)
+    )
+2022-09-29 10:44:58.846 DEBUG 57686 --- [    Test worker] org.hibernate.SQL                        : 
+    
+    create table calendar_attendee (
+       calendar_attendee_id bigint generated by default as identity,
+        calendar_id bigint,
+        member_id bigint,
+        primary key (calendar_attendee_id)
+    )
+2022-09-29 10:44:58.847 DEBUG 57686 --- [    Test worker] org.hibernate.SQL                        : 
+    
+    create table diary (
+       diary_id bigint generated by default as identity,
+        contents varchar(1000),
+        diary_img varchar(100),
+        title varchar(100) not null,
+        member_id bigint,
+        primary key (diary_id)
+    )
+2022-09-29 10:44:58.848 DEBUG 57686 --- [    Test worker] org.hibernate.SQL                        : 
+    
+    create table diary_comment (
+       diary_comment_id bigint generated by default as identity,
+        contents varchar(1000),
+        diary_id bigint,
+        primary key (diary_comment_id)
+    )
+2022-09-29 10:44:58.850 DEBUG 57686 --- [    Test worker] org.hibernate.SQL                        : 
+    
+    create table member (
+       member_id bigint generated by default as identity,
+        created_at timestamp not null,
+        email varchar(100) not null,
+        member_img varchar(500),
+        modified_at timestamp,
+        name varchar(50) not null,
+        password varchar(100) not null,
+        status_message varchar(50),
+        primary key (member_id)
+    )
+2022-09-29 10:44:58.851 DEBUG 57686 --- [    Test worker] org.hibernate.SQL                        : 
+    
+    create table schedule (
+       schedule_id bigint generated by default as identity,
+        created_at timestamp,
+        modified_at timestamp,
+        attendees varchar(100) not null,
+        contents varchar(100),
+        location varchar(100),
+        schedule_at varchar(100) not null,
+        title varchar(100) not null,
+        calendar_id bigint,
+        diary_id bigint,
+        member_id bigint,
+        primary key (schedule_id)
+    )
+2022-09-29 10:44:58.853 DEBUG 57686 --- [    Test worker] org.hibernate.SQL                        : 
+    
+    create table schedule_comment (
+       schedule_comment_id bigint generated by default as identity,
+        created_at timestamp,
+        modified_at timestamp,
+        contents varchar(100),
+        schedule_id bigint,
+        primary key (schedule_comment_id)
+    )
+2022-09-29 10:44:58.854 DEBUG 57686 --- [    Test worker] org.hibernate.SQL                        : 
+    
+    alter table calendar 
+       add constraint FK4xr1o686dphnmfq2ehy0d166 
+       foreign key (member_id) 
+       references member
+2022-09-29 10:44:58.866 DEBUG 57686 --- [    Test worker] org.hibernate.SQL                        : 
+    
+    alter table calendar_attendee 
+       add constraint FK6y5ya1yl019yehhqk3whmuja6 
+       foreign key (calendar_id) 
+       references calendar
+2022-09-29 10:44:58.868 DEBUG 57686 --- [    Test worker] org.hibernate.SQL                        : 
+    
+    alter table calendar_attendee 
+       add constraint FKgiqajat512v0sox5cjim0y71j 
+       foreign key (member_id) 
+       references member
+2022-09-29 10:44:58.869 DEBUG 57686 --- [    Test worker] org.hibernate.SQL                        : 
+    
+    alter table diary 
+       add constraint FKbyluyva0mxnf5jitf297oxlxd 
+       foreign key (member_id) 
+       references member
+2022-09-29 10:44:58.871 DEBUG 57686 --- [    Test worker] org.hibernate.SQL                        : 
+    
+    alter table diary_comment 
+       add constraint FKiuoblmn937aeo52ut4hkqwaac 
+       foreign key (diary_id) 
+       references diary
+2022-09-29 10:44:58.872 DEBUG 57686 --- [    Test worker] org.hibernate.SQL                        : 
+    
+    alter table schedule 
+       add constraint FKhah23jyxfg8s18tmshw0k4id9 
+       foreign key (calendar_id) 
+       references calendar
+2022-09-29 10:44:58.873 DEBUG 57686 --- [    Test worker] org.hibernate.SQL                        : 
+    
+    alter table schedule 
+       add constraint FKcr6tygrrvq97973x0ixfkfa6g 
+       foreign key (diary_id) 
+       references diary
+2022-09-29 10:44:58.875 DEBUG 57686 --- [    Test worker] org.hibernate.SQL                        : 
+    
+    alter table schedule 
+       add constraint FKn7js9p799qcts7le20pec9bxr 
+       foreign key (member_id) 
+       references member
+2022-09-29 10:44:58.876 DEBUG 57686 --- [    Test worker] org.hibernate.SQL                        : 
+    
+    alter table schedule_comment 
+       add constraint FKrp3hxgltetev3lqtvub0bjtg6 
+       foreign key (schedule_id) 
+       references schedule
+2022-09-29 10:44:58.878  INFO 57686 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-09-29 10:44:58.886  INFO 57686 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-09-29 10:44:59.497  WARN 57686 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-09-29 10:44:59.777  INFO 57686 --- [    Test worker] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2'. Database available at 'jdbc:h2:mem:test'
+2022-09-29 10:44:59.999  INFO 57686 --- [    Test worker] T.S.SocialCalendarApplicationTests       : Started SocialCalendarApplicationTests in 3.808 seconds (JVM running for 4.863)
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

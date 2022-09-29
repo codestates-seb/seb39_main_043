@@ -13,4 +13,5 @@ public class ScheduleResponseDtos {
     private Long calendarId;
     private Long scheduleId;
     private String title;
+    private String scheduleAt;
 }
