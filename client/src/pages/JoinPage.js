@@ -1,7 +1,9 @@
-import styled from "styled-components";
-import atoms from "../components/atoms";
-import molecules from "../components/molecules";
-import { Link } from "react-router-dom";
+import styled from 'styled-components';
+import atoms from '../components/atoms';
+import molecules from '../components/molecules';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 const JoinPageWrapper = styled.div`
   display: flex;
@@ -35,12 +37,26 @@ const SocialLoginButtonGoogle = styled(atoms.SocialLoginButtonGoogle)`
   margin-top: 32px;
 `;
 
+const postMembers = async (name, email, password) => {
+  console.log('axios', name, email, password);
+  await axios
+    .post(`${process.env.REACT_APP_API_URL}/members`, { name: name, email: email, password: password })
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
 const JoinPage = () => {
+  const join = useSelector((state) => state.join);
+
   return (
     <JoinPageWrapper>
       <h1 className="join-title">회원가입</h1>
       <JoinForm />
-      <JoinButton />
+      <JoinButton onClick={() => postMembers(join.name, join.email, join.password)} />
       <Line />
       <SocialLoginButtonGoogle />
       <div className="login-link">
