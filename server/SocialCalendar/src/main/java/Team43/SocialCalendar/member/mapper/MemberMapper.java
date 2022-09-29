@@ -95,7 +95,7 @@ public class MemberMapper {
                 .stream()
                 .map(calendar -> AdminCalendarResponseDto
                         .builder()
-                        .adminCalendarId(calendar.getCalendarId())
+                        .calendarId(calendar.getCalendarId())
                         .title(calendar.getTitle())
                         .calendarImg(calendar.getCalendarImg())
                         .build())
@@ -108,7 +108,7 @@ public class MemberMapper {
                 .stream()
                 .map(calendarAttendee -> AttendedCalendarResponseDto
                         .builder()
-                        .attendedCalendarId(calendarAttendee.getCalendarId().getCalendarId())
+                        .calendarId(calendarAttendee.getCalendarId().getCalendarId())
                         .title(calendarAttendee.getCalendarId().getTitle())
                         .calendarImg(calendarAttendee.getCalendarId().getCalendarImg())
                         .build())

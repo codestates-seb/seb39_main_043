@@ -8,12 +8,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
-public class ScheduleComment extends BaseEntity {
+public class ScheduleComment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,6 +22,12 @@ public class ScheduleComment extends BaseEntity {
 
     @Column(length = 100)
     private String contents;
+
+    @Column(nullable = false)
+    private LocalDateTime createdAt = LocalDateTime.now();
+
+    @Column
+    private LocalDateTime modifiedAt = LocalDateTime.now();
 
     public ScheduleComment(Long scheduleCommentId, String contents) {
         this.scheduleCommentId = scheduleCommentId;
