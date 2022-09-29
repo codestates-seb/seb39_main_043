@@ -5,7 +5,7 @@ import lombok.Getter;
 @Getter
 public class ScheduleCommentPostDto {
 
-    private long commentMemberId;
-
-
+    private Long scheduleId;
+    private Long memberId;
+    private String contents;
 }
