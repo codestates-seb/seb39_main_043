@@ -1,10 +1,8 @@
 package Team43.SocialCalendar.member.mapper;
 
 import Team43.SocialCalendar.calendar.entity.Calendar;
-import Team43.SocialCalendar.member.dto.AdminCalendarResponseDto;
-import Team43.SocialCalendar.member.dto.MemberPatchDto;
-import Team43.SocialCalendar.member.dto.MemberPostDto;
-import Team43.SocialCalendar.member.dto.MemberResponseDto;
+import Team43.SocialCalendar.calendar.entity.CalendarAttendee;
+import Team43.SocialCalendar.member.dto.*;
 import Team43.SocialCalendar.member.entity.Member;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
@@ -49,6 +47,7 @@ public class MemberMapper {
             return null;
         } else {
             List<Calendar> adminCalendars = member.getAdminCalendars();
+            List<CalendarAttendee> attendedCalendars = member.getAttendedCalendars();
 
             MemberResponseDto memberResponseDto = new MemberResponseDto();
 
@@ -59,6 +58,7 @@ public class MemberMapper {
             memberResponseDto.setMemberImg(member.getMemberImg());
 
             memberResponseDto.setAdminCalendars(adminCalendarsToAdminCalendarResponseDtos(adminCalendars));
+            memberResponseDto.setAttendedCalendars(attendedCalendarsToAttendedCalendarResponseDtos(attendedCalendars));
 
             memberResponseDto.setCreatedAt(member.getCreatedAt());
 
@@ -98,6 +98,19 @@ public class MemberMapper {
                         .adminCalendarId(calendar.getCalendarId())
                         .title(calendar.getTitle())
                         .calendarImg(calendar.getCalendarImg())
+                        .build())
+                .collect(Collectors.toList());
+    }
+
+    public List<AttendedCalendarResponseDto> attendedCalendarsToAttendedCalendarResponseDtos(
+                                                                        List<CalendarAttendee> calendarAttendees) {
+        return calendarAttendees
+                .stream()
+                .map(calendarAttendee -> AttendedCalendarResponseDto
+                        .builder()
+                        .attendedCalendarId(calendarAttendee.getCalendarId().getCalendarId())
+                        .title(calendarAttendee.getCalendarId().getTitle())
+                        .calendarImg(calendarAttendee.getCalendarId().getCalendarImg())
                         .build())
                 .collect(Collectors.toList());
     }
