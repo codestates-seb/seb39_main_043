@@ -58,6 +58,10 @@ public class Member {
     @OneToMany(mappedBy = "memberId")
     private List<Calendar> adminCalendars = new ArrayList<>();
 
+    @OneToMany(mappedBy = "memberId")
+    private List<CalendarAttendee> attendedCalendars = new ArrayList<>();
+
+
     @OneToMany(mappedBy = "member")
     private List<Diary> diaries = new ArrayList<>();
 

@@ -21,5 +21,7 @@ public class MemberResponseDto {
 
     private List<AdminCalendarResponseDto> adminCalendars;
 
+    private List<AttendedCalendarResponseDto> attendedCalendars;
+
     private LocalDateTime createdAt;
 }

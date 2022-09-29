@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -19,6 +20,12 @@ public class DiaryComment {
 
     @Column(length = 1000)
     private String contents;
+
+    @Column(nullable = false)
+    private LocalDateTime createdAt = LocalDateTime.now();
+
+    @Column
+    private LocalDateTime modifiedAt = LocalDateTime.now();
 
     public DiaryComment(Long diaryCommentId, String contents) {
         this.diaryCommentId = diaryCommentId;
