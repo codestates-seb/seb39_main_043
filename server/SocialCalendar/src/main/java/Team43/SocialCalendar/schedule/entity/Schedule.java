@@ -56,8 +56,7 @@ public class Schedule {
         }
     }
 
-    @OneToOne
-    @JoinColumn(name = "diary_id")
+    @OneToOne(mappedBy = "schedule", cascade = CascadeType.ALL)
     private Diary diary;
 
     public void setDiary(Diary diary) {

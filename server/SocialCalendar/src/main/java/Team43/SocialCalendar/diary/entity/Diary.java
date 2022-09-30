@@ -55,7 +55,8 @@ public class Diary {
         }
     }
 
-    @OneToOne(mappedBy = "diary")
+    @OneToOne
+    @JoinColumn(name = "schedule_id")
     private Schedule schedule;
 
     @ManyToOne
