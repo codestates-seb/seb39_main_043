@@ -1,4 +1,6 @@
-import styled from "styled-components";
+import { useDispatch, useSelector } from 'react-redux';
+import styled from 'styled-components';
+import modalSlice from '../../slices/modalSlice';
 
 const Container = styled.button`
   width: 100px;
@@ -16,9 +18,11 @@ const Container = styled.button`
   }
 `;
 
-const CalendarAddButton = ({ className, onClick }) => {
+const CalendarAddButton = ({ className }) => {
+  const modalState = useSelector((state) => state.modal);
+  const dispatch = useDispatch();
   return (
-    <Container className={className} onClick={onClick}>
+    <Container className={className} onClick={() => dispatch(modalSlice.actions.modal({ ...modalState, createCalendarModal: true }))}>
       캘린더 추가
     </Container>
   );

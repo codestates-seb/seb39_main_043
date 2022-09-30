@@ -1,5 +1,7 @@
-import styled from "styled-components";
-import atoms from "../atoms";
+import { useDispatch, useSelector } from 'react-redux';
+import styled from 'styled-components';
+import modalSlice from '../../slices/modalSlice';
+import atoms from '../atoms';
 
 // <--- styled component --->
 const EventCommentModalWrapper = styled.div`
@@ -40,23 +42,25 @@ const StyledUserNickname = styled(atoms.UserNickname)`
 `;
 
 // <-- EventCommentModal -->
-const EventCommentModal = ({ className, onClick }) => {
+const EventCommentModal = ({ className }) => {
+  const modalState = useSelector((state) => state.modal);
+  const dispatch = useDispatch();
   // 테스트 데이터
   const dummyData = {
     item: [
-      { id: 1, nickName: "red", content: "1시에 보자" },
-      { id: 2, nickName: "blue", content: "ABCD" },
-      { id: 3, nickName: "yellow", content: "12시에 보자" },
-      { id: 4, nickName: "black", content: "DEFG" },
-      { id: 5, nickName: "white", content: "31시에 보자" },
-      { id: 6, nickName: "beige", content: "1444시에 보자" },
-      { id: 7, nickName: "brown", content: "112312시에 보자" },
-      { id: 8, nickName: "pink", content: "2453451시에 보자" },
-      { id: 9, nickName: "purple", content: "DEFG" },
-      { id: 10, nickName: "skyblue", content: "31시에 보자" },
-      { id: 11, nickName: "green", content: "1444시에 보자" },
-      { id: 12, nickName: "orange", content: "112312시에 보자" },
-      { id: 13, nickName: "pink", content: "2453451시에 보자" },
+      { id: 1, nickName: 'red', content: '1시에 보자' },
+      { id: 2, nickName: 'blue', content: 'ABCD' },
+      { id: 3, nickName: 'yellow', content: '12시에 보자' },
+      { id: 4, nickName: 'black', content: 'DEFG' },
+      { id: 5, nickName: 'white', content: '31시에 보자' },
+      { id: 6, nickName: 'beige', content: '1444시에 보자' },
+      { id: 7, nickName: 'brown', content: '112312시에 보자' },
+      { id: 8, nickName: 'pink', content: '2453451시에 보자' },
+      { id: 9, nickName: 'purple', content: 'DEFG' },
+      { id: 10, nickName: 'skyblue', content: '31시에 보자' },
+      { id: 11, nickName: 'green', content: '1444시에 보자' },
+      { id: 12, nickName: 'orange', content: '112312시에 보자' },
+      { id: 13, nickName: 'pink', content: '2453451시에 보자' },
     ],
   };
 
@@ -64,7 +68,7 @@ const EventCommentModal = ({ className, onClick }) => {
     // <--- 네비게이션바 --->
     <EventCommentModalWrapper className={className}>
       <atoms.ModalNavigationBar>
-        <atoms.CloseIcon onClick={onClick} />
+        <atoms.CloseIcon onClick={() => dispatch(modalSlice.actions.modal({ ...modalState, eventCommentModal: false }))} />
       </atoms.ModalNavigationBar>
 
       {/*<--- 컨테이너 --->*/}

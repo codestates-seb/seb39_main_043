@@ -1,6 +1,8 @@
-import { useState } from "react";
-import styled from "styled-components";
-import atoms from "../atoms";
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import styled from 'styled-components';
+import modalSlice from '../../slices/modalSlice';
+import atoms from '../atoms';
 
 // <--- styled component --->
 const CreateEventModalWrapper = styled.div`
@@ -21,8 +23,10 @@ const ItemWrapper = styled.div`
 `;
 
 // <--- CreateEventModal --->
-const CreateEventModal = ({ className, onClick, onKeyDown, submitInfo }) => {
+const CreateEventModal = ({ className, onKeyDown, submitInfo }) => {
   let obj = {};
+  const modalState = useSelector((state) => state.modal);
+  const dispatch = useDispatch();
 
   const handleTitleChange = (event) => {
     obj.title = event.target.value;
@@ -47,10 +51,10 @@ const CreateEventModal = ({ className, onClick, onKeyDown, submitInfo }) => {
   // 리덕스 툴킷 사용
   const dummyData = {
     item: [
-      { name: "일시", placeholder: "yyyy.mm.dd hh:mm ~ yyyy.mm.dd hh:mm", onChange: handleDateChange, component: <atoms.ClockIcon /> },
-      { name: "참석자", placeholder: "참석자의 이메일을 입력하세요", onChange: handleAttendeeChange, component: <atoms.PeopleIcon /> },
-      { name: "위치", placeholder: "장소를 입력하세요", onChange: handleLocationChange, component: <atoms.PlaceIcon /> },
-      { name: "설명", placeholder: "설명을 입력하세요", onChange: handleExplainChange, component: <atoms.NoteIcon /> },
+      { name: '일시', placeholder: 'yyyy.mm.dd hh:mm ~ yyyy.mm.dd hh:mm', onChange: handleDateChange, component: <atoms.ClockIcon /> },
+      { name: '참석자', placeholder: '참석자의 이메일을 입력하세요', onChange: handleAttendeeChange, component: <atoms.PeopleIcon /> },
+      { name: '위치', placeholder: '장소를 입력하세요', onChange: handleLocationChange, component: <atoms.PlaceIcon /> },
+      { name: '설명', placeholder: '설명을 입력하세요', onChange: handleExplainChange, component: <atoms.NoteIcon /> },
     ],
   };
 
@@ -58,13 +62,13 @@ const CreateEventModal = ({ className, onClick, onKeyDown, submitInfo }) => {
     <CreateEventModalWrapper className={className} onKeyDown={onKeyDown}>
       {/* <--- 네비게이션바 --->*/}
       <atoms.ModalNavigationBar>
-        <atoms.CloseIcon onClick={onClick} />
+        <atoms.CloseIcon onClick={() => dispatch(modalSlice.actions.modal({ ...modalState, createEventModal: false }))} />
       </atoms.ModalNavigationBar>
 
       {/*<--- 컨테이너 --->*/}
       <atoms.ModalContentContainer>
         <div>
-          <atoms.InputTitle placeholder={"제목을 입력하세요"} onChange={handleTitleChange} />
+          <atoms.InputTitle placeholder={'제목을 입력하세요'} onChange={handleTitleChange} />
         </div>
 
         {dummyData.item.map((value, index) => {
@@ -79,7 +83,7 @@ const CreateEventModal = ({ className, onClick, onKeyDown, submitInfo }) => {
           );
         })}
 
-        <atoms.ModalButton color={"#007FDB"} value={"저장"} onClick={() => submitInfo(obj)} />
+        <atoms.ModalButton color={'#007FDB'} value={'저장'} onClick={() => submitInfo(obj)} />
       </atoms.ModalContentContainer>
     </CreateEventModalWrapper>
   );

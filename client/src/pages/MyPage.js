@@ -1,10 +1,11 @@
-import styled from "styled-components";
-import { Outlet, Route, Routes, Link, useParams } from "react-router-dom";
-import { useState } from "react";
-import atoms from "../components/atoms";
-import molecules from "../components/molecules";
-import MyCalendarPage from "./MyCalendarPage";
-import MyInfoPage from "./MyInfoPage";
+import styled from 'styled-components';
+import { Outlet, Route, Routes, Link, useParams } from 'react-router-dom';
+import { useState } from 'react';
+import atoms from '../components/atoms';
+import molecules from '../components/molecules';
+import MyCalendarPage from './MyCalendarPage';
+import MyInfoPage from './MyInfoPage';
+import { useDispatch, useSelector } from 'react-redux';
 
 // 마이페이지 (styled component)
 const MyPageWrapper = styled.div`
@@ -56,18 +57,21 @@ const MyPage = () => {
   const [isCreateCalendarModal, setIsCreateCalendarModal] = useState(false); // 캘린더 생성 모달
   const [isMypageSidebarModal, setIsMypageSidebarModal] = useState(false); // 마이페이지 사이드바 모달
 
+  const modalState = useSelector((state) => state.modal);
+  const dispatch = useDispatch();
+
   // 모달 open 함수
   const openModal = (target) => {
     switch (target) {
-      case "CalendarSidebarModal":
+      case 'CalendarSidebarModal':
         setIsCalendarSidebarModal(!isCalendarSidebarModal);
         break;
 
-      case "CreateCalendarModal":
+      case 'CreateCalendarModal':
         setIsCreateCalendarModal(true);
         break;
 
-      case "MypageSidebarModal":
+      case 'MypageSidebarModal':
         setIsMypageSidebarModal(!isMypageSidebarModal);
         break;
 
@@ -78,14 +82,14 @@ const MyPage = () => {
   // 모달 close 함수
   const closeModal = (e, target) => {
     switch (target) {
-      case "CreateCalendarModal":
+      case 'CreateCalendarModal':
         switch (e.type) {
-          case "click":
+          case 'click':
             setIsCreateCalendarModal(false);
             break;
 
-          case "keydown":
-            if (e.key === "Escape") setIsCreateCalendarModal(false);
+          case 'keydown':
+            if (e.key === 'Escape') setIsCreateCalendarModal(false);
             break;
 
           default:
@@ -97,7 +101,7 @@ const MyPage = () => {
 
   // 서버로 데이터를 전달하는 함수
   const submitInfo = (obj) => {
-    console.log("obj : ", obj);
+    console.log('obj : ', obj);
     setIsCreateCalendarModal(false);
   };
 
@@ -106,21 +110,21 @@ const MyPage = () => {
   return (
     <MyPageWrapper>
       {/*<--- 네비게이션바 --->*/}
-      <molecules.MyPageNavigation onClick={openModal} />
+      <molecules.MyPageNavigation />
       {/* <Outlet></Outlet> */}
 
       {/* <--- 마이페이지 탭 Wrapper 및 Container --> */}
       <TapWrapper>
-        {isCalendarSidebarModal && <CalendarSidebar onClick={openModal} />}
-        {isCreateCalendarModal && <CreateCalendarModal onClick={(event) => closeModal(event, "CreateCalendarModal")} submitInfo={submitInfo} />}
-        {isMypageSidebarModal && <MypageSidebar />}
+        {modalState.calendarSidebarModal && <CalendarSidebar />}
+        {modalState.createCalendarModal && <CreateCalendarModal onClick={(event) => closeModal(event, 'CreateCalendarModal')} submitInfo={submitInfo} />}
+        {modalState.mypageSidebarModal && <MypageSidebar />}
 
         <Link to="/mypage/myinfopage">
-          <MypageTab className={param["*"] === "myinfopage" ? "active" : ""} content="내 정보 수정" />
+          <MypageTab className={param['*'] === 'myinfopage' ? 'active' : ''} content="내 정보 수정" />
         </Link>
 
         <Link to="/mypage/mycalendarpage">
-          <MypageTab className={param["*"] === "mycalendarpage" ? "active" : ""} content="내 캘린더 관리" />
+          <MypageTab className={param['*'] === 'mycalendarpage' ? 'active' : ''} content="내 캘린더 관리" />
         </Link>
       </TapWrapper>
 

@@ -1,5 +1,6 @@
-import styled from "styled-components";
-import atoms from "../atoms";
+import { useDispatch, useSelector } from 'react-redux';
+import styled from 'styled-components';
+import atoms from '../atoms';
 
 // <--- styled component --->
 const StyledCalendarProfile = styled(atoms.CalendarProfile)`
@@ -11,19 +12,19 @@ const StyledCalendarAddButton = styled(atoms.CalendarAddButton)`
 `;
 
 // <--- CalendarSideBar --->
-const CalendarSideBar = ({ className, onClick }) => {
+const CalendarSideBar = ({ className }) => {
   // 테스트 데이터
   const dummyData = {
     item: [
-      { id: 1, imgURL: "https://random.imagecdn.app/500/150", content: "캘린더1" },
-      { id: 2, imgURL: "https://random.imagecdn.app/500/150", content: "캘린더2" },
-      { id: 3, imgURL: "https://random.imagecdn.app/500/150", content: "캘린더3" },
-      { id: 4, imgURL: "https://random.imagecdn.app/500/150", content: "캘린더4" },
-      { id: 5, imgURL: "https://random.imagecdn.app/500/150", content: "캘린더5" },
-      { id: 6, imgURL: "https://random.imagecdn.app/500/150", content: "캘린더6" },
-      { id: 7, imgURL: "https://random.imagecdn.app/500/150", content: "캘린더7" },
-      { id: 8, imgURL: "https://random.imagecdn.app/500/150", content: "캘린더8" },
-      { id: 9, imgURL: "https://random.imagecdn.app/500/150", content: "캘린더9" },
+      { id: 1, imgURL: 'https://random.imagecdn.app/500/150', content: '캘린더1' },
+      { id: 2, imgURL: 'https://random.imagecdn.app/500/150', content: '캘린더2' },
+      { id: 3, imgURL: 'https://random.imagecdn.app/500/150', content: '캘린더3' },
+      { id: 4, imgURL: 'https://random.imagecdn.app/500/150', content: '캘린더4' },
+      { id: 5, imgURL: 'https://random.imagecdn.app/500/150', content: '캘린더5' },
+      { id: 6, imgURL: 'https://random.imagecdn.app/500/150', content: '캘린더6' },
+      { id: 7, imgURL: 'https://random.imagecdn.app/500/150', content: '캘린더7' },
+      { id: 8, imgURL: 'https://random.imagecdn.app/500/150', content: '캘린더8' },
+      { id: 9, imgURL: 'https://random.imagecdn.app/500/150', content: '캘린더9' },
     ],
   };
 
@@ -31,7 +32,7 @@ const CalendarSideBar = ({ className, onClick }) => {
     <atoms.CalendarSidebarContainer className={className}>
       {/* 캘린더 추가 버튼 */}
       <div>
-        <StyledCalendarAddButton onClick={() => onClick("CreateCalendarModal")} />
+        <StyledCalendarAddButton />
       </div>
 
       {/* 캘린더 영역 */}

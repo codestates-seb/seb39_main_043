@@ -1,4 +1,5 @@
-import styled from "styled-components";
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const LogoIconWrapper = styled.div`
   font-size: 14px;
@@ -9,17 +10,20 @@ const LogoIconWrapper = styled.div`
   .logo-icon {
     text-align: center;
     line-height: 1;
+    color: black;
   }
 `;
 
 const LogoIcon = ({ className }) => {
   return (
     <LogoIconWrapper className={className}>
-      <div className="logo-icon">
-        Social
-        <br />
-        Calendar
-      </div>
+      <Link to={'/mainpage'}>
+        <div className="logo-icon">
+          Social
+          <br />
+          Calendar
+        </div>
+      </Link>
     </LogoIconWrapper>
   );
 };

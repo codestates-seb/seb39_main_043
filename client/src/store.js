@@ -4,6 +4,7 @@ import joinSlice from './slices/joinSlice';
 import userSlice from './slices/userSlice';
 import myInfoSlice from './slices/myPage';
 import warningSlice from './slices/warningSlice';
+import modalSlice from './slices/modalSlice';
 
 const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
     join: joinSlice.reducer,
     myInfo: myInfoSlice.reducer,
     warning: warningSlice.reducer,
+    modal: modalSlice.reducer,
   },
 });
 

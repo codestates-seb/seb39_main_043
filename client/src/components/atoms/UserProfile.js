@@ -1,5 +1,7 @@
-import styled from "styled-components";
-import { CgProfile } from "react-icons/cg";
+import styled from 'styled-components';
+import { CgProfile } from 'react-icons/cg';
+import { useDispatch, useSelector } from 'react-redux';
+import modalSlice from '../../slices/modalSlice';
 
 const UserProfileWrapper = styled.div`
   width: 40px;
@@ -17,9 +19,14 @@ const UserProfileWrapper = styled.div`
   }
 `;
 
-const UserProfile = ({ imgUrl, className, onClick }) => {
+const UserProfile = ({ imgUrl, className }) => {
+  const modalState = useSelector((state) => state.modal);
+  const dispatch = useDispatch();
+  const openMypageSidebarModal = () => {
+    dispatch(modalSlice.actions.modal({ ...modalState, mypageSidebarModal: !modalState.mypageSidebarModal }));
+  };
   return (
-    <UserProfileWrapper className={className} onClick={onClick}>
+    <UserProfileWrapper className={className} onClick={openMypageSidebarModal}>
       {imgUrl ? <img className="profile-image" src={imgUrl} /> : <CgProfile size={40} />}
     </UserProfileWrapper>
   );
