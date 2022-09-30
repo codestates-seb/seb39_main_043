@@ -47,7 +47,7 @@ public class Calendar {
         }
     }
 
-    @OneToMany(mappedBy = "calendar")
+    @OneToMany(mappedBy = "calendar", cascade = CascadeType.ALL)
     private List<Schedule> schedules = new ArrayList<>();
 
     public void addSchedule(Schedule schedule) {

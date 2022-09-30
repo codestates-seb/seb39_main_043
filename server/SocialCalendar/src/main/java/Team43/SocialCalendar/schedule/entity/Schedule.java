@@ -45,7 +45,7 @@ public class Schedule {
     @Column
     private LocalDateTime modifiedAt = LocalDateTime.now();
 
-    @OneToMany(mappedBy = "schedule")
+    @OneToMany(mappedBy = "schedule", cascade = CascadeType.REMOVE)
     private List<ScheduleComment> scheduleComments = new ArrayList<>();
 
     public void addScheduleComment(ScheduleComment scheduleComment) {
