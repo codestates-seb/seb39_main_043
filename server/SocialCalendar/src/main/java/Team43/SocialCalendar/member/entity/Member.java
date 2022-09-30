@@ -45,7 +45,7 @@ public class Member {
     @Column
     private LocalDateTime modifiedAt = LocalDateTime.now();
 
-    @OneToMany(mappedBy = "memberId")
+    @OneToMany(mappedBy = "memberId", cascade = CascadeType.ALL)
     private List<CalendarAttendee> calendarAttendees = new ArrayList<>();
 
     public void addCalendarAttendee(CalendarAttendee calendarAttendee) {
@@ -55,14 +55,14 @@ public class Member {
         }
     }
 
-    @OneToMany(mappedBy = "memberId")
+    @OneToMany(mappedBy = "memberId", cascade = CascadeType.PERSIST)
     private List<Calendar> adminCalendars = new ArrayList<>();
 
-    @OneToMany(mappedBy = "memberId")
+    @OneToMany(mappedBy = "memberId", cascade = CascadeType.PERSIST)
     private List<CalendarAttendee> attendedCalendars = new ArrayList<>();
 
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade = CascadeType.PERSIST)
     private List<Diary> diaries = new ArrayList<>();
 
     public void addDiary(Diary diary) {
@@ -73,7 +73,7 @@ public class Member {
         }
     }
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade = CascadeType.PERSIST)
     private List<Schedule> schedules = new ArrayList<>();
 
     public void addSchedule(Schedule schedule) {
@@ -84,7 +84,7 @@ public class Member {
         }
     }
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade = CascadeType.PERSIST)
     private List<ScheduleComment> scheduleComments = new ArrayList<>();
 
 }
