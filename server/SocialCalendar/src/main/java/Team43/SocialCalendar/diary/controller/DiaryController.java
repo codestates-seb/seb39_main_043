@@ -1,5 +1,6 @@
 package Team43.SocialCalendar.diary.controller;
 
+import Team43.SocialCalendar.diary.dto.DiaryPatchDto;
 import Team43.SocialCalendar.diary.dto.DiaryPostDto;
 import Team43.SocialCalendar.diary.entity.Diary;
 import Team43.SocialCalendar.diary.mapper.DiaryMapper;
@@ -43,5 +44,21 @@ public class DiaryController {
         Diary diary = diaryService.findDiary(diaryId);
 
         return new ResponseEntity<>(mapper.diaryToDiaryResponseDto(diary), HttpStatus.OK);
+    }
+
+    @PatchMapping("/{diary-id}")
+    public ResponseEntity patchDiary(@PathVariable("diary-id") @Positive long diaryId,
+                                     @RequestBody DiaryPatchDto diaryPatchDto) {
+        diaryPatchDto.setDiaryId(diaryId);
+        Diary diary = diaryService.updateDiary(mapper.diaryPatchDtoToDiary(diaryPatchDto));
+
+        return new ResponseEntity<>(mapper.diaryToDiaryResponseDto(diary), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{diary-id}")
+    public ResponseEntity deleteDiary(@PathVariable("diary-id") long diaryId) {
+        diaryService.deleteDiary(diaryId);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

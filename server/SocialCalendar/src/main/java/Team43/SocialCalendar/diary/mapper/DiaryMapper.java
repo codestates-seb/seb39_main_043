@@ -1,5 +1,6 @@
 package Team43.SocialCalendar.diary.mapper;
 
+import Team43.SocialCalendar.diary.dto.DiaryPatchDto;
 import Team43.SocialCalendar.diary.dto.DiaryPostDto;
 import Team43.SocialCalendar.diary.dto.DiaryResponseDto;
 import Team43.SocialCalendar.diary.entity.Diary;
@@ -9,6 +10,20 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface DiaryMapper {
+
+    default Diary diaryPatchDtoToDiary(DiaryPatchDto diaryPatchDto) {
+        if (diaryPatchDto == null) {
+            return null;
+        } else {
+            Diary diary = new Diary();
+            diary.setDiaryId(diaryPatchDto.getDiaryId());
+            diary.setTitle(diaryPatchDto.getTitle());
+            diary.setContents(diaryPatchDto.getContents());
+            diary.setDiaryImg(diaryPatchDto.getDiaryImg());
+
+            return diary;
+        }
+    }
 
     default Diary diaryPostDtoToDiary(DiaryPostDto diaryPostDto) {
         Diary diary = new Diary();

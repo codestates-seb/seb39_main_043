@@ -19,10 +19,10 @@ public interface CalendarMapper {
 
     List<CalendarResponseDto> calendarsToCalendarResponseDtos(List<Calendar> calendars);
 
-    @Mapping(target = "member", ignore = true)
-    @Mapping(target = "memberId", ignore = true)
-    @Mapping(target = "createdAt", ignore = true)
-    @Mapping(target = "modifiedAt", ignore = true)
+//    @Mapping(target = "member", ignore = true)
+//    @Mapping(target = "memberId", ignore = true)
+//    @Mapping(target = "createdAt", ignore = true)
+//    @Mapping(target = "modifiedAt", ignore = true)
     default Calendar calendarPatchDtoToCalendar(CalendarPatchDto calendarPatchDto) {
         if (calendarPatchDto == null) {
             return null;

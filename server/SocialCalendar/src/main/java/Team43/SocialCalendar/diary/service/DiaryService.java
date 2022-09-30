@@ -8,6 +8,7 @@ import Team43.SocialCalendar.member.service.MemberService;
 import Team43.SocialCalendar.schedule.service.ScheduleService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -37,6 +38,23 @@ public class DiaryService {
 
     public Diary findDiary(long diaryId) {
         return findVerifiedDiary(diaryId);
+    }
+
+    public Diary updateDiary(Diary diary) {
+        Diary findDiary = findVerifiedDiary(diary.getDiaryId());
+
+        Optional.ofNullable(diary.getTitle()).ifPresent(title -> findDiary.setTitle(title));
+        Optional.ofNullable(diary.getContents()).ifPresent(contents -> findDiary.setContents(contents));
+        Optional.ofNullable(diary.getDiaryImg()).ifPresent(diaryImg -> findDiary.setDiaryImg(diaryImg));
+
+        findDiary.setModifiedAt(LocalDateTime.now());
+
+        return diaryRepository.save(findDiary);
+    }
+
+    public void deleteDiary(long diaryId) {
+        Diary diary = findVerifiedDiary(diaryId);
+        diaryRepository.delete(diary);
     }
 
     // 존재하는 스케줄인지 검증하는 메서드를 다이어리 서비스에서도 쓰기 위한 메서드
