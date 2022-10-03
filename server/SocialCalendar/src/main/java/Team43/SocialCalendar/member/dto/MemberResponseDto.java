@@ -16,8 +16,8 @@ public class MemberResponseDto {
     private long memberId;
     private String email;
     private String name;
-    private String password;
     private String memberImg;
+    private String statusMessage;
 
     private List<AdminCalendarResponseDto> adminCalendars;
 
