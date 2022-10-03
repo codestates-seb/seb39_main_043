@@ -10,7 +10,8 @@ public enum ExceptionCode {
     CALENDAR_NOT_FOUND(404, "Calendar not found"),
     CALENDAR_EXISTS(409, "Calendar exists"),
     CALENDAR_ATTENDEE_NOT_FOUND(404, "CalendarAttendee not found"),
-    DIARY_NOT_FOUND(404, "Diary not found");
+    DIARY_NOT_FOUND(404, "Diary not found"),
+    DIARY_COMMENT_NOT_FOUND(404, "DiaryComment not found");
 
     @Getter
     private int status;
