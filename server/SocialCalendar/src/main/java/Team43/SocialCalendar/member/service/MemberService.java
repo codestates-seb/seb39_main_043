@@ -4,7 +4,9 @@ import Team43.SocialCalendar.exception.BusinessLogicException;
 import Team43.SocialCalendar.exception.ExceptionCode;
 import Team43.SocialCalendar.member.entity.Member;
 import Team43.SocialCalendar.member.repository.MemberRepository;
+import Team43.SocialCalendar.auth.utils.CustomAuthorityUtils;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,14 +16,22 @@ import java.util.Optional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final CustomAuthorityUtils authorityUtils;
 
-    public MemberService(MemberRepository memberRepository) {
+    public MemberService(MemberRepository memberRepository, PasswordEncoder passwordEncoder, CustomAuthorityUtils authorityUtils) {
         this.memberRepository = memberRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.authorityUtils = authorityUtils;
     }
 
     public Member createMember(Member member) {
-        verifyExistsEmail(member.getEmail());
 
+        verifyExistsEmail(member.getEmail());
+        String encryptedPassword = passwordEncoder.encode(member.getPassword());
+        member.setPassword(encryptedPassword);
+        List<String> roles = authorityUtils.createRoles(member.getEmail());
+        member.setRoles(roles);
 
         return memberRepository.save(member);
     }
@@ -55,16 +65,9 @@ public class MemberService {
 
 
     private void verifyExistsEmail(String email) {
-        Member member = memberRepository.findByEmail(email);
-        if (member != null) {
-            throw new DuplicateKeyException("이미 사용중인 이메일입니다.");
-        }
-    }
-
-    public long emailToMemberId(String email) {
-        Member member = memberRepository.findByEmail(email);
-
-        return member.getMemberId();
+        Optional<Member> member = memberRepository.findByEmail(email);
+        if (member.isPresent())
+            throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
     }
 
     public Member findVerifiedMember(long memberId) {
