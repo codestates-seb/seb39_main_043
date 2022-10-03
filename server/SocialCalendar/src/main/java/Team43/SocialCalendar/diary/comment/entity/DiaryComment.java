@@ -1,6 +1,7 @@
 package Team43.SocialCalendar.diary.comment.entity;
 
 import Team43.SocialCalendar.diary.entity.Diary;
+import Team43.SocialCalendar.member.entity.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -45,6 +46,17 @@ public class DiaryComment {
         this.diary = diary;
         if (!diary.getDiaryComments().contains(this)) {
             diary.getDiaryComments().add(this);
+        }
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    public void setMember(Member member) {
+        this.member = member;
+        if (!member.getDiaryComments().contains(this)) {
+            member.getDiaryComments().add(this);
         }
     }
 }

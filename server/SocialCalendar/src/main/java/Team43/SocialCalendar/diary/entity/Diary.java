@@ -44,7 +44,7 @@ public class Diary {
         this.diaryImg = diaryImg;
     }
 
-    @OneToMany(mappedBy = "diary")
+    @OneToMany(mappedBy = "diary", cascade = CascadeType.REMOVE)
     private List<DiaryComment> diaryComments = new ArrayList<>();
 
     public void addDiaryComment(DiaryComment diaryComment) {

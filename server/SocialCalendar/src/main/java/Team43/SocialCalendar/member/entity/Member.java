@@ -2,6 +2,7 @@ package Team43.SocialCalendar.member.entity;
 
 import Team43.SocialCalendar.calendar.entity.Calendar;
 import Team43.SocialCalendar.calendar.entity.CalendarAttendee;
+import Team43.SocialCalendar.diary.comment.entity.DiaryComment;
 import Team43.SocialCalendar.diary.entity.Diary;
 import Team43.SocialCalendar.schedule.comment.entity.ScheduleComment;
 import Team43.SocialCalendar.schedule.entity.Schedule;
@@ -87,4 +88,6 @@ public class Member {
     @OneToMany(mappedBy = "member", cascade = CascadeType.PERSIST)
     private List<ScheduleComment> scheduleComments = new ArrayList<>();
 
+    @OneToMany(mappedBy = "member", cascade = CascadeType.PERSIST)
+    private List<DiaryComment> diaryComments = new ArrayList<>();
 }
