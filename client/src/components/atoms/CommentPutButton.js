@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const Container = styled.button`
   width: 60px;
@@ -16,8 +16,8 @@ const Container = styled.button`
   }
 `;
 
-const CommentPutButton = () => {
-  return <Container>등록</Container>;
+const CommentPutButton = ({ onClick }) => {
+  return <Container onClick={onClick}>등록</Container>;
 };
 
 export default CommentPutButton;
