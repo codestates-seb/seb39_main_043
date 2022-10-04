@@ -1,12 +1,13 @@
-import styled from 'styled-components';
-import atoms from '../components/atoms';
-import molecules from '../components/molecules';
-import { Link, Navigate } from 'react-router-dom';
-import { useQuery } from 'react-query';
-import axios from 'axios';
-import { useSelector, useDispatch } from 'react-redux';
-import warningSlice from '../slices/warningSlice';
-import userSlice from '../slices/userSlice';
+import styled from "styled-components";
+import atoms from "../components/atoms";
+import molecules from "../components/molecules";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useQuery } from "react-query";
+import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import warningSlice from "../slices/warningSlice";
+import userSlice from "../slices/userSlice";
+import calendarSlice from "../slices/calendarSlice";
 
 const LoginPageWrapper = styled.div`
   display: flex;
@@ -47,10 +48,12 @@ const SocialLoginButtonGoogle = styled(atoms.SocialLoginButtonGoogle)`
 
 const LoginPage = () => {
   const user = useSelector((state) => state.user);
+  const calendar = useSelector((state) => state.calendar);
   const loginWarning = useSelector((state) => state.warning.loginWarning);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const { data, isLoading, isError, error } = useQuery('login', async () => {
+  const { data, isLoading, isError, error } = useQuery("login", async () => {
     const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/members`);
     return data;
   });
@@ -63,15 +66,24 @@ const LoginPage = () => {
       </>
     );
   if (!data) return <div></div>;
-  if (data) console.log('data : ', data);
+  if (data) console.log("data : ", data);
 
   const isUser = (email, password, userData) => {
     let result = userData.filter((el) => el.email === email && el.password === password);
-    console.log('result', result);
+    console.log("result", result);
+
     if (result.length === 0) {
-      dispatch(warningSlice.actions.log({ loginWarning: '' }));
+      dispatch(warningSlice.actions.log({ loginWarning: "" }));
     } else {
       dispatch(userSlice.actions.user({ name: result[0].name, id: result[0].memberId, email: result[0].email, password: result[0].password }));
+      // (memo) <---- 첫 로그인 시 캘린더의 id와 title을 전역 상태로 저장
+      let initialCalendar = result[0].adminCalendars.concat(result[0].attendedCalendars)[0];
+      if (initialCalendar === undefined) {
+        dispatch(calendarSlice.actions.setCalendar({ id: "", title: "" }));
+      } else {
+        dispatch(calendarSlice.actions.setCalendar({ id: initialCalendar.calendarId, title: initialCalendar.title }));
+      }
+      navigate("/mainpage"); // (memo)로그인 성공 시 메인페이지로 이동
     }
   };
 
@@ -80,14 +92,13 @@ const LoginPage = () => {
       <LogoIcon />
       <LoginForm />
       <WarningBox className={loginWarning} value={`아이디 또는 비밀번호를 잘못 입력했습니다.\n입력한 내용을 다시 확인해주세요.`} />
-      <LoginButton color={'#007FDB'} onClick={() => isUser(user.email, user.password, data)} />
+      <LoginButton color={"#007FDB"} onClick={() => isUser(user.email, user.password, data)} />
       <Line />
       <SocialLoginButtonGoogle />
       <div className="join-link">
         <span>아직 회원이 아니신가요? </span>
         <Link to="/joinpage">회원가입 하기</Link>
       </div>
-      {user.id && <Navigate to="/mainpage" replace={true} />}
     </LoginPageWrapper>
   );
 };
