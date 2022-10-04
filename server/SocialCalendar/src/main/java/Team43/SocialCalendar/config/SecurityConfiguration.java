@@ -1,22 +1,23 @@
 package Team43.SocialCalendar.config;
 
 import Team43.SocialCalendar.auth.filter.JwtAuthenticationFilter;
+import Team43.SocialCalendar.auth.filter.JwtVerificationFilter;
+import Team43.SocialCalendar.auth.handler.MemberAccessDeniedHandler;
+import Team43.SocialCalendar.auth.handler.MemberAuthenticationEntryPoint;
 import Team43.SocialCalendar.auth.handler.MemberAuthenticationFailureHandler;
 import Team43.SocialCalendar.auth.handler.MemberAuthenticationSuccessHandler;
 import Team43.SocialCalendar.auth.jwt.JwtTokenizer;
+import Team43.SocialCalendar.auth.utils.CustomAuthorityUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
-import java.util.Arrays;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -24,9 +25,11 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class SecurityConfiguration {
 
     private final JwtTokenizer jwtTokenizer;
+    private final CustomAuthorityUtils authorityUtils;
 
-    public SecurityConfiguration(JwtTokenizer jwtTokenizer) {
+    public SecurityConfiguration(JwtTokenizer jwtTokenizer, CustomAuthorityUtils authorityUtils) {
         this.jwtTokenizer = jwtTokenizer;
+        this.authorityUtils = authorityUtils;
     }
 
     @Bean
@@ -36,11 +39,23 @@ public class SecurityConfiguration {
                 .and()
                 .csrf().disable()
                 .cors(withDefaults())
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
                 .formLogin().disable()
                 .httpBasic().disable()
+                .exceptionHandling()
+                .authenticationEntryPoint(new MemberAuthenticationEntryPoint())
+                .accessDeniedHandler(new MemberAccessDeniedHandler())
+                .and()
                 .apply(new CustomFilterConfigurer())
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
+                        .antMatchers(HttpMethod.POST, "/members").permitAll()
+                        .antMatchers(HttpMethod.PATCH,"/members/**").hasRole("USER")
+                        .antMatchers(HttpMethod.GET,"/members").hasRole("USER")
+                        .antMatchers(HttpMethod.GET,"/members/**").hasRole("USER")
+                        .antMatchers(HttpMethod.DELETE,"/members/**").hasRole("USER")
+                        .antMatchers("/calendars/**", "/diaries/**", "/schedules/**", "/diarycomments", "/schedulecomments").hasRole("USER")
                         .anyRequest().permitAll()
                 );
         return http.build();
@@ -61,7 +76,10 @@ public class SecurityConfiguration {
             jwtAuthenticationFilter.setFilterProcessesUrl("/login");
             jwtAuthenticationFilter.setAuthenticationSuccessHandler(new MemberAuthenticationSuccessHandler());
             jwtAuthenticationFilter.setAuthenticationFailureHandler(new MemberAuthenticationFailureHandler());
-            builder.addFilter(jwtAuthenticationFilter);
+
+            JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, authorityUtils);
+            builder.addFilter(jwtAuthenticationFilter)
+                    .addFilterAfter(jwtVerificationFilter, JwtAuthenticationFilter.class);
         }
     }
 }

@@ -1,6 +1,5 @@
 package Team43.SocialCalendar.auth.handler;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
