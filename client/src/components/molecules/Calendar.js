@@ -2,7 +2,8 @@ import styled from 'styled-components';
 import atoms from '../atoms';
 import makeViewDays from './makeViewDays';
 import { useDispatch, useSelector } from 'react-redux';
-
+import { useQuery } from 'react-query';
+import axios from 'axios';
 const CalendarWrapper = styled.div`
   .day-of-week {
     display: flex;
@@ -18,23 +19,40 @@ const CalendarWrapper = styled.div`
 const dayOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
 const weeks = [1, 2, 3, 4, 5];
 // 캘린더의 전체 일정에서 해당 년, 월 에 해당하는 일정만 필터링 => event 배열에 저장
-const event = [
-  { year: 2022, month: 8, day: 31, content: 'test0' },
-  { year: 2022, month: 9, day: 13, content: 'test1' },
-  { year: 2022, month: 9, day: 3, content: 'test2' },
-  { year: 2022, month: 9, day: 7, content: 'test3' },
-  { year: 2022, month: 9, day: 18, content: 'test4' },
-  { year: 2022, month: 9, day: 21, content: 'test5' },
-  { year: 2022, month: 9, day: 30, content: 'test6' },
-  { year: 2022, month: 10, day: 1, content: 'test7' },
-];
+
+const getSchedules = async () => {
+  const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/schedules/calendars/34`);
+  return data;
+};
 
 const Calendar = ({ className, children }) => {
   const year = useSelector((state) => state.date.year);
   const month = useSelector((state) => state.date.month);
   const days = makeViewDays(`${year}-${month}-01`);
-  const modalState = useSelector((state) => state.modal);
-  const dispatch = useDispatch();
+
+  const schedules = useQuery('schedules', getSchedules);
+  if (schedules.isLoading) return <h3>Loading...</h3>;
+  if (schedules.isError)
+    return (
+      <>
+        <h3>calendar getSchedule error</h3>
+        <div>{schedules.error.toString()}</div>
+      </>
+    );
+
+  let event = schedules.data.map((el) => {
+    let schedule = el.scheduleAt.split(' ~ '); // 2022.10.03 10:00 ~ 2022.10.03 12:00
+    let startAt = schedule[0] // [2022, 10, 3]
+      .split(' ')[0]
+      .split('.')
+      .map((el) => Number(el));
+    let endAt = schedule[1] // [2022, 10, 3]
+      .split(' ')[0]
+      .split('.')
+      .map((el) => Number(el));
+    let result = { ...el, year: startAt[0], month: startAt[1], day: startAt[2] };
+    return result;
+  });
 
   return (
     <CalendarWrapper className={className}>
@@ -51,7 +69,7 @@ const Calendar = ({ className, children }) => {
             return (
               <atoms.ScheduleContainer date={el.day}>
                 {tmpEvent.map((el) => (
-                  <atoms.Schedule schedule={el.content} />
+                  <atoms.Schedule schedule={el.title} scheduleId={el.scheduleId} />
                 ))}
               </atoms.ScheduleContainer>
             );
