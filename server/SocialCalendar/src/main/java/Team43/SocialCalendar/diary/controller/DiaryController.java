@@ -15,7 +15,7 @@ import javax.validation.constraints.Positive;
 
 @RestController
 @RequestMapping("/diaries")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+//@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class DiaryController {
     private final DiaryService diaryService;
     private final DiaryMapper mapper;

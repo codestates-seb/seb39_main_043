@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/diarycomments")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+//@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class DiaryCommentController {
 
     private final DiaryCommentService diaryCommentService;
