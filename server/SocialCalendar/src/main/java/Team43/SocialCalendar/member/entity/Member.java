@@ -59,14 +59,14 @@ public class Member {
         }
     }
 
-    @OneToMany(mappedBy = "memberId", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "memberId", cascade = CascadeType.ALL)
     private List<Calendar> adminCalendars = new ArrayList<>();
 
-    @OneToMany(mappedBy = "memberId", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "memberId", cascade = CascadeType.ALL)
     private List<CalendarAttendee> attendedCalendars = new ArrayList<>();
 
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Diary> diaries = new ArrayList<>();
 
     public void addDiary(Diary diary) {
@@ -77,7 +77,7 @@ public class Member {
         }
     }
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Schedule> schedules = new ArrayList<>();
 
     public void addSchedule(Schedule schedule) {
@@ -88,9 +88,9 @@ public class Member {
         }
     }
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<ScheduleComment> scheduleComments = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<DiaryComment> diaryComments = new ArrayList<>();
 }
