@@ -55,6 +55,7 @@ public class MemberMapper {
             memberResponseDto.setEmail(member.getEmail());
             memberResponseDto.setName(member.getName());
             memberResponseDto.setMemberImg(member.getMemberImg());
+            memberResponseDto.setStatusMessage(member.getStatusMessage());
 
             memberResponseDto.setAdminCalendars(adminCalendarsToAdminCalendarResponseDtos(adminCalendars));
             memberResponseDto.setAttendedCalendars(attendedCalendarsToAttendedCalendarResponseDtos(attendedCalendars));
