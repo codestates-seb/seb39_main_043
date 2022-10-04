@@ -50,20 +50,20 @@ const LoginPage = () => {
   const loginWarning = useSelector((state) => state.warning.loginWarning);
   const dispatch = useDispatch();
 
-  const { data, isLoading, isError, error } = useQuery('login', async () => {
+  const members = useQuery('members', async () => {
     const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/members`);
     return data;
   });
-  if (isLoading) return <h1>Loading...</h1>;
-  if (isError)
+  if (members.isLoading) return <h1>Loading...</h1>;
+  if (members.isError)
     return (
       <>
         <h1>Something is wrong</h1>
-        <p>{error.toString()}</p>
+        <p>{members.error.toString()}</p>
       </>
     );
-  if (!data) return <div></div>;
-  if (data) console.log('data : ', data);
+  if (!members.data) return <div></div>;
+  if (members.data) console.log('data : ', members.data);
 
   const isUser = (email, password, userData) => {
     let result = userData.filter((el) => el.email === email && el.password === password);
@@ -71,7 +71,17 @@ const LoginPage = () => {
     if (result.length === 0) {
       dispatch(warningSlice.actions.log({ loginWarning: '' }));
     } else {
-      dispatch(userSlice.actions.user({ name: result[0].name, id: result[0].memberId, email: result[0].email, password: result[0].password }));
+      dispatch(
+        userSlice.actions.user({
+          name: result[0].name,
+          id: result[0].memberId,
+          email: result[0].email,
+          password: result[0].password,
+          adminCalendars: result[0].adminCalendars,
+          attendedCalendars: result[0].attendedCalendars,
+        })
+      );
+      window.localStorage.setItem('user', JSON.stringify(result[0]));
     }
   };
 
@@ -80,7 +90,7 @@ const LoginPage = () => {
       <LogoIcon />
       <LoginForm />
       <WarningBox className={loginWarning} value={`아이디 또는 비밀번호를 잘못 입력했습니다.\n입력한 내용을 다시 확인해주세요.`} />
-      <LoginButton color={'#007FDB'} onClick={() => isUser(user.email, user.password, data)} />
+      <LoginButton color={'#007FDB'} onClick={() => isUser(user.email, user.password, members.data)} />
       <Line />
       <SocialLoginButtonGoogle />
       <div className="join-link">

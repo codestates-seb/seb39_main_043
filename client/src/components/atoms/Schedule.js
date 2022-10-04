@@ -1,4 +1,7 @@
-import styled from "styled-components";
+import { useDispatch, useSelector } from 'react-redux';
+import styled from 'styled-components';
+import modalSlice from '../../slices/modalSlice';
+import selectedSlice from '../../slices/selectedSlice';
 
 const ScheduleWrapper = styled.div`
   width: 179px;
@@ -15,9 +18,16 @@ const ScheduleWrapper = styled.div`
   }
 `;
 
-const Schedule = ({ schedule, onClick }) => {
+const Schedule = ({ schedule, scheduleId }) => {
+  const modalState = useSelector((state) => state.modal);
+  const selectedState = useSelector((state) => state.selected);
+  const dispatch = useDispatch();
+  const openEventModal = () => {
+    dispatch(modalSlice.actions.modal({ ...modalState, eventModal: true }));
+    dispatch(selectedSlice.actions.selected({ ...selectedState, scheduleId: scheduleId }));
+  };
   return (
-    <ScheduleWrapper onClick={onClick}>
+    <ScheduleWrapper onClick={openEventModal}>
       <span className="schedule">{schedule}</span>
     </ScheduleWrapper>
   );

@@ -1,9 +1,10 @@
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import styled from "styled-components";
-import atoms from "../components/atoms";
-import molecules from "../components/molecules";
-import myInfoSlice from "../slices/myPage";
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import styled from 'styled-components';
+import atoms from '../components/atoms';
+import molecules from '../components/molecules';
+import modalSlice from '../slices/modalSlice';
+import myInfoSlice from '../slices/myPage';
 
 // 내 캘린더 관리 페이지 (styled component)
 const MyCalendarWrapper = styled.div`
@@ -106,6 +107,7 @@ const UpdateInput = styled.input`
 // <--------- MyCalendarPage --------->
 const MyCalendarPage = () => {
   const myInfo = useSelector((state) => state.myInfo);
+  const modalState = useSelector((state) => state.modal);
   const dispatch = useDispatch();
 
   const [isTitle, setIsTitle] = useState(false);
@@ -114,7 +116,7 @@ const MyCalendarPage = () => {
   // 모달 open 함수
   const openModal = (target) => {
     switch (target) {
-      case "InviteAttendeeModal":
+      case 'InviteAttendeeModal':
         setIsInviteAttendeeModal(true);
         break;
 
@@ -125,13 +127,13 @@ const MyCalendarPage = () => {
   // 모달 close 함수
   const closeModal = (e, target) => {
     switch (target) {
-      case "InviteAttendeeModal":
-        if (e.type === "click") {
+      case 'InviteAttendeeModal':
+        if (e.type === 'click') {
           setIsInviteAttendeeModal(false);
           return;
         }
 
-        if (e.type === "keydown" && e.key === "Escape") {
+        if (e.type === 'keydown' && e.key === 'Escape') {
           setIsInviteAttendeeModal(false);
           return;
         }
@@ -144,7 +146,7 @@ const MyCalendarPage = () => {
   // 마이페이지 정보 수정 전
   const beforeUpdate = (target) => {
     switch (target) {
-      case "ProfileName":
+      case 'ProfileName':
         setIsTitle(true);
         break;
 
@@ -155,8 +157,8 @@ const MyCalendarPage = () => {
   // 마이페이지 정보 수정 후
   const afterUpdate = (e, target) => {
     switch (target) {
-      case "ProfileName":
-        if (e.key === "Enter") {
+      case 'ProfileName':
+        if (e.key === 'Enter') {
           dispatch(myInfoSlice.actions.changeProfileTitle({ title: e.target.value }));
           setIsTitle(false);
         }
@@ -177,7 +179,7 @@ const MyCalendarPage = () => {
 
   return (
     <MyCalendarWrapper>
-      {isInviteAttendeeModal && <InviteAttendeeModal onClick={(e) => closeModal(e, "InviteAttendeeModal")} />}
+      {modalState.inviteAttendeeModal && <InviteAttendeeModal />}
       <MypageItem content="캘린더 정보" />
       <UpdateProfile imgUrl={myInfo.calendarImg} onChange={handleChange} />
 
@@ -185,18 +187,18 @@ const MyCalendarPage = () => {
         {isTitle || (
           <>
             <atoms.ProfileName className="profile-name" content={myInfo.title} />
-            <atoms.UpdateIcon onClick={() => beforeUpdate("ProfileName")} />
+            <atoms.UpdateIcon onClick={() => beforeUpdate('ProfileName')} />
           </>
         )}
 
-        {isTitle && <UpdateInput defaultValue={myInfo.title} onKeyDown={(e) => afterUpdate(e, "ProfileName")} spellcheck="false" />}
+        {isTitle && <UpdateInput defaultValue={myInfo.title} onKeyDown={(e) => afterUpdate(e, 'ProfileName')} spellcheck="false" />}
       </ProfileWrapper>
 
       <Line />
 
       <TitleWrapper>
         <MypageItem className="title" content="초대된 사람들" />
-        <atoms.PlusCircleButton color={"#DB9000"} onClick={() => openModal("InviteAttendeeModal")} />
+        <atoms.PlusCircleButton color={'#DB9000'} onClick={() => dispatch(modalSlice.actions.modal({ ...modalState, inviteAttendeeModal: true }))} />
       </TitleWrapper>
 
       <AttendeeWrapper>

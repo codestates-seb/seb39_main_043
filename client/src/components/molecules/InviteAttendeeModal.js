@@ -1,6 +1,8 @@
-import { useState } from "react";
-import styled from "styled-components";
-import atoms from "../atoms";
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import styled from 'styled-components';
+import modalSlice from '../../slices/modalSlice';
+import atoms from '../atoms';
 
 // <--- styled component --->
 const InviteAttendeeModalWrapper = styled.div`
@@ -17,9 +19,11 @@ const AttendeeWrapper = styled.div`
 `;
 
 // <--- inviteAttendeeModal --->
-const InviteAttendeeModal = ({ className, onClick }) => {
-  const [inputValue, setInputValue] = useState(""); // 초대자 이메일
+const InviteAttendeeModal = ({ className }) => {
+  const [inputValue, setInputValue] = useState(''); // 초대자 이메일
   const [attendees, setAttendess] = useState([]); // 서버에 보낼 초대자의 이메일 명단
+  const modalState = useSelector((state) => state.modal);
+  const dispatch = useDispatch();
 
   const handleChange = (event) => {
     setInputValue(event.target.value);
@@ -27,9 +31,9 @@ const InviteAttendeeModal = ({ className, onClick }) => {
 
   // 초대자 명단 추가 함수
   const addAttendee = (event) => {
-    if (event.key === "Enter") {
+    if (event.key === 'Enter') {
       setAttendess((prev) => [...prev, inputValue]);
-      setInputValue("");
+      setInputValue('');
     }
   };
 
@@ -47,12 +51,12 @@ const InviteAttendeeModal = ({ className, onClick }) => {
     <InviteAttendeeModalWrapper className={className}>
       {/*<--- 네비게이션 바 ---> */}
       <atoms.ModalNavigationBar>
-        <atoms.CloseIcon onClick={onClick} />
+        <atoms.CloseIcon onClick={() => dispatch(modalSlice.actions.modal({ ...modalState, inviteAttendeeModal: false }))} />
       </atoms.ModalNavigationBar>
 
       {/*<--- 컨테이너 --->*/}
       <atoms.ModalContentContainer>
-        <atoms.InputTitle placeholder={"초대할 사람의 이메일을 입력하세요"} value={inputValue} onChange={handleChange} onKeyDown={addAttendee} />
+        <atoms.InputTitle placeholder={'초대할 사람의 이메일을 입력하세요'} value={inputValue} onChange={handleChange} onKeyDown={addAttendee} />
 
         {/* 초대할 사람의 이메일 입력 시 하단에 나타나는 영역 */}
         {attendees.map((value, index) => {
@@ -65,7 +69,7 @@ const InviteAttendeeModal = ({ className, onClick }) => {
         })}
 
         {/* 초대 버튼 */}
-        <atoms.ModalButton color={"#007FDB"} value="초대" onClick={onClick} />
+        <atoms.ModalButton color={'#007FDB'} value="초대" onClick={() => dispatch(modalSlice.actions.modal({ ...modalState, inviteAttendeeModal: false }))} />
       </atoms.ModalContentContainer>
     </InviteAttendeeModalWrapper>
   );
