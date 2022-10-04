@@ -7,6 +7,7 @@ import MyPage from './pages/MyPage';
 import MyInfoPage from './pages/MyInfoPage';
 import MyCalendarPage from './pages/MyCalendarPage';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 
 const queryClient = new QueryClient();
 
@@ -38,6 +39,7 @@ function App() {
           <Route path="mycalendarpage" element={<MyCalendarPage />} /> */}
         </Route>
       </Routes>
+      <ReactQueryDevtools />
     </QueryClientProvider>
   );
 }

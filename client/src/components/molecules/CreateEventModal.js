@@ -1,4 +1,6 @@
+import axios from 'axios';
 import { useState } from 'react';
+import { useMutation, useQueryClient } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import modalSlice from '../../slices/modalSlice';
@@ -22,22 +24,40 @@ const ItemWrapper = styled.div`
   }
 `;
 
+const postSchedule = async (data, memberId, calendarId) => {
+  await axios.post(`${process.env.REACT_APP_API_URL}/schedules`, {
+    ...data,
+    memberId,
+    calendarId,
+  });
+};
+
 // <--- CreateEventModal --->
-const CreateEventModal = ({ className, onKeyDown, submitInfo }) => {
+const CreateEventModal = ({ className }) => {
   let obj = {};
   const modalState = useSelector((state) => state.modal);
   const dispatch = useDispatch();
+  const localUser = JSON.parse(window.localStorage.getItem('user'));
+  // const selectedState = useSelector((state) => state.selected);
+  const queryClient = useQueryClient();
+  const scheduleMutation = useMutation(() => postSchedule(obj, 2, 34), {
+    // 하드코딩 memberId, calendarId 수정 필요
+    onSuccess: () => {
+      queryClient.invalidateQueries('schedules');
+      dispatch(modalSlice.actions.modal({ ...modalState, createEventModal: false }));
+    },
+  });
 
   const handleTitleChange = (event) => {
     obj.title = event.target.value;
   };
 
   const handleDateChange = (event) => {
-    obj.date = event.target.value;
+    obj.scheduleAt = event.target.value;
   };
 
   const handleAttendeeChange = (event) => {
-    obj.attendee = event.target.value;
+    obj.attendees = event.target.value;
   };
 
   const handleLocationChange = (event) => {
@@ -45,7 +65,7 @@ const CreateEventModal = ({ className, onKeyDown, submitInfo }) => {
   };
 
   const handleExplainChange = (event) => {
-    obj.explain = event.target.value;
+    obj.contents = event.target.value;
   };
 
   // 리덕스 툴킷 사용
@@ -59,7 +79,7 @@ const CreateEventModal = ({ className, onKeyDown, submitInfo }) => {
   };
 
   return (
-    <CreateEventModalWrapper className={className} onKeyDown={onKeyDown}>
+    <CreateEventModalWrapper className={className}>
       {/* <--- 네비게이션바 --->*/}
       <atoms.ModalNavigationBar>
         <atoms.CloseIcon onClick={() => dispatch(modalSlice.actions.modal({ ...modalState, createEventModal: false }))} />
@@ -83,7 +103,7 @@ const CreateEventModal = ({ className, onKeyDown, submitInfo }) => {
           );
         })}
 
-        <atoms.ModalButton color={'#007FDB'} value={'저장'} onClick={() => submitInfo(obj)} />
+        <atoms.ModalButton color={'#007FDB'} value={'저장'} onClick={scheduleMutation.mutate} />
       </atoms.ModalContentContainer>
     </CreateEventModalWrapper>
   );

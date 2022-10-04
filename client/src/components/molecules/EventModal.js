@@ -1,4 +1,6 @@
+import axios from 'axios';
 import { useState } from 'react';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import modalSlice from '../../slices/modalSlice';
@@ -28,34 +30,65 @@ const IconWrapper = styled.div`
   }
 `;
 
+const getSchedule = async (scheduleId) => {
+  const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/schedules/${scheduleId}`);
+  return data;
+};
+
+const updateSchedule = async (scheduleId, updateObj) => {
+  await axios.patch(`${process.env.REACT_APP_API_URL}/schedules/${scheduleId}`, updateObj);
+};
+
+const deleteSchedule = async (scheduleId) => {
+  await axios.delete(`${process.env.REACT_APP_API_URL}/schedules/${scheduleId}`);
+};
+
 // <--- Event Modal --->
 const EventModal = ({ className }) => {
+  const scheduleId = useSelector((state) => state.selected.scheduleId);
+  const [event, setEvent] = useState('afterDiary'); // event 상태에 따라 일정 보기(회고 작성), 일정 수정, 회고 보기 모드로 변경
   const modalState = useSelector((state) => state.modal);
   const dispatch = useDispatch();
-  // 테스트 데이터
-  const todo = {
-    time: '2022.09.13 ~ 2022.09.14',
-    attendee: 'aa@test.com',
-    location: '강원도',
-    explain: '옷 신발 가방',
-  };
-
-  const [event, setEvent] = useState('afterDiary'); // event 상태에 따라 일정 보기(회고 작성), 일정 수정, 회고 보기 모드로 변경
+  const queryClient = useQueryClient();
+  const updateScheduleMutation = useMutation(() => updateSchedule(scheduleId, updateObj), {
+    onSuccess: () => {
+      queryClient.invalidateQueries('schedules');
+      queryClient.invalidateQueries('schedule');
+    },
+  });
+  const deleteScheduleMutation = useMutation(() => deleteSchedule(scheduleId), {
+    onSuccess: () => {
+      queryClient.invalidateQueries('schedules');
+      queryClient.invalidateQueries('schedule');
+      dispatch(modalSlice.actions.modal({ ...modalState, eventModal: false }));
+    },
+  });
+  const schedule = useQuery('schedule', () => getSchedule(scheduleId));
+  if (schedule.isLoading) return <h3>Loading...</h3>;
+  if (schedule.isError)
+    return (
+      <>
+        <h3>event modal schedule error</h3>
+        <div>{schedule.error.toString()}</div>
+      </>
+    );
+  // update 는 업데이트할 데이터
+  const updateObj = { ...schedule.data };
 
   const handleDateChange = (event) => {
-    todo.time = event.target.value;
+    updateObj.scheduleAt = event.target.value;
   };
 
   const handleAttendeeChange = (event) => {
-    todo.attendee = event.target.value;
+    updateObj.attendees = event.target.value;
   };
 
   const handleLocationChange = (event) => {
-    todo.location = event.target.value;
+    updateObj.location = event.target.value;
   };
 
   const handleExplainChange = (event) => {
-    todo.explain = event.target.value;
+    updateObj.contents = event.target.value;
   };
   // 리덕스 툴킷 사용 -->
 
@@ -67,11 +100,18 @@ const EventModal = ({ className }) => {
   // 일정 조회 모드
   const viewMode = () => {
     setEvent('beforeDiary');
+    updateScheduleMutation.mutate();
   };
 
   // 일정 삭제
-  const deleteSchedule = () => {
-    alert('일정을 삭제하겠습니까?');
+  const deleteScheduleHandler = () => {
+    let result = window.confirm('일정을 삭제하시겠습니까?');
+    if (result) {
+      deleteScheduleMutation.mutate();
+      alert('일정이 삭제되었습니다');
+    } else {
+      alert('일정 삭제가 취소되었습니다');
+    }
   };
 
   return (
@@ -81,7 +121,7 @@ const EventModal = ({ className }) => {
         <IconWrapper>
           <atoms.CommentIcon onClick={() => dispatch(modalSlice.actions.modal({ ...modalState, eventCommentModal: true }))} />
           <atoms.UpdateIcon onClick={updateMode} />
-          <atoms.DeleteIcon onClick={deleteSchedule} />
+          <atoms.DeleteIcon onClick={deleteScheduleHandler} />
           <atoms.CloseIcon onClick={() => dispatch(modalSlice.actions.modal({ ...modalState, eventModal: false, eventCommentModal: false }))} />
         </IconWrapper>
       </atoms.ModalNavigationBar>
@@ -97,8 +137,8 @@ const EventModal = ({ className }) => {
             <atoms.ClockIcon />
             <atoms.ScheduleDetailTitle value={'일시'} />
           </div>
-          {event === 'updateSchedule' && <atoms.ScheduleDetailInput borderColor={'#b5b5b5'} defaultValue={todo.time} onChange={handleDateChange} />}
-          {event !== 'updateSchedule' && <atoms.ScheduleDetailContent content={todo.time} />}
+          {event === 'updateSchedule' && <atoms.ScheduleDetailInput borderColor={'#b5b5b5'} defaultValue={schedule.data.scheduleAt} onChange={handleDateChange} />}
+          {event !== 'updateSchedule' && <atoms.ScheduleDetailContent content={schedule.data.scheduleAt} />}
         </ItemWrapper>
 
         <ItemWrapper>
@@ -106,8 +146,8 @@ const EventModal = ({ className }) => {
             <atoms.PeopleIcon />
             <atoms.ScheduleDetailTitle value={'참석자'} />
           </div>
-          {event === 'updateSchedule' && <atoms.ScheduleDetailInput borderColor={'#b5b5b5'} defaultValue={todo.attendee} onChange={handleAttendeeChange} />}
-          {event !== 'updateSchedule' && <atoms.ScheduleDetailContent content={todo.attendee} />}
+          {event === 'updateSchedule' && <atoms.ScheduleDetailInput borderColor={'#b5b5b5'} defaultValue={schedule.data.attendees} onChange={handleAttendeeChange} />}
+          {event !== 'updateSchedule' && <atoms.ScheduleDetailContent content={schedule.data.attendees} />}
         </ItemWrapper>
 
         <ItemWrapper>
@@ -115,8 +155,8 @@ const EventModal = ({ className }) => {
             <atoms.PlaceIcon />
             <atoms.ScheduleDetailTitle value={'위치'} />
           </div>
-          {event === 'updateSchedule' && <atoms.ScheduleDetailInput borderColor={'#b5b5b5'} defaultValue={todo.location} onChange={handleLocationChange} />}
-          {event !== 'updateSchedule' && <atoms.ScheduleDetailContent content={todo.location} />}
+          {event === 'updateSchedule' && <atoms.ScheduleDetailInput borderColor={'#b5b5b5'} defaultValue={schedule.data.location} onChange={handleLocationChange} />}
+          {event !== 'updateSchedule' && <atoms.ScheduleDetailContent content={schedule.data.location} />}
         </ItemWrapper>
 
         <ItemWrapper>
@@ -124,8 +164,8 @@ const EventModal = ({ className }) => {
             <atoms.NoteIcon />
             <atoms.ScheduleDetailTitle value={'설명'} />
           </div>
-          {event === 'updateSchedule' && <atoms.ScheduleDetailInput borderColor={'#b5b5b5'} defaultValue={todo.explain} onChange={handleExplainChange} />}
-          {event !== 'updateSchedule' && <atoms.ScheduleDetailContent content={todo.explain} />}
+          {event === 'updateSchedule' && <atoms.ScheduleDetailInput borderColor={'#b5b5b5'} defaultValue={schedule.data.contents} onChange={handleExplainChange} />}
+          {event !== 'updateSchedule' && <atoms.ScheduleDetailContent content={schedule.data.contents} />}
         </ItemWrapper>
 
         {event === 'beforeDiary' && <atoms.ModalButton color={'#007FDB'} value={'회고 작성'} />}

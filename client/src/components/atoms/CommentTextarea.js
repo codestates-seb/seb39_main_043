@@ -1,4 +1,6 @@
-import styled from "styled-components";
+import { useDispatch, useSelector } from 'react-redux';
+import styled from 'styled-components';
+import inputSlice from '../../slices/inputSlice';
 
 const Container = styled.textarea`
   box-sizing: border-box;
@@ -10,7 +12,9 @@ const Container = styled.textarea`
 `;
 
 const CommentTextarea = () => {
-  return <Container />;
+  const inputState = useSelector((state) => state.input);
+  const dispatch = useDispatch();
+  return <Container onChange={(e) => dispatch(inputSlice.actions.input({ ...inputState, comment: e.target.value }))} />;
 };
 
 export default CommentTextarea;
