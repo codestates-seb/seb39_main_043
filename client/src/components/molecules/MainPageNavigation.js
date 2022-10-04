@@ -27,7 +27,7 @@ const UserProfile = styled(atoms.UserProfile)`
   margin-left: 14px;
 `;
 
-const MainPageNavigation = ({ onClick }) => {
+const MainPageNavigation = () => {
   const year = useSelector((state) => state.date.year);
   const month = useSelector((state) => state.date.month);
   const dispatch = useDispatch();
