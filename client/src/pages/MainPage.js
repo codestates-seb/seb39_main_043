@@ -74,105 +74,9 @@ const EventCommentModal = styled(molecules.EventCommentModal)`
 
 //<------------------ COMPONENT ------------------>
 const MainPage = () => {
-  // const [isCreateEventModal, setIsCreateEventModal] = useState(false); // + 버튼 클릭 시 일정 작성 모달
-  // const [isCalendarSidebarModal, setIsCalendarSidebarModal] = useState(false); // 캘린더 사이드바 모달
-  // const [isMypageSidebarModal, setIsMypageSidebarModal] = useState(false); // 마이페이지 사이드바 모달
-  // const [isCreateCalendarModal, setIsCreateCalendarModal] = useState(false); // 캘린더 생성 모달
-  // const [isEventModal, setIsEventModal] = useState(false); // 일정 조회 모달
-  // const [isEventCommentModal, setIsEventCommentModal] = useState(false); // 댓글창 모달
   const modalState = useSelector((state) => state.modal);
   const dispatch = useDispatch();
-  // 모달 open 함수
-  const openModal = (target) => {
-    switch (target) {
-      case 'CreateEventModal':
-        // setIsCreateEventModal(true);
-        break;
 
-      case 'CalendarSidebar':
-        // setIsCalendarSidebarModal(!isCalendarSidebarModal);
-        break;
-
-      case 'MypageSidebarModal':
-        // setIsMypageSidebarModal(!isMypageSidebarModal);
-        break;
-
-      case 'CreateCalendarModal':
-        // setIsCreateCalendarModal(true);
-        break;
-
-      case 'EventModal':
-        // setIsEventModal(true);
-        break;
-
-      case 'EventCommentModal':
-        // setIsEventCommentModal(true);
-        break;
-
-      default:
-    }
-  };
-
-  // 모달 close 함수
-  const closeModal = (e, target) => {
-    switch (target) {
-      case 'CreateEventModal':
-        switch (e.type) {
-          case 'click':
-            // setIsCreateEventModal(false);
-            break;
-
-          case 'keydown':
-            // if (e.key === 'Escape') setIsCreateEventModal(false);
-            break;
-
-          default:
-        }
-
-      case 'CreateCalendarModal':
-        switch (e.type) {
-          case 'click':
-            // setIsCreateCalendarModal(false);
-            break;
-
-          case 'keydown':
-            // if (e.key === 'Escape') setIsCreateCalendarModal(false);
-            break;
-
-          default:
-        }
-
-      case 'EventModal':
-        switch (e.type) {
-          case 'click':
-            // setIsEventModal(false);
-            break;
-
-          case 'keydown':
-            // if (e.key === 'Escape') setIsEventModal(false);
-            break;
-
-          default:
-        }
-
-      case 'EventCommentModal':
-        switch (e.type) {
-          case 'click':
-            // setIsEventCommentModal(false);
-            break;
-
-          case 'keydown':
-            // if (e.key === 'Escape') setIsEventCommentModal(false);
-            break;
-
-          default:
-        }
-
-      default:
-    }
-  };
-
-  // 서버로 데이터를 전달하는 함수
   const submitInfo = (obj) => {
     console.log('obj : ', obj);
     // setIsCreateEventModal(false);
@@ -181,7 +85,7 @@ const MainPage = () => {
 
   return (
     <MainPageWrapper>
-      <molecules.MainPageNavigation onClick={openModal} />
+      <molecules.MainPageNavigation />
       <Calendar>
         {modalState.eventCommentModal && <EventCommentModal />}
         {modalState.eventModal && <EventModal className={modalState.eventCommentModal ? 'comment-mode' : ''} />}
@@ -189,7 +93,7 @@ const MainPage = () => {
         {modalState.createCalendarModal && <CreateCalendarModal submitInfo={submitInfo} />}
         {modalState.mypageSidebarModal && <MypageSidebar />}
         <PlusCircleButton color={'#007FDB'} onClick={() => dispatch(modalSlice.actions.modal({ ...modalState, createEventModal: true }))} />
-        {modalState.createEventModal && <CreateEventModal submitInfo={submitInfo} onKeyDown={(event) => closeModal(event, 'CreateEventModal')} />}
+        {modalState.createEventModal && <CreateEventModal />}
       </Calendar>
     </MainPageWrapper>
   );
