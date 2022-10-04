@@ -25,8 +25,6 @@ const Schedule = ({ schedule, scheduleId }) => {
   const openEventModal = () => {
     dispatch(modalSlice.actions.modal({ ...modalState, eventModal: true }));
     dispatch(selectedSlice.actions.selected({ ...selectedState, scheduleId: scheduleId }));
-    console.log(modalState.eventModal);
-    console.log(selectedState.scheduleId);
   };
   return (
     <ScheduleWrapper onClick={openEventModal}>
