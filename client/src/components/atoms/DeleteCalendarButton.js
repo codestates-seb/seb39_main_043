@@ -15,8 +15,12 @@ const Container = styled.button`
   }
 `;
 
-const DeleteCalendarButton = () => {
-  return <Container>캘린더 삭제</Container>;
+const DeleteCalendarButton = ({ className, onClick, title }) => {
+  return (
+    <Container className={className} onClick={onClick}>
+      {title}
+    </Container>
+  );
 };
 
 export default DeleteCalendarButton;

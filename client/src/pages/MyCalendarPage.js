@@ -1,10 +1,14 @@
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
-import atoms from '../components/atoms';
-import molecules from '../components/molecules';
-import modalSlice from '../slices/modalSlice';
-import myInfoSlice from '../slices/myPage';
+import axios from "axios";
+import { useState } from "react";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import atoms from "../components/atoms";
+import molecules from "../components/molecules";
+import calendarSlice from "../slices/calendarSlice";
+import modalSlice from "../slices/modalSlice";
+import myInfoSlice from "../slices/myPage";
 
 // 내 캘린더 관리 페이지 (styled component)
 const MyCalendarWrapper = styled.div`
@@ -59,7 +63,7 @@ const TitleWrapper = styled.div`
 
 // 초대자 (styled component)
 const AttendeeWrapper = styled.div`
-  width: 300px;
+  width: 500px;
   overflow-y: scroll;
   height: 300px;
 
@@ -104,69 +108,125 @@ const UpdateInput = styled.input`
   margin-right: 4px;
 `;
 
+const DeleteCalendarButton = styled(atoms.DeleteCalendarButton)`
+  margin: 48px 0;
+`;
+
 // <--------- MyCalendarPage --------->
 const MyCalendarPage = () => {
-  const myInfo = useSelector((state) => state.myInfo);
   const modalState = useSelector((state) => state.modal);
+  const calendar = useSelector((state) => state.calendar);
+  const user = useSelector((state) => state.user);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const queryClient = useQueryClient();
 
   const [isTitle, setIsTitle] = useState(false);
-  const [isInviteAttendeeModal, setIsInviteAttendeeModal] = useState(false); // 초대자 모달
+  const [isAttendee, setIsAttendee] = useState(false);
+  const [isCalendar, setIsCalendar] = useState(true);
 
-  // 모달 open 함수
-  const openModal = (target) => {
-    switch (target) {
-      case 'InviteAttendeeModal':
-        setIsInviteAttendeeModal(true);
-        break;
-
-      default:
+  //[기능] 캘린더 제목 수정하기
+  const update = async (e) => {
+    if (e.key === "Enter") {
+      await axios.patch(`${process.env.REACT_APP_API_URL}/calendars/${calendar.id}`, {
+        title: e.target.value,
+        calendarImg: "",
+      });
+      setIsTitle(false);
     }
   };
 
-  // 모달 close 함수
-  const closeModal = (e, target) => {
-    switch (target) {
-      case 'InviteAttendeeModal':
-        if (e.type === 'click') {
-          setIsInviteAttendeeModal(false);
-          return;
-        }
+  const mutateUpdate = useMutation((e) => update(e), { onSuccess: () => queryClient.invalidateQueries("calendarInfo") });
 
-        if (e.type === 'keydown' && e.key === 'Escape') {
-          setIsInviteAttendeeModal(false);
-          return;
-        }
-        break;
-
-      default:
-    }
+  // [기능] 캘린더 공유자 강제 탈퇴하기 (관리자)
+  const deleteAttendee = async (id) => {
+    await axios.delete(`${process.env.REACT_APP_API_URL}/calendars/attendees/${id}`);
   };
 
-  // 마이페이지 정보 수정 전
-  const beforeUpdate = (target) => {
-    switch (target) {
-      case 'ProfileName':
-        setIsTitle(true);
-        break;
+  const mutateDeleteAttendee = useMutation(deleteAttendee, { onSuccess: () => queryClient.invalidateQueries("calendarInfo") });
 
-      default:
+  // [기능] 캘린더 탈퇴하기 (사용자)
+  const leaveCalendar = async () => {
+    // 1. 사용자가 속한 캘린더를 조회한다.
+    const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/calendars/${calendar.id}`);
+
+    // 2. 사용자의 calendarAttendeeId를 찾는다.(캘린터 탈퇴 시 필요한 아이디, memberId와 다르다)
+    let leaveAttendee = data.calendarAttendees.filter((value) => value.email === user.email);
+    leaveAttendee = leaveAttendee[0].calendarAttendeeId;
+
+    // 3. 캘린더에서 사용자의 정보를 지운다.
+    await deleteAttendee(leaveAttendee);
+
+    const memberInfo = await axios.get(`${process.env.REACT_APP_API_URL}/members/${user.id}`);
+    let result = memberInfo.data.adminCalendars.concat(memberInfo.data.attendedCalendars);
+    console.log("result : ", result);
+
+    // 4. 캘린더의 목록이 없다면 전역 상태 calendar의 값에 빈 값을 넣고 메인페이지로 이동하게 한다.
+    if (result[0] === undefined) {
+      dispatch(calendarSlice.actions.setCalendar({ id: "", title: "" }));
+      navigate("/mainpage", { replace: true });
+      return;
     }
+
+    // 4-1. 캘린더의 목록이 있다면, 해당 캘린더의 목록 중 첫번째의 정보를 전역상태 calendar에 넣고 메인페이지로 이동시킨다.
+    dispatch(calendarSlice.actions.setCalendar({ id: result[0].calendarId, title: result[0].title }));
+    navigate("/mainpage", { replace: true });
   };
 
-  // 마이페이지 정보 수정 후
-  const afterUpdate = (e, target) => {
-    switch (target) {
-      case 'ProfileName':
-        if (e.key === 'Enter') {
-          dispatch(myInfoSlice.actions.changeProfileTitle({ title: e.target.value }));
-          setIsTitle(false);
-        }
-        break;
+  const mutateLeaveCalendar = useMutation(leaveCalendar, { onSuccess: () => queryClient.invalidateQueries("calendarInfo") });
 
-      default:
+  // [기능] 캘린더 삭제 (캘린더 관리자)
+  const deleteCalendar = async () => {
+    // 1. 전역상태 calender의 id를 이용해 캘린더를 삭제한다.
+    await axios.delete(`${process.env.REACT_APP_API_URL}/calendars/${calendar.id}`);
+
+    // 2. 사용자의 캘린더 목록을 불러온다.
+    const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/members/${user.id}`);
+    let result = data.adminCalendars.concat(data.attendedCalendars);
+
+    // 3. 캘린더의 목록이 없다면 전역 상태 calendar의 값에 빈 값을 넣고 메인페이지로 이동하게 한다.
+    if (result[0] === undefined) {
+      dispatch(calendarSlice.actions.setCalendar({ id: "", title: "" }));
+      navigate("/mainpage", { replace: true });
+      return;
     }
+
+    // 3-1. 캘린더의 목록이 있다면, 해당 캘린더의 목록 중 첫번째의 정보를 전역상태 calendar에 넣고 메인페이지로 이동시킨다.
+    dispatch(calendarSlice.actions.setCalendar({ id: result[0].calendarId, title: result[0].title }));
+    navigate("/mainpage", { replace: true });
   };
+
+  const mutateDeleteCalendar = useMutation(deleteCalendar, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("calendarInfo");
+    },
+  });
+
+  // [기능] 캘린더 정보 불러오기
+  const { isLoading, isError, data, error } = useQuery("calendarInfo", async () => {
+    if (calendar.id !== "") {
+      const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/calendars/${calendar.id}`);
+
+      let result = data.calendarAttendees.filter((value) => value.memberId === user.id);
+      if (result[0]) {
+        setIsAttendee(true);
+      }
+      return data;
+    } else {
+      setIsCalendar(false);
+      return;
+    }
+  });
+  if (isLoading) return <h1>Loading...</h1>;
+  if (isError)
+    return (
+      <>
+        <h1>Something is wrong</h1>
+        <p>{error.toString()}</p>
+      </>
+    );
+
+  console.log("data : ", data);
 
   // 이미지 변경 함수
   const handleChange = (e) => {
@@ -179,39 +239,46 @@ const MyCalendarPage = () => {
 
   return (
     <MyCalendarWrapper>
-      {modalState.inviteAttendeeModal && <InviteAttendeeModal />}
-      <MypageItem content="캘린더 정보" />
-      <UpdateProfile imgUrl={myInfo.calendarImg} onChange={handleChange} />
+      {data && (
+        <>
+          {modalState.inviteAttendeeModal && <InviteAttendeeModal />}
+          <MypageItem content="캘린더 정보" />
+          <UpdateProfile imgUrl={""} onChange={handleChange} />
+          <ProfileWrapper>
+            {isTitle || (
+              <>
+                <atoms.ProfileName className="profile-name" content={data.title} />
+                {isAttendee || <atoms.UpdateIcon onClick={() => setIsTitle(true)} />}
+              </>
+            )}
 
-      <ProfileWrapper>
-        {isTitle || (
-          <>
-            <atoms.ProfileName className="profile-name" content={myInfo.title} />
-            <atoms.UpdateIcon onClick={() => beforeUpdate('ProfileName')} />
-          </>
-        )}
+            {isTitle && <UpdateInput defaultValue={data.title} onKeyDown={(e) => mutateUpdate.mutate(e)} spellcheck="false" />}
+          </ProfileWrapper>
 
-        {isTitle && <UpdateInput defaultValue={myInfo.title} onKeyDown={(e) => afterUpdate(e, 'ProfileName')} spellcheck="false" />}
-      </ProfileWrapper>
+          <Line />
 
-      <Line />
+          <TitleWrapper>
+            <MypageItem className="title" content="초대된 사람들" />
+            {isAttendee || <atoms.PlusCircleButton color={"#DB9000"} onClick={() => dispatch(modalSlice.actions.modal({ ...modalState, inviteAttendeeModal: true }))} />}
+          </TitleWrapper>
+          <AttendeeWrapper>
+            {data.calendarAttendees &&
+              data.calendarAttendees.map((value, index) => (
+                <div className="test" key={index}>
+                  <atoms.UserProfile />
+                  <div className="user-info">
+                    <UserNickname content={value.email} />
+                  </div>
+                  {isAttendee || <atoms.CloseIcon id={value.memberId} onClick={() => mutateDeleteAttendee.mutate(value.calendarAttendeeId)} />}
+                </div>
+              ))}
+          </AttendeeWrapper>
+          {isAttendee || <DeleteCalendarButton title={"캘린더 삭제"} onClick={mutateDeleteCalendar.mutate} />}
+          {isAttendee && <DeleteCalendarButton title={"캘린더 탈퇴"} onClick={mutateLeaveCalendar.mutate} />}
+        </>
+      )}
 
-      <TitleWrapper>
-        <MypageItem className="title" content="초대된 사람들" />
-        <atoms.PlusCircleButton color={'#DB9000'} onClick={() => dispatch(modalSlice.actions.modal({ ...modalState, inviteAttendeeModal: true }))} />
-      </TitleWrapper>
-
-      <AttendeeWrapper>
-        {myInfo.member.map((value, index) => (
-          <div className="test" key={index}>
-            <atoms.UserProfile />
-            <div className="user-info">
-              <UserNickname content={value} />
-            </div>
-            <atoms.CloseIcon />
-          </div>
-        ))}
-      </AttendeeWrapper>
+      {isCalendar || <div>캘린더를 생성해주세요</div>}
     </MyCalendarWrapper>
   );
 };

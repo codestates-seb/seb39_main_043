@@ -1,4 +1,5 @@
-import styled from 'styled-components';
+import { useSelector } from "react-redux";
+import styled from "styled-components";
 
 const CurrentCalendarTitleWrapeer = styled.div`
   font-size: 16px;
@@ -9,10 +10,12 @@ const CurrentCalendarTitleWrapeer = styled.div`
 `;
 
 const CurrentCalendarTitle = ({ className }) => {
+  const calendar = useSelector((state) => state.calendar);
+
   return (
     <CurrentCalendarTitleWrapeer className={className}>
-      <span className="current-calendar-text">현재 캘린더</span>
-      <span>{' 스터디'}</span>
+      <span className="current-calendar-text">현재 캘린더 </span>
+      <span>{calendar.title}</span>
     </CurrentCalendarTitleWrapeer>
   );
 };

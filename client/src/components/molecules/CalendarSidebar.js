@@ -1,6 +1,11 @@
-import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
-import atoms from '../atoms';
+import axios from "axios";
+import { useQuery } from "react-query";
+import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
+import atoms from "../atoms";
+import calendarSlice from "../../slices/calendarSlice";
+import { useNavigate } from "react-router-dom";
+import modalSlice from "../../slices/modalSlice";
 
 // <--- styled component --->
 const StyledCalendarProfile = styled(atoms.CalendarProfile)`
@@ -13,19 +18,33 @@ const StyledCalendarAddButton = styled(atoms.CalendarAddButton)`
 
 // <--- CalendarSideBar --->
 const CalendarSideBar = ({ className }) => {
-  // 테스트 데이터
-  const dummyData = {
-    item: [
-      { id: 1, imgURL: 'https://random.imagecdn.app/500/150', content: '캘린더1' },
-      { id: 2, imgURL: 'https://random.imagecdn.app/500/150', content: '캘린더2' },
-      { id: 3, imgURL: 'https://random.imagecdn.app/500/150', content: '캘린더3' },
-      { id: 4, imgURL: 'https://random.imagecdn.app/500/150', content: '캘린더4' },
-      { id: 5, imgURL: 'https://random.imagecdn.app/500/150', content: '캘린더5' },
-      { id: 6, imgURL: 'https://random.imagecdn.app/500/150', content: '캘린더6' },
-      { id: 7, imgURL: 'https://random.imagecdn.app/500/150', content: '캘린더7' },
-      { id: 8, imgURL: 'https://random.imagecdn.app/500/150', content: '캘린더8' },
-      { id: 9, imgURL: 'https://random.imagecdn.app/500/150', content: '캘린더9' },
-    ],
+  const user = useSelector((state) => state.user);
+  const calendar = useSelector((state) => state.calendar);
+  const modalState = useSelector((state) => state.modal);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  console.log("캘린더 사이드바에서 calendar 상태 : ", calendar);
+
+  // [함수] 캘린더 목록 GET
+  const { isLoading, error, data, refetch } = useQuery("calendar", async () => {
+    const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/members/${user.id}`);
+    if (data.attendedCalendars) {
+      return data.adminCalendars.concat(data.attendedCalendars);
+    }
+    return data.adminCalendars;
+  });
+
+  console.log("캘린더 사이드바 data : ", data);
+
+  // [함수] 참고하고 있는 캘린더 변경
+  const selectCalendar = (id, title) => {
+    console.log("id : ", id, "title : ", title);
+    dispatch(calendarSlice.actions.setCalendar({ id, title }));
+    console.log("변경 시 calendarSlice : ", calendar);
+    localStorage.setItem("calendar", JSON.stringify(calendar));
+    dispatch(modalSlice.actions.modal({ ...modalState, calendarSidebarModal: false }));
+    navigate("/mainpage");
   };
 
   return (
@@ -36,14 +55,13 @@ const CalendarSideBar = ({ className }) => {
       </div>
 
       {/* 캘린더 영역 */}
-      {dummyData.item.map((value) => {
-        return (
-          <atoms.CalendarItemContainer key={value.id}>
-            <StyledCalendarProfile imgURL={value.imgURL} />
-            <atoms.CalendarName content={value.content} />
+      {data &&
+        data.map((value) => (
+          <atoms.CalendarItemContainer key={value.calendarId} onClick={() => selectCalendar(value.calendarId, value.title)}>
+            <StyledCalendarProfile imgURL={""} />
+            <atoms.CalendarName content={value.title} />
           </atoms.CalendarItemContainer>
-        );
-      })}
+        ))}
     </atoms.CalendarSidebarContainer>
   );
 };

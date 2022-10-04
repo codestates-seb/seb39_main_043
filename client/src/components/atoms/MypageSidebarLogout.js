@@ -14,8 +14,8 @@ const Container = styled.div`
   }
 `;
 
-const MypageSidebarLogout = () => {
-  return <Container>로그아웃</Container>;
+const MypageSidebarLogout = ({ onClick }) => {
+  return <Container onClick={onClick}>로그아웃</Container>;
 };
 
 export default MypageSidebarLogout;

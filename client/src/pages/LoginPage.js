@@ -1,12 +1,13 @@
-import styled from 'styled-components';
-import atoms from '../components/atoms';
-import molecules from '../components/molecules';
-import { Link, Navigate } from 'react-router-dom';
-import { useQuery } from 'react-query';
-import axios from 'axios';
-import { useSelector, useDispatch } from 'react-redux';
-import warningSlice from '../slices/warningSlice';
-import userSlice from '../slices/userSlice';
+import styled from "styled-components";
+import atoms from "../components/atoms";
+import molecules from "../components/molecules";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useQuery } from "react-query";
+import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import warningSlice from "../slices/warningSlice";
+import userSlice from "../slices/userSlice";
+import calendarSlice from "../slices/calendarSlice";
 
 const LoginPageWrapper = styled.div`
   display: flex;
@@ -47,8 +48,10 @@ const SocialLoginButtonGoogle = styled(atoms.SocialLoginButtonGoogle)`
 
 const LoginPage = () => {
   const user = useSelector((state) => state.user);
+  const calendar = useSelector((state) => state.calendar);
   const loginWarning = useSelector((state) => state.warning.loginWarning);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const members = useQuery('members', async () => {
     const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/members`);
@@ -62,26 +65,25 @@ const LoginPage = () => {
         <p>{members.error.toString()}</p>
       </>
     );
+
   if (!members.data) return <div></div>;
   if (members.data) console.log('data : ', members.data);
 
   const isUser = (email, password, userData) => {
     let result = userData.filter((el) => el.email === email && el.password === password);
-    console.log('result', result);
+    console.log("result", result);
+
     if (result.length === 0) {
-      dispatch(warningSlice.actions.log({ loginWarning: '' }));
+      dispatch(warningSlice.actions.log({ loginWarning: "" }));
     } else {
-      dispatch(
-        userSlice.actions.user({
-          name: result[0].name,
-          id: result[0].memberId,
-          email: result[0].email,
-          password: result[0].password,
-          adminCalendars: result[0].adminCalendars,
-          attendedCalendars: result[0].attendedCalendars,
-        })
-      );
-      window.localStorage.setItem('user', JSON.stringify(result[0]));
+      dispatch(userSlice.actions.user({ name: result[0].name, id: result[0].memberId, email: result[0].email, password: result[0].password }));
+      let initialCalendar = result[0].adminCalendars.concat(result[0].attendedCalendars)[0];
+      if (initialCalendar === undefined) {
+        dispatch(calendarSlice.actions.setCalendar({ id: "", title: "" }));
+      } else {
+        dispatch(calendarSlice.actions.setCalendar({ id: initialCalendar.calendarId, title: initialCalendar.title }));
+      }
+      navigate("/mainpage"); // (memo)로그인 성공 시 메인페이지로 이동
     }
   };
 
@@ -97,7 +99,6 @@ const LoginPage = () => {
         <span>아직 회원이 아니신가요? </span>
         <Link to="/joinpage">회원가입 하기</Link>
       </div>
-      {user.id && <Navigate to="/mainpage" replace={true} />}
     </LoginPageWrapper>
   );
 };

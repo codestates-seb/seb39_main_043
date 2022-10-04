@@ -6,14 +6,20 @@ const Container = styled.div`
   width: 100%;
   height: 50px;
   padding: 8px;
+  cursor: pointer;
 
   &:hover {
     background-color: #f5f5f5;
   }
 `;
 
-const CalendarItemContainer = ({ className, children }) => {
-  return <Container className={className}> {children}</Container>;
+const CalendarItemContainer = ({ className, children, onClick }) => {
+  return (
+    <Container className={className} onClick={onClick}>
+      {" "}
+      {children}
+    </Container>
+  );
 };
 
 export default CalendarItemContainer;
