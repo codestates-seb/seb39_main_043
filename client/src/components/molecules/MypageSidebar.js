@@ -6,6 +6,7 @@ import { persistor } from "../../store";
 import { useQuery } from "react-query";
 import axios from "axios";
 
+
 const MypageSidebar = ({ className }) => {
   const user = useSelector((state) => state.user);
   const navigate = useNavigate();
@@ -35,11 +36,11 @@ const MypageSidebar = ({ className }) => {
     <atoms.MypageSidebarContainer className={className}>
       <atoms.MypageSidebarNickname content={data.name} />
       <Link to="/mypage/myinfopage">
-        <atoms.MypageSidebarItem content={"내 정보 수정"} />
+        <atoms.MypageSidebarItem content={'내 정보 수정'} />
       </Link>
 
       <Link to="/mypage/mycalendarpage">
-        <atoms.MypageSidebarItem content={"캘린더 관리"} />
+        <atoms.MypageSidebarItem content={'캘린더 관리'} />
       </Link>
       <atoms.MypageSidebarLogout onClick={() => purge()} />
     </atoms.MypageSidebarContainer>

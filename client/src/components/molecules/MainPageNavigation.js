@@ -12,11 +12,11 @@ const LogoIcon = styled(atoms.LogoIcon)`
 `;
 
 const PrevMonthIcon = styled(atoms.PrevMonthIcon)`
-  margin-left: 390px;
+  margin-left: 420px;
 `;
 
 const CalendarIcon = styled(atoms.CalendarIcon)`
-  margin-left: 343px;
+  margin-left: 275px;
 `;
 
 const CurrentCalendarTitle = styled(atoms.CurrentCalendarTitle)`

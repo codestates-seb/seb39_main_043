@@ -32,7 +32,7 @@ const InputLoginId = () => {
   return (
     <InputLoginIdWrapper>
       <CgProfile size={40} />
-      <input className="login-id" placeholder="아이디를 입력하세요" onChange={(e) => dispatch(userSlice.actions.login({ ...state, email: e.target.value }))}></input>
+      <input className="login-id" placeholder="아이디를 입력하세요" onChange={(e) => dispatch(userSlice.actions.user({ ...state, email: e.target.value }))}></input>
     </InputLoginIdWrapper>
   );
 };

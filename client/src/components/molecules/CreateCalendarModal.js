@@ -15,12 +15,13 @@ const CreateCalendarModalWrapper = styled.div`
 // <--- CreateCalendarModal --->
 const CreateCalendarModal = ({ className }) => {
   const modalState = useSelector((state) => state.modal);
+  const calendarState = useSelector((state) => state.calendar);
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
-  let title = "";
+  let title = '';
   const handleChange = (event) => {
     title = event.target.value;
   };
@@ -52,10 +53,10 @@ const CreateCalendarModal = ({ className }) => {
 
       {/*<--- 컨테이너 --->*/}
       <atoms.ModalContentContainer>
-        <atoms.InputTitle placeholder={"캘린더 이름을 입력하세요"} onChange={handleChange} />
+        <atoms.InputTitle placeholder={'캘린더 이름을 입력하세요'} onChange={handleChange} />
 
         {/* 캘린더 생성 버튼 */}
-        <atoms.ModalButton color={"#007FDB"} value="생성" onClick={() => createCalendar.mutate()} />
+        <atoms.ModalButton color={'#007FDB'} value="생성" onClick={() => createCalendar.mutate()} />
       </atoms.ModalContentContainer>
     </CreateCalendarModalWrapper>
   );

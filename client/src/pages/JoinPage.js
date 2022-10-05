@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 import atoms from '../components/atoms';
 import molecules from '../components/molecules';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import warningSlice from '../slices/warningSlice';
 
 const JoinPageWrapper = styled.div`
   display: flex;
@@ -37,31 +38,42 @@ const SocialLoginButtonGoogle = styled(atoms.SocialLoginButtonGoogle)`
   margin-top: 32px;
 `;
 
-const postMembers = async (name, email, password) => {
-  console.log('axios', name, email, password);
-  await axios
-    .post(`${process.env.REACT_APP_API_URL}/members`, { name: name, email: email, password: password })
-    .then((res) => {
-      console.log(res);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
+const WarningBox = styled(atoms.WarningBox)`
+  margin-top: 5px;
+`;
 
 const JoinPage = () => {
   const join = useSelector((state) => state.join);
+  const warningState = useSelector((state) => state.warning);
+  console.log(warningState);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const postMembers = async (name, email, password) => {
+    console.log('axios', name, email, password);
+    await axios
+      .post(`${process.env.REACT_APP_API_URL}/members`, { name: name, email: email, password: password })
+      .then((res) => {
+        alert('회원가입 되셨습니다');
+        navigate('/');
+      })
+      .catch((err) => {
+        dispatch(warningSlice.actions.join({ ...warningState, joinWarning: '' }));
+      });
+  };
 
   return (
     <JoinPageWrapper>
       <h1 className="join-title">회원가입</h1>
       <JoinForm />
+      <WarningBox className={warningState.joinWarning} value={'중복된 아이디 입니다. 새로운 아이디를 입력해주세요'} />
       <JoinButton onClick={() => postMembers(join.name, join.email, join.password)} />
       <Line />
       <SocialLoginButtonGoogle />
       <div className="login-link">
         <span>이미 가입 하셨나요? </span>
-        <Link to="/">로그인 페이지로 이동하기</Link>
+        <Link to="/" style={{ color: '#007FDB' }}>
+          로그인 페이지로 이동하기
+        </Link>
       </div>
     </JoinPageWrapper>
   );
