@@ -1,9 +1,10 @@
-import axios from "axios";
-import { useMutation, useQueryClient } from "react-query";
-import { useDispatch, useSelector } from "react-redux";
-import styled from "styled-components";
-import modalSlice from "../../slices/modalSlice";
-import atoms from "../atoms";
+import axios from 'axios';
+import { useMutation, useQueryClient } from 'react-query';
+import { useDispatch, useSelector } from 'react-redux';
+import styled from 'styled-components';
+import calendarSlice from '../../slices/calendarSlice';
+import modalSlice from '../../slices/modalSlice';
+import atoms from '../atoms';
 
 // <--- styled component --->
 const CreateCalendarModalWrapper = styled.div`
@@ -13,11 +14,12 @@ const CreateCalendarModalWrapper = styled.div`
 // <--- CreateCalendarModal --->
 const CreateCalendarModal = ({ className }) => {
   const modalState = useSelector((state) => state.modal);
+  const calendarState = useSelector((state) => state.calendar);
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
 
-  let title = "";
+  let title = '';
   const handleChange = (event) => {
     title = event.target.value;
   };
@@ -25,11 +27,14 @@ const CreateCalendarModal = ({ className }) => {
   // [함수] 캘린더 생성
   const createCalendar = useMutation(
     async () => {
-      await axios.post(`${process.env.REACT_APP_API_URL}/calendars`, { memberId: user.id, title }).then(console.log);
+      await axios.post(`${process.env.REACT_APP_API_URL}/calendars`, { memberId: user.id, title }).then((res) => {
+        dispatch(calendarSlice.actions.setCalendar({ ...calendarState, id: res.data.calendarId }));
+      });
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries("calendar");
+        queryClient.invalidateQueries('calendar');
+        queryClient.invalidateQueries('memberInfo');
         dispatch(modalSlice.actions.modal({ ...modalState, createCalendarModal: false }));
       },
     }
@@ -44,10 +49,10 @@ const CreateCalendarModal = ({ className }) => {
 
       {/*<--- 컨테이너 --->*/}
       <atoms.ModalContentContainer>
-        <atoms.InputTitle placeholder={"캘린더 이름을 입력하세요"} onChange={handleChange} />
+        <atoms.InputTitle placeholder={'캘린더 이름을 입력하세요'} onChange={handleChange} />
 
         {/* 캘린더 생성 버튼 */}
-        <atoms.ModalButton color={"#007FDB"} value="생성" onClick={() => createCalendar.mutate()} />
+        <atoms.ModalButton color={'#007FDB'} value="생성" onClick={() => createCalendar.mutate()} />
       </atoms.ModalContentContainer>
     </CreateCalendarModalWrapper>
   );
