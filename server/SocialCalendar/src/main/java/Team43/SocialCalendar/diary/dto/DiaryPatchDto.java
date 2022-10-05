@@ -11,8 +11,8 @@ public class DiaryPatchDto {
     @Positive
     private long diaryId;
 
-    @NotBlank
-    private String title;
+//    @NotBlank
+//    private String title;
 
     private String contents;
 

@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 public class DiaryResponseDto {
 
     private long diaryId;
-    private String title;
+//    private String title;
     private String contents;
     private String diaryImg;
 

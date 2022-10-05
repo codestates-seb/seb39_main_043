@@ -9,6 +9,7 @@ import Team43.SocialCalendar.schedule.service.ScheduleService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -40,10 +41,14 @@ public class DiaryService {
         return findVerifiedDiary(diaryId);
     }
 
+    public List<Diary> findDiaries() {
+        return (List<Diary>) diaryRepository.findAll();
+    }
+
     public Diary updateDiary(Diary diary) {
         Diary findDiary = findVerifiedDiary(diary.getDiaryId());
 
-        Optional.ofNullable(diary.getTitle()).ifPresent(title -> findDiary.setTitle(title));
+//        Optional.ofNullable(diary.getTitle()).ifPresent(title -> findDiary.setTitle(title));
         Optional.ofNullable(diary.getContents()).ifPresent(contents -> findDiary.setContents(contents));
         Optional.ofNullable(diary.getDiaryImg()).ifPresent(diaryImg -> findDiary.setDiaryImg(diaryImg));
 

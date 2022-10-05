@@ -22,8 +22,8 @@ public class Diary {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long diaryId;
 
-    @Column(length = 100, nullable = false)
-    private String title;
+//    @Column(length = 100, nullable = false)
+//    private String title;
 
     @Column(length = 1000)
     private String contents;
@@ -37,9 +37,9 @@ public class Diary {
     @Column
     private LocalDateTime modifiedAt = LocalDateTime.now();
 
-    public Diary(Long diaryId, String title, String contents, String diaryImg) {
+    public Diary(Long diaryId, String contents, String diaryImg) {
         this.diaryId = diaryId;
-        this.title = title;
+//        this.title = title;
         this.contents = contents;
         this.diaryImg = diaryImg;
     }
@@ -56,7 +56,7 @@ public class Diary {
     }
 
     @OneToOne
-    @JoinColumn(name = "schedule_id")
+    @JoinColumn(name = "schedule_id", nullable = true)
     private Schedule schedule;
 
     @ManyToOne
