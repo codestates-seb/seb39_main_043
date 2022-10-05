@@ -2,6 +2,7 @@ package Team43.SocialCalendar.member.entity;
 
 import Team43.SocialCalendar.calendar.entity.Calendar;
 import Team43.SocialCalendar.calendar.entity.CalendarAttendee;
+import Team43.SocialCalendar.diary.comment.entity.DiaryComment;
 import Team43.SocialCalendar.diary.entity.Diary;
 import Team43.SocialCalendar.schedule.comment.entity.ScheduleComment;
 import Team43.SocialCalendar.schedule.entity.Schedule;
@@ -55,14 +56,14 @@ public class Member {
         }
     }
 
-    @OneToMany(mappedBy = "memberId", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "memberId", cascade = CascadeType.ALL)
     private List<Calendar> adminCalendars = new ArrayList<>();
 
-    @OneToMany(mappedBy = "memberId", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "memberId", cascade = CascadeType.ALL)
     private List<CalendarAttendee> attendedCalendars = new ArrayList<>();
 
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Diary> diaries = new ArrayList<>();
 
     public void addDiary(Diary diary) {
@@ -73,7 +74,7 @@ public class Member {
         }
     }
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Schedule> schedules = new ArrayList<>();
 
     public void addSchedule(Schedule schedule) {
@@ -84,7 +85,9 @@ public class Member {
         }
     }
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<ScheduleComment> scheduleComments = new ArrayList<>();
 
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<DiaryComment> diaryComments = new ArrayList<>();
 }

@@ -18,4 +18,6 @@ public class ScheduleResponseDto {
     private String attendees;
     private String location;
     private String contents;
+
+    private Long diaryInfo;
 }

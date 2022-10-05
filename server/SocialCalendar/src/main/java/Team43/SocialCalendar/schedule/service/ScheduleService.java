@@ -39,6 +39,9 @@ public class ScheduleService {
         Optional.ofNullable(schedule.getContents())
                 .ifPresent(contents -> findSchedule.setContents(contents));
 
+        Optional.ofNullable(schedule.getDiaryInfo())
+                .ifPresent(diaryInfo -> findSchedule.setDiaryInfo(diaryInfo));
+
         return scheduleRepository.save(findSchedule);
     }
 

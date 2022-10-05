@@ -39,6 +39,9 @@ public class Schedule {
     @Column(length = 100)
     private String contents;
 
+    @Column
+    private Long diaryInfo;
+
     @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
@@ -56,7 +59,7 @@ public class Schedule {
         }
     }
 
-    @OneToOne(mappedBy = "schedule", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "schedule", cascade = CascadeType.REMOVE)
     private Diary diary;
 
     public void setDiary(Diary diary) {

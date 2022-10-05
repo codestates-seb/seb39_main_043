@@ -17,5 +17,7 @@ public class SchedulePatchDto {
     private String attendees;
     private String location;
     private String contents;
+
+    private Long diaryInfo;
 }
 

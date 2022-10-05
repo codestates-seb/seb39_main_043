@@ -14,8 +14,8 @@ public class DiaryPostDto {
     @Positive
     private long memberId;
 
-    @NotBlank
-    private String title;
+//    @NotBlank
+//    private String title;
 
     private String contents;
 

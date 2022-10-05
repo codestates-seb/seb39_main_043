@@ -2,6 +2,7 @@ package Team43.SocialCalendar.diary.controller;
 
 import Team43.SocialCalendar.diary.dto.DiaryPatchDto;
 import Team43.SocialCalendar.diary.dto.DiaryPostDto;
+import Team43.SocialCalendar.diary.dto.DiaryResponseDto;
 import Team43.SocialCalendar.diary.entity.Diary;
 import Team43.SocialCalendar.diary.mapper.DiaryMapper;
 import Team43.SocialCalendar.diary.service.DiaryService;
@@ -12,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Positive;
+import java.util.List;
 
 @RestController
 @RequestMapping("/diaries")
@@ -44,6 +46,14 @@ public class DiaryController {
         Diary diary = diaryService.findDiary(diaryId);
 
         return new ResponseEntity<>(mapper.diaryToDiaryResponseDto(diary), HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity getDiaries() {
+        List<Diary> diaries = diaryService.findDiaries();
+        List<DiaryResponseDto> response = mapper.diariesToDiaryResponseDtos(diaries);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PatchMapping("/{diary-id}")

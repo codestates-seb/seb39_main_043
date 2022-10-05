@@ -46,6 +46,7 @@ public class ScheduleMapper {
             schedule.setAttendees(schedulePatchDto.getAttendees());
             schedule.setLocation(schedulePatchDto.getLocation());
             schedule.setContents(schedulePatchDto.getContents());
+            schedule.setDiaryInfo(schedulePatchDto.getDiaryInfo());
             return schedule;
         }
     }
@@ -62,9 +63,10 @@ public class ScheduleMapper {
             String attendees = schedule.getAttendees();
             String location = schedule.getLocation();
             String contents = schedule.getContents();
+            Long diaryInfo = schedule.getDiaryInfo();
 
             ScheduleResponseDto scheduleResponseDto
-                    = new ScheduleResponseDto(memberId, calendarId, scheduleId, title, scheduleAt, attendees, location, contents);
+                    = new ScheduleResponseDto(memberId, calendarId, scheduleId, title, scheduleAt, attendees, location, contents, diaryInfo);
             return scheduleResponseDto;
         }
     }
