@@ -6,7 +6,6 @@ import { persistor } from "../../store";
 import { useQuery } from "react-query";
 import axios from "axios";
 
-
 const MypageSidebar = ({ className }) => {
   const user = useSelector((state) => state.user);
   const navigate = useNavigate();
@@ -17,9 +16,11 @@ const MypageSidebar = ({ className }) => {
   const purge = async () => {
     const result = window.confirm("로그아웃 하시겠습니까?");
     if (result) {
-      await persistor.purge();
       dispatch(modalSlice.actions.modal({ ...modalState, mypageSidebarModal: false }));
       navigate("/", { replace: true });
+      setTimeout(async () => {
+        await persistor.purge();
+      }, 500);
     }
   };
 
@@ -36,13 +37,13 @@ const MypageSidebar = ({ className }) => {
     <atoms.MypageSidebarContainer className={className}>
       <atoms.MypageSidebarNickname content={data.name} />
       <Link to="/mypage/myinfopage">
-        <atoms.MypageSidebarItem content={'내 정보 수정'} />
+        <atoms.MypageSidebarItem content={"내 정보 수정"} />
       </Link>
 
       <Link to="/mypage/mycalendarpage">
-        <atoms.MypageSidebarItem content={'캘린더 관리'} />
+        <atoms.MypageSidebarItem content={"캘린더 관리"} />
       </Link>
-      <atoms.MypageSidebarLogout onClick={() => purge()} />
+      <atoms.MypageSidebarLogout onClick={purge} />
     </atoms.MypageSidebarContainer>
   );
 };
