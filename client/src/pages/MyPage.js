@@ -53,30 +53,9 @@ const MypageSidebar = styled(molecules.MypageSidebar)`
 
 // <--------- MyPage --------->
 const MyPage = () => {
-  const [isCalendarSidebarModal, setIsCalendarSidebarModal] = useState(false); // 캘린더 사이드바 모달
   const [isCreateCalendarModal, setIsCreateCalendarModal] = useState(false); // 캘린더 생성 모달
-  const [isMypageSidebarModal, setIsMypageSidebarModal] = useState(false); // 마이페이지 사이드바 모달
 
   const modalState = useSelector((state) => state.modal);
-
-  // 모달 open 함수
-  const openModal = (target) => {
-    switch (target) {
-      case "CalendarSidebarModal":
-        setIsCalendarSidebarModal(!isCalendarSidebarModal);
-        break;
-
-      case "CreateCalendarModal":
-        setIsCreateCalendarModal(true);
-        break;
-
-      case "MypageSidebarModal":
-        setIsMypageSidebarModal(!isMypageSidebarModal);
-        break;
-
-      default:
-    }
-  };
 
   // 모달 close 함수
   const closeModal = (e, target) => {

@@ -27,7 +27,7 @@ const CalendarSideBar = ({ className }) => {
   console.log("캘린더 사이드바에서 calendar 상태 : ", calendar);
 
   // [함수] 캘린더 목록 GET
-  const { isLoading, error, data, refetch } = useQuery("calendar", async () => {
+  const { isLoading, error, data } = useQuery("calendar", async () => {
     const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/members/${user.id}`);
     if (data.attendedCalendars) {
       return data.adminCalendars.concat(data.attendedCalendars);
@@ -35,14 +35,9 @@ const CalendarSideBar = ({ className }) => {
     return data.adminCalendars;
   });
 
-  console.log("캘린더 사이드바 data : ", data);
-
   // [함수] 참고하고 있는 캘린더 변경
   const selectCalendar = (id, title) => {
-    console.log("id : ", id, "title : ", title);
     dispatch(calendarSlice.actions.setCalendar({ id, title }));
-    console.log("변경 시 calendarSlice : ", calendar);
-    localStorage.setItem("calendar", JSON.stringify(calendar));
     dispatch(modalSlice.actions.modal({ ...modalState, calendarSidebarModal: false }));
     navigate("/mainpage");
   };
