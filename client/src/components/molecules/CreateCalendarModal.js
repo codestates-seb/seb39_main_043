@@ -1,7 +1,9 @@
 import axios from "axios";
 import { useMutation, useQueryClient } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import calendarSlice from "../../slices/calendarSlice";
 import modalSlice from "../../slices/modalSlice";
 import atoms from "../atoms";
 
@@ -16,6 +18,7 @@ const CreateCalendarModal = ({ className }) => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   let title = "";
   const handleChange = (event) => {
@@ -26,11 +29,16 @@ const CreateCalendarModal = ({ className }) => {
   const createCalendar = useMutation(
     async () => {
       await axios.post(`${process.env.REACT_APP_API_URL}/calendars`, { memberId: user.id, title }).then(console.log);
+
+      const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/members/${user.id}`);
+      let newCalendar = data.adminCalendars.concat(data.attendedCalendars).filter((value) => value.title === title);
+      dispatch(calendarSlice.actions.setCalendar({ id: newCalendar[0].calendarId, title: newCalendar[0].title }));
     },
     {
       onSuccess: () => {
         queryClient.invalidateQueries("calendar");
-        dispatch(modalSlice.actions.modal({ ...modalState, createCalendarModal: false }));
+        dispatch(modalSlice.actions.modal({ ...modalState, calendarSidebarModal: false, createCalendarModal: false }));
+        navigate("/mainpage");
       },
     }
   );
