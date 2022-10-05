@@ -1,13 +1,14 @@
-import { createGlobalStyle } from 'styled-components';
-import { Routes, Route } from 'react-router-dom';
-import MainPage from './pages/MainPage';
-import LoginPage from './pages/LoginPage';
-import JoinPage from './pages/JoinPage';
-import MyPage from './pages/MyPage';
-import MyInfoPage from './pages/MyInfoPage';
-import MyCalendarPage from './pages/MyCalendarPage';
-import { QueryClient, QueryClientProvider } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
+import { createGlobalStyle } from "styled-components";
+import { Routes, Route } from "react-router-dom";
+import MainPage from "./pages/MainPage";
+import LoginPage from "./pages/LoginPage";
+import JoinPage from "./pages/JoinPage";
+import MyPage from "./pages/MyPage";
+import MyInfoPage from "./pages/MyInfoPage";
+import MyCalendarPage from "./pages/MyCalendarPage";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
+import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
@@ -29,7 +30,6 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <GlobalStyle />
-
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route path="/mainpage" element={<MainPage />} />
@@ -38,6 +38,7 @@ function App() {
           {/* <Route path="myinfopage" element={<MyInfoPage />} />
           <Route path="mycalendarpage" element={<MyCalendarPage />} /> */}
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <ReactQueryDevtools />
     </QueryClientProvider>
