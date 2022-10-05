@@ -1,4 +1,6 @@
+import axios from 'axios';
 import { useState } from 'react';
+import { useQuery } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import atoms from '../components/atoms';
@@ -72,29 +74,46 @@ const EventCommentModal = styled(molecules.EventCommentModal)`
   left: 50%;
 `;
 
+const getMemberInfo = async (memberId) => {
+  const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/members/${memberId}`);
+  return data;
+};
+
 //<------------------ COMPONENT ------------------>
 const MainPage = () => {
   const modalState = useSelector((state) => state.modal);
+  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
-
-  const submitInfo = (obj) => {
-    console.log('obj : ', obj);
-    // setIsCreateEventModal(false);
-    // setIsCreateCalendarModal(false);
-  };
-
+  const memberInfo = useQuery('memberInfo', () => getMemberInfo(user.id));
+  if (memberInfo.isLoading) return <h3>Loading...</h3>;
+  if (memberInfo.isError)
+    return (
+      <>
+        <h3>memberInfo error</h3>
+        <p>{memberInfo.error.toString()}</p>
+      </>
+    );
+  // console.log('memberInfodata', memberInfo.data);
+  const memberCalendars = memberInfo.data.adminCalendars.concat(memberInfo.data.attendedCalendars);
+  // console.log('memberCalendar', memberCalendars);
   return (
     <MainPageWrapper>
       <molecules.MainPageNavigation />
-      <Calendar>
-        {modalState.eventCommentModal && <EventCommentModal />}
-        {modalState.eventModal && <EventModal className={modalState.eventCommentModal ? 'comment-mode' : ''} />}
-        {modalState.calendarSidebarModal && <CalendarSidebar />}
-        {modalState.createCalendarModal && <CreateCalendarModal submitInfo={submitInfo} />}
-        {modalState.mypageSidebarModal && <MypageSidebar />}
-        <PlusCircleButton color={'#007FDB'} onClick={() => dispatch(modalSlice.actions.modal({ ...modalState, createEventModal: true }))} />
-        {modalState.createEventModal && <CreateEventModal />}
-      </Calendar>
+      {memberCalendars.length === 0 ? (
+        <CreateCalendarModal />
+      ) : (
+        <Calendar>
+          {modalState.eventCommentModal && <EventCommentModal />}
+          {modalState.eventModal && <EventModal className={modalState.eventCommentModal ? 'comment-mode' : ''} />}
+          {modalState.calendarSidebarModal && <CalendarSidebar />}
+          {modalState.createCalendarModal && <CreateCalendarModal />}
+          {modalState.mypageSidebarModal && <MypageSidebar />}
+          <PlusCircleButton color={'#007FDB'} onClick={() => dispatch(modalSlice.actions.modal({ ...modalState, createEventModal: true }))} />
+          {modalState.createEventModal && <CreateEventModal />}
+          {modalState.diaryModal && <molecules.DiaryModal />}
+          {modalState.createDiaryModal && <molecules.CreateDiaryModal />}
+        </Calendar>
+      )}
     </MainPageWrapper>
   );
 };
