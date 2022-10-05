@@ -2,9 +2,28 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import modalSlice from '../../slices/modalSlice';
 import atoms from '../atoms';
+import { Viewer } from '@toast-ui/react-editor';
+import '@toast-ui/editor/dist/toastui-editor-viewer.css';
+import { useQuery, useQueryClient } from 'react-query';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 // <--- styled component --->
-const DiaryModalWrapper = styled.div``;
+const DiaryModalWrapper = styled.div`
+  .viewer-container {
+    height: 500px;
+    width: 800px;
+    overflow-y: scroll;
+    padding: 5px;
+  }
+
+  .comment-container {
+    height: 100px;
+    width: 800px;
+    border: 1px solid #b6b6b6;
+    overflow-y: scroll;
+  }
+`;
 
 const UserWrapper = styled.div`
   display: flex;
@@ -37,8 +56,13 @@ const StyledUserComment = styled(atoms.UserComment)`
   margin-left: 16px;
 `;
 
+const getDiary = async (diaryId) => {
+  const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/diaries/${diaryId}`);
+  return data;
+};
+
 // <--- DiaryModal --->
-const DiaryModal = () => {
+const DiaryModal = ({ className }) => {
   // 테스트 데이터
   const dummyData = {
     item: [
@@ -51,18 +75,31 @@ const DiaryModal = () => {
     ],
   };
   const modalState = useSelector((state) => state.modal);
+  const userState = useSelector((state) => state.user);
+  const selectedState = useSelector((state) => state.selected);
+  const queryClient = useQueryClient();
   const dispatch = useDispatch();
+  queryClient.invalidateQueries('diary');
+  const diary = useQuery('diary', () => getDiary(selectedState.diaryId));
 
+  if (diary.isLoading) return <h3>Loading...</h3>;
+  if (diary.isError)
+    return (
+      <>
+        <h3>diary error</h3>
+        <p>{diary.error.toString()}</p>
+      </>
+    );
   return (
-    <DiaryModalWrapper>
+    <DiaryModalWrapper className={className}>
       {/*<--- 네비게이션바 --->*/}
       <atoms.DiaryNavigationBar>
         <UserWrapper>
           <StyledUserProfile />
-          <atoms.UserNickname content={'skyblue'} />
+          <atoms.UserNickname content={userState.name} />
         </UserWrapper>
 
-        <atoms.DiaryTitle content={'회고 제목'} />
+        {/* <atoms.DiaryTitle content={'회고 제목'} /> */}
 
         <IconWrapper>
           <atoms.UpdateIcon />
@@ -74,7 +111,10 @@ const DiaryModal = () => {
       {/*<--- 컨테이너 --->*/}
       <atoms.DiaryModalContainer>
         {/* 회고 내용 */}
-        <atoms.DiaryContentContainer content={'재밌'} />
+        {/* <atoms.DiaryContentContainer content={'재밌'} /> */}
+        <div className={'viewer-container'}>
+          <Viewer initialValue={diary.data.contents} />
+        </div>
 
         {/* 댓글 입력창 */}
         <StyledCommentInputContainer>
@@ -83,17 +123,19 @@ const DiaryModal = () => {
         </StyledCommentInputContainer>
 
         {/* 댓글 영역 */}
-        {dummyData.item.map((value) => {
-          return (
-            <atoms.UserCommentContainer key={value.id}>
-              <UserWrapper>
-                <atoms.UserNickname content={value.nickName} />
-              </UserWrapper>
+        <div className={'comment-container'}>
+          {dummyData.item.map((value) => {
+            return (
+              <atoms.UserCommentContainer key={value.id}>
+                <UserWrapper>
+                  <atoms.UserNickname content={value.nickName} />
+                </UserWrapper>
 
-              <StyledUserComment content={value.content} />
-            </atoms.UserCommentContainer>
-          );
-        })}
+                <StyledUserComment content={value.content} />
+              </atoms.UserCommentContainer>
+            );
+          })}
+        </div>
       </atoms.DiaryModalContainer>
     </DiaryModalWrapper>
   );
