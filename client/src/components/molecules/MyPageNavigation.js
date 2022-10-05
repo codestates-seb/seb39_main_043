@@ -10,11 +10,11 @@ const LogoIcon = styled(atoms.LogoIcon)`
 `;
 
 const MyPageText = styled(atoms.MyPageText)`
-  margin-left: 422px;
+  margin-left: 450px;
 `;
 
 const CalendarIcon = styled(atoms.CalendarIcon)`
-  margin-left: 380px;
+  margin-left: 314px;
 `;
 
 const CurrentCalendarTitle = styled(atoms.CurrentCalendarTitle)`
