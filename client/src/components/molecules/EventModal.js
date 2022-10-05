@@ -4,6 +4,7 @@ import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import modalSlice from '../../slices/modalSlice';
+import selectedSlice from '../../slices/selectedSlice';
 import atoms from '../atoms';
 
 // <--- styled component
@@ -43,11 +44,17 @@ const deleteSchedule = async (scheduleId) => {
   await axios.delete(`${process.env.REACT_APP_API_URL}/schedules/${scheduleId}`);
 };
 
+const getDiary = async (diaryId) => {
+  const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/diaries/${diaryId}`);
+  return data;
+};
+
 // <--- Event Modal --->
 const EventModal = ({ className }) => {
   const scheduleId = useSelector((state) => state.selected.scheduleId);
-  const [event, setEvent] = useState('beforeDiary'); // event 상태에 따라 일정 보기(회고 작성), 일정 수정, 회고 보기 모드로 변경
+  const [event, setEvent] = useState('schedule'); // event 상태에 따라 일정 보기(회고 작성), 일정 수정, 회고 보기 모드로 변경
   const modalState = useSelector((state) => state.modal);
+  const selectedState = useSelector((state) => state.selected);
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
   const updateScheduleMutation = useMutation(() => updateSchedule(scheduleId, updateObj), {
@@ -64,6 +71,7 @@ const EventModal = ({ className }) => {
     },
   });
   const schedule = useQuery('schedule', () => getSchedule(scheduleId));
+  // const diary = useQuery('diary', () => getDiary(schedule.data.diaryInfo));
   if (schedule.isLoading) return <h3>Loading...</h3>;
   if (schedule.isError)
     return (
@@ -72,7 +80,18 @@ const EventModal = ({ className }) => {
         <div>{schedule.error.toString()}</div>
       </>
     );
+  // if (diary.isLoading) return <h3>Loading...</h3>;
+  // if (diary.isError)
+  //   return (
+  //     <>
+  //       <h3>Event Modal dairy error</h3>
+  //       <p>{diary.error.toString()}</p>
+  //     </>
+  //   );
   // update 는 업데이트할 데이터
+  dispatch(selectedSlice.actions.selected({ ...selectedState, diaryId: schedule.data.diaryInfo }));
+  console.log(selectedState);
+
   const updateObj = { ...schedule.data };
 
   const handleDateChange = (event) => {
@@ -99,8 +118,8 @@ const EventModal = ({ className }) => {
 
   // 일정 조회 모드
   const viewMode = () => {
-    setEvent('beforeDiary');
     updateScheduleMutation.mutate();
+    setEvent('schedule');
   };
 
   // 일정 삭제
@@ -129,7 +148,7 @@ const EventModal = ({ className }) => {
       {/*<--- 컨테이너 --->*/}
       <atoms.ModalContentContainer>
         <div>
-          <atoms.ScheduleTitle title={'example 제목'} />
+          <atoms.ScheduleTitle title={schedule.data.title} />
         </div>
 
         <ItemWrapper>
@@ -168,9 +187,9 @@ const EventModal = ({ className }) => {
           {event !== 'updateSchedule' && <atoms.ScheduleDetailContent content={schedule.data.contents} />}
         </ItemWrapper>
 
-        {event === 'beforeDiary' && <atoms.ModalButton color={'#007FDB'} onClick={() => dispatch(modalSlice.actions.modal({ ...modalState, createDiaryModal: true }))} value={'회고 작성'} />}
+        {schedule.data.diaryInfo === null && <atoms.ModalButton color={'#007FDB'} onClick={() => dispatch(modalSlice.actions.modal({ ...modalState, createDiaryModal: true }))} value={'회고 작성'} />}
         {event === 'updateSchedule' && <atoms.ModalButton color={'#EF9F04'} onClick={viewMode} value={'수정'} />}
-        {event === 'afterDiary' && <atoms.ModalButton color={'#EF9F04'} onClick={() => dispatch(modalSlice.actions.modal({ ...modalState, diaryModal: true }))} value={'회고 보기'} />}
+        {schedule.data.diaryInfo !== null && <atoms.ModalButton color={'#EF9F04'} onClick={() => dispatch(modalSlice.actions.modal({ ...modalState, diaryModal: true }))} value={'회고 보기'} />}
       </atoms.ModalContentContainer>
     </EventModalWrapper>
   );
