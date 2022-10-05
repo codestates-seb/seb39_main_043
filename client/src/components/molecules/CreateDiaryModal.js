@@ -2,7 +2,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import modalSlice from '../../slices/modalSlice';
 import atoms from '../atoms';
-
+import { Editor } from '@toast-ui/react-editor';
+import '@toast-ui/editor/dist/toastui-editor.css';
+import axios from 'axios';
+import { useMutation, useQueryClient } from 'react-query';
+import { useRef } from 'react';
 // <--- styled component --->
 const DiaryModalWrapper = styled.div``;
 
@@ -27,47 +31,61 @@ const IconWrapper = styled.div`
   }
 `;
 
-const StyledCommentInputContainer = styled(atoms.CommentInputContainer)`
-  width: 100%;
-  margin-top: 32px;
-  margin-bottom: 16px;
+const CreateDiaryButton = styled(atoms.CreateDiaryButton)`
+  margin-top: 10px;
 `;
 
-const StyledUserComment = styled(atoms.UserComment)`
-  margin-left: 16px;
-`;
+const postDiary = async (scheduleId, memberId, contents, title, diaryImg) => {
+  await axios
+    .post(`${process.env.REACT_APP_API_URL}/diaries`, {
+      scheduleId,
+      memberId,
+      contents,
+      title,
+      diaryImg,
+    })
+    .then((res) => {
+      console.log('res.data : ', res.data);
+      axios
+        .patch(`${process.env.REACT_APP_API_URL}/schedules/${scheduleId}`, {
+          diaryInfo: res.data.diaryId,
+        })
+        .then((res) => {
+          console.log('complete', res.data);
+        });
+    });
+};
 
 // <--- DiaryModal --->
-const CreateDiaryModal = () => {
-  // 테스트 데이터
-  const dummyData = {
-    item: [
-      { id: 0, nickName: 'red', content: '댓글 1입니다.' },
-      { id: 1, nickName: 'orange', content: '댓글 2입니다.' },
-      { id: 2, nickName: 'banana', content: '댓글 3입니다.' },
-      { id: 3, nickName: 'green', content: '댓글 4입니다.' },
-      { id: 4, nickName: 'blue', content: '댓글 5입니다.' },
-      { id: 5, nickName: 'purple', content: '댓글 6입니다.' },
-    ],
-  };
-
+const CreateDiaryModal = ({ className }) => {
+  const editorRef = useRef();
   const modalState = useSelector((state) => state.modal);
+  const userState = useSelector((state) => state.user);
+  const selectedState = useSelector((state) => state.selected);
   const dispatch = useDispatch();
+  const queryClient = useQueryClient();
+  const diaryMutation = useMutation(() => postDiary(selectedState.scheduleId, userState.id, editorRef.current.getInstance().getMarkdown(), 'title', 'diaryImg'), {
+    onSuccess: () => {
+      queryClient.invalidateQueries('diary');
+      queryClient.invalidateQueries('schedule');
+      dispatch(modalSlice.actions.modal({}));
+    },
+  });
 
   return (
-    <DiaryModalWrapper>
+    <DiaryModalWrapper className={className}>
       {/*<--- 네비게이션바 --->*/}
       <atoms.DiaryNavigationBar>
         <UserWrapper>
           <StyledUserProfile />
-          <atoms.UserNickname content={'skyblue'} />
+          <atoms.UserNickname content={userState.name} />
         </UserWrapper>
 
-        <atoms.DiaryTitle content={'회고 제목'} />
+        {/* <atoms.DiaryTitle content={'Diary'} /> */}
 
         <IconWrapper>
-          <atoms.UpdateIcon />
-          <atoms.DeleteIcon />
+          {/* <atoms.UpdateIcon />
+          <atoms.DeleteIcon /> */}
           <atoms.CloseIcon onClick={() => dispatch(modalSlice.actions.modal({ createDiaryModal: false }))} />
         </IconWrapper>
       </atoms.DiaryNavigationBar>
@@ -75,26 +93,8 @@ const CreateDiaryModal = () => {
       {/*<--- 컨테이너 --->*/}
       <atoms.DiaryModalContainer>
         {/* 회고 내용 */}
-        <atoms.DiaryContentContainer content={'재밌'} />
-
-        {/* 댓글 입력창 */}
-        <StyledCommentInputContainer>
-          <atoms.CommentTextarea />
-          <atoms.CommentPutButton />
-        </StyledCommentInputContainer>
-
-        {/* 댓글 영역 */}
-        {dummyData.item.map((value) => {
-          return (
-            <atoms.UserCommentContainer key={value.id}>
-              <UserWrapper>
-                <atoms.UserNickname content={value.nickName} />
-              </UserWrapper>
-
-              <StyledUserComment content={value.content} />
-            </atoms.UserCommentContainer>
-          );
-        })}
+        <Editor height="600px" initialEditType="markdown" useCommandShortcut={false} ref={editorRef} />
+        <CreateDiaryButton title={'등록'} onClick={diaryMutation.mutate} />
       </atoms.DiaryModalContainer>
     </DiaryModalWrapper>
   );

@@ -1,3 +1,5 @@
+import axios from 'axios';
+import { useQuery, useQueryClient } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import modalSlice from '../../slices/modalSlice';
@@ -18,13 +20,21 @@ const ScheduleWrapper = styled.div`
   }
 `;
 
+const getSchedule = async (scheduleId) => {
+  const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/schedules/${scheduleId}`);
+  return data;
+};
+
 const Schedule = ({ schedule, scheduleId }) => {
   const modalState = useSelector((state) => state.modal);
   const selectedState = useSelector((state) => state.selected);
+  const queryClient = useQueryClient();
   const dispatch = useDispatch();
+
   const openEventModal = () => {
     dispatch(modalSlice.actions.modal({ ...modalState, eventModal: true }));
     dispatch(selectedSlice.actions.selected({ ...selectedState, scheduleId: scheduleId }));
+    queryClient.invalidateQueries('diary');
   };
   return (
     <ScheduleWrapper onClick={openEventModal}>

@@ -74,11 +74,24 @@ const EventCommentModal = styled(molecules.EventCommentModal)`
   left: 50%;
 `;
 
+const CreateDiaryModal = styled(molecules.CreateDiaryModal)`
+  position: absolute;
+  top: 10vh;
+  left: calc(50% - 420px);
+`;
+
+const DiaryModal = styled(molecules.DiaryModal)`
+  position: absolute;
+  top: 10vh;
+  left: calc(50% - 420px);
+`;
+
 const getMemberInfo = async (memberId) => {
   const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/members/${memberId}`);
   return data;
 };
 
+const getDiaries = async () => {};
 //<------------------ COMPONENT ------------------>
 const MainPage = () => {
   const modalState = useSelector((state) => state.modal);
@@ -110,8 +123,8 @@ const MainPage = () => {
           {modalState.mypageSidebarModal && <MypageSidebar />}
           <PlusCircleButton color={'#007FDB'} onClick={() => dispatch(modalSlice.actions.modal({ ...modalState, createEventModal: true }))} />
           {modalState.createEventModal && <CreateEventModal />}
-          {modalState.diaryModal && <molecules.DiaryModal />}
-          {modalState.createDiaryModal && <molecules.CreateDiaryModal />}
+          {modalState.diaryModal && <DiaryModal />}
+          {modalState.createDiaryModal && <CreateDiaryModal />}
         </Calendar>
       )}
     </MainPageWrapper>

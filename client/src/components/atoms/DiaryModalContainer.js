@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const DiaryModalContainerWrapper = styled.div`
   display: flex;
@@ -9,6 +9,7 @@ const DiaryModalContainerWrapper = styled.div`
   border: 1px solid #b5b5b5;
   border-radius: 0 0 10px 10px;
   border-top: none;
+  background-color: #fff;
 `;
 
 const DiaryModalContainer = ({ className, children }) => {
