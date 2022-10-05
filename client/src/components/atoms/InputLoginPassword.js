@@ -32,7 +32,7 @@ const InputLoginPassword = () => {
   return (
     <InputLoginPasswordWrapper>
       <IoKeyOutline size={40} />
-      <input className="login-password" placeholder="비밀번호를 입력하세요" type="password" onChange={(e) => dispatch(userSlice.actions.login({ ...state, password: e.target.value }))}></input>
+      <input className="login-password" placeholder="비밀번호를 입력하세요" type="password" onChange={(e) => dispatch(userSlice.actions.user({ ...state, password: e.target.value }))}></input>
     </InputLoginPasswordWrapper>
   );
 };
