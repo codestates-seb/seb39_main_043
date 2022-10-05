@@ -1,8 +1,8 @@
-import atoms from "../atoms";
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import modalSlice from "../../slices/modalSlice";
-import { persistor } from "../../store";
+import atoms from '../atoms';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import modalSlice from '../../slices/modalSlice';
+import { persistor } from '../../store';
 
 const MypageSidebar = ({ className }) => {
   const user = useSelector((state) => state.user);
@@ -23,18 +23,19 @@ const MypageSidebar = ({ className }) => {
 
   const purge = async () => {
     await persistor.purge();
-    navigate("/", { replace: true });
+    dispatch(modalSlice.actions.modal({}));
+    navigate('/', { replace: true });
   };
 
   return (
     <atoms.MypageSidebarContainer className={className}>
       <atoms.MypageSidebarNickname content={user.name} />
       <Link to="/mypage/myinfopage">
-        <atoms.MypageSidebarItem content={"내 정보 수정"} />
+        <atoms.MypageSidebarItem content={'내 정보 수정'} />
       </Link>
 
       <Link to="/mypage/mycalendarpage">
-        <atoms.MypageSidebarItem content={"캘린더 관리"} />
+        <atoms.MypageSidebarItem content={'캘린더 관리'} />
       </Link>
       <atoms.MypageSidebarLogout onClick={() => purge()} />
       {/* <atoms.MypageSidebarLogout onClick={logout} /> */}

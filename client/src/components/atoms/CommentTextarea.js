@@ -14,7 +14,7 @@ const Container = styled.textarea`
 const CommentTextarea = () => {
   const inputState = useSelector((state) => state.input);
   const dispatch = useDispatch();
-  return <Container onChange={(e) => dispatch(inputSlice.actions.input({ ...inputState, comment: e.target.value }))} />;
+  return <Container id="comment-textarea" onChange={(e) => dispatch(inputSlice.actions.input({ ...inputState, comment: e.target.value }))} />;
 };
 
 export default CommentTextarea;

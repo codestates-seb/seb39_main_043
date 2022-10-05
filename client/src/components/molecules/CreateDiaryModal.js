@@ -38,7 +38,7 @@ const StyledUserComment = styled(atoms.UserComment)`
 `;
 
 // <--- DiaryModal --->
-const DiaryModal = () => {
+const CreateDiaryModal = () => {
   // 테스트 데이터
   const dummyData = {
     item: [
@@ -50,6 +50,7 @@ const DiaryModal = () => {
       { id: 5, nickName: 'purple', content: '댓글 6입니다.' },
     ],
   };
+
   const modalState = useSelector((state) => state.modal);
   const dispatch = useDispatch();
 
@@ -67,7 +68,7 @@ const DiaryModal = () => {
         <IconWrapper>
           <atoms.UpdateIcon />
           <atoms.DeleteIcon />
-          <atoms.CloseIcon onClick={() => dispatch(modalSlice.actions.modal({ ...modalState, diaryModal: false }))} />
+          <atoms.CloseIcon onClick={() => dispatch(modalSlice.actions.modal({ createDiaryModal: false }))} />
         </IconWrapper>
       </atoms.DiaryNavigationBar>
 
@@ -99,4 +100,4 @@ const DiaryModal = () => {
   );
 };
 
-export default DiaryModal;
+export default CreateDiaryModal;

@@ -1,13 +1,13 @@
-import styled from "styled-components";
-import atoms from "../components/atoms";
-import molecules from "../components/molecules";
-import { Link, Navigate, useNavigate } from "react-router-dom";
-import { useQuery } from "react-query";
-import axios from "axios";
-import { useSelector, useDispatch } from "react-redux";
-import warningSlice from "../slices/warningSlice";
-import userSlice from "../slices/userSlice";
-import calendarSlice from "../slices/calendarSlice";
+import styled from 'styled-components';
+import atoms from '../components/atoms';
+import molecules from '../components/molecules';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { useQuery } from 'react-query';
+import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import warningSlice from '../slices/warningSlice';
+import userSlice from '../slices/userSlice';
+import calendarSlice from '../slices/calendarSlice';
 
 const LoginPageWrapper = styled.div`
   display: flex;
@@ -46,15 +46,49 @@ const SocialLoginButtonGoogle = styled(atoms.SocialLoginButtonGoogle)`
   margin-top: 32px;
 `;
 
+// const login = (username, password) => {
+//   fetch(`${process.env.REACT_APP_API_URL}/login`, {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify({ username, password }),
+//   }).then((res) => {
+//     console.log(res);
+//   });
+// };
+
 const LoginPage = () => {
   const user = useSelector((state) => state.user);
   const calendar = useSelector((state) => state.calendar);
   const loginWarning = useSelector((state) => state.warning.loginWarning);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  console.log(user);
+  console.log('email', user.email);
+  console.log('password', user.password);
 
+  // const login = () => {
+  //   axios
+  //     .post(
+  //       `${process.env.REACT_APP_API_URL}/login`,
+  //       {
+  //         username: user.email,
+  //         password: user.password,
+  //       },
+  //       { withCredentials: true }
+  //     )
+  //     .then((res) => {
+  //       console.log(res);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
   const members = useQuery('members', async () => {
-    const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/members`);
+    const res = await axios.get(`${process.env.REACT_APP_API_URL}/members`);
+    // console.log('response : ', res);
+    const data = res.data;
     return data;
   });
   if (members.isLoading) return <h1>Loading...</h1>;
@@ -71,19 +105,19 @@ const LoginPage = () => {
 
   const isUser = (email, password, userData) => {
     let result = userData.filter((el) => el.email === email && el.password === password);
-    console.log("result", result);
+    console.log('result', result);
 
     if (result.length === 0) {
-      dispatch(warningSlice.actions.log({ loginWarning: "" }));
+      dispatch(warningSlice.actions.log({ loginWarning: '' }));
     } else {
       dispatch(userSlice.actions.user({ name: result[0].name, id: result[0].memberId, email: result[0].email, password: result[0].password }));
       let initialCalendar = result[0].adminCalendars.concat(result[0].attendedCalendars)[0];
       if (initialCalendar === undefined) {
-        dispatch(calendarSlice.actions.setCalendar({ id: "", title: "" }));
+        dispatch(calendarSlice.actions.setCalendar({ id: '', title: '' }));
       } else {
         dispatch(calendarSlice.actions.setCalendar({ id: initialCalendar.calendarId, title: initialCalendar.title }));
       }
-      navigate("/mainpage"); // (memo)로그인 성공 시 메인페이지로 이동
+      navigate('/mainpage'); // (memo)로그인 성공 시 메인페이지로 이동
     }
   };
 
@@ -93,11 +127,14 @@ const LoginPage = () => {
       <LoginForm />
       <WarningBox className={loginWarning} value={`아이디 또는 비밀번호를 잘못 입력했습니다.\n입력한 내용을 다시 확인해주세요.`} />
       <LoginButton color={'#007FDB'} onClick={() => isUser(user.email, user.password, members.data)} />
+      {/* <LoginButton color={'#007FDB'} onClick={login} /> */}
       <Line />
       <SocialLoginButtonGoogle />
       <div className="join-link">
         <span>아직 회원이 아니신가요? </span>
-        <Link to="/joinpage">회원가입 하기</Link>
+        <Link to="/joinpage" style={{ color: '#007FDB' }}>
+          회원가입 하기
+        </Link>
       </div>
     </LoginPageWrapper>
   );

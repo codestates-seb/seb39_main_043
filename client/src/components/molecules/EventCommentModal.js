@@ -59,14 +59,15 @@ const postComment = async (comment, scheduleId, memberId) => {
 
 // <-- EventCommentModal -->
 const EventCommentModal = ({ className }) => {
-  const localUser = JSON.parse(window.localStorage.getItem('user'));
+  // const localUser = JSON.parse(window.localStorage.getItem('user'));
   const modalState = useSelector((state) => state.modal);
   const scheduleId = useSelector((state) => state.selected.scheduleId);
+  const memberId = useSelector((state) => state.user.id);
   const inputState = useSelector((state) => state.input);
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
   const comments = useQuery('comments', () => getComments(scheduleId));
-  const postCommentMutation = useMutation(() => postComment(inputState.comment, scheduleId, localUser.memberId), {
+  const postCommentMutation = useMutation(() => postComment(inputState.comment, scheduleId, memberId), {
     onSuccess: () => {
       queryClient.invalidateQueries('comments');
       dispatch(inputSlice.actions.input({ ...inputState, comment: '' }));
@@ -124,7 +125,12 @@ const EventCommentModal = ({ className }) => {
         {/* 댓글창 */}
         <atoms.CommentInputContainer>
           <atoms.CommentTextarea />
-          <atoms.CommentPutButton onClick={postCommentMutation.mutate} />
+          <atoms.CommentPutButton
+            onClick={() => {
+              postCommentMutation.mutate();
+              document.getElementById('comment-textarea').value = '';
+            }}
+          />
         </atoms.CommentInputContainer>
       </atoms.CommentModalContainer>
     </EventCommentModalWrapper>

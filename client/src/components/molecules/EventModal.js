@@ -46,7 +46,7 @@ const deleteSchedule = async (scheduleId) => {
 // <--- Event Modal --->
 const EventModal = ({ className }) => {
   const scheduleId = useSelector((state) => state.selected.scheduleId);
-  const [event, setEvent] = useState('afterDiary'); // event 상태에 따라 일정 보기(회고 작성), 일정 수정, 회고 보기 모드로 변경
+  const [event, setEvent] = useState('beforeDiary'); // event 상태에 따라 일정 보기(회고 작성), 일정 수정, 회고 보기 모드로 변경
   const modalState = useSelector((state) => state.modal);
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
@@ -168,9 +168,9 @@ const EventModal = ({ className }) => {
           {event !== 'updateSchedule' && <atoms.ScheduleDetailContent content={schedule.data.contents} />}
         </ItemWrapper>
 
-        {event === 'beforeDiary' && <atoms.ModalButton color={'#007FDB'} value={'회고 작성'} />}
+        {event === 'beforeDiary' && <atoms.ModalButton color={'#007FDB'} onClick={() => dispatch(modalSlice.actions.modal({ ...modalState, createDiaryModal: true }))} value={'회고 작성'} />}
         {event === 'updateSchedule' && <atoms.ModalButton color={'#EF9F04'} onClick={viewMode} value={'수정'} />}
-        {event === 'afterDiary' && <atoms.ModalButton color={'#EF9F04'} value={'회고 보기'} />}
+        {event === 'afterDiary' && <atoms.ModalButton color={'#EF9F04'} onClick={() => dispatch(modalSlice.actions.modal({ ...modalState, diaryModal: true }))} value={'회고 보기'} />}
       </atoms.ModalContentContainer>
     </EventModalWrapper>
   );

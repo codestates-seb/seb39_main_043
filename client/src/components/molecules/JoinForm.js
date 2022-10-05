@@ -6,9 +6,7 @@ const JoinFormWrapper = styled.div``;
 const JoinForm = ({ className }) => {
   return (
     <JoinFormWrapper className={className}>
-      <atoms.InputJoinNickname>
-        <atoms.WarningBox className={''} value={'이미 존재하는 별명입니다.'} />
-      </atoms.InputJoinNickname>
+      <atoms.InputJoinNickname>{/* <atoms.WarningBox className={''} value={'이미 존재하는 별명입니다.'} /> */}</atoms.InputJoinNickname>
       <atoms.InputJoinId>
         <atoms.WarningBox className={''} value={'5~12자의 영문, 숫자로된 이메일 형태로 작성해주세요'} />
       </atoms.InputJoinId>
