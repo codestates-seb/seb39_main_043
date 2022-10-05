@@ -1,5 +1,7 @@
-import styled from "styled-components";
-import atoms from "../atoms";
+import { useDispatch, useSelector } from 'react-redux';
+import styled from 'styled-components';
+import modalSlice from '../../slices/modalSlice';
+import atoms from '../atoms';
 
 // <--- styled component --->
 const DiaryModalWrapper = styled.div``;
@@ -40,14 +42,16 @@ const DiaryModal = () => {
   // 테스트 데이터
   const dummyData = {
     item: [
-      { id: 0, nickName: "red", content: "댓글 1입니다." },
-      { id: 1, nickName: "orange", content: "댓글 2입니다." },
-      { id: 2, nickName: "banana", content: "댓글 3입니다." },
-      { id: 3, nickName: "green", content: "댓글 4입니다." },
-      { id: 4, nickName: "blue", content: "댓글 5입니다." },
-      { id: 5, nickName: "purple", content: "댓글 6입니다." },
+      { id: 0, nickName: 'red', content: '댓글 1입니다.' },
+      { id: 1, nickName: 'orange', content: '댓글 2입니다.' },
+      { id: 2, nickName: 'banana', content: '댓글 3입니다.' },
+      { id: 3, nickName: 'green', content: '댓글 4입니다.' },
+      { id: 4, nickName: 'blue', content: '댓글 5입니다.' },
+      { id: 5, nickName: 'purple', content: '댓글 6입니다.' },
     ],
   };
+  const modalState = useSelector((state) => state.modal);
+  const dispatch = useDispatch();
 
   return (
     <DiaryModalWrapper>
@@ -55,22 +59,22 @@ const DiaryModal = () => {
       <atoms.DiaryNavigationBar>
         <UserWrapper>
           <StyledUserProfile />
-          <atoms.UserNickname content={"skyblue"} />
+          <atoms.UserNickname content={'skyblue'} />
         </UserWrapper>
 
-        <atoms.DiaryTitle content={"회고 제목"} />
+        <atoms.DiaryTitle content={'회고 제목'} />
 
         <IconWrapper>
           <atoms.UpdateIcon />
           <atoms.DeleteIcon />
-          <atoms.CloseIcon />
+          <atoms.CloseIcon onClick={() => dispatch(modalSlice.actions.modal({ ...modalState, diaryModal: false }))} />
         </IconWrapper>
       </atoms.DiaryNavigationBar>
 
       {/*<--- 컨테이너 --->*/}
       <atoms.DiaryModalContainer>
         {/* 회고 내용 */}
-        <atoms.DiaryContentContainer content={"재밌"} />
+        <atoms.DiaryContentContainer content={'재밌'} />
 
         {/* 댓글 입력창 */}
         <StyledCommentInputContainer>
