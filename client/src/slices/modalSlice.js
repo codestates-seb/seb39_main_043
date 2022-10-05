@@ -10,6 +10,8 @@ const modalSlice = createSlice({
     eventModal: false,
     eventCommentModal: false,
     inviteAttendeeModal: false,
+    diaryModal: false,
+    createDiaryModal: false,
   },
   reducers: {
     modal: (state, action) => {
@@ -20,6 +22,8 @@ const modalSlice = createSlice({
       state.eventModal = action.payload.eventModal;
       state.mypageSidebarModal = action.payload.mypageSidebarModal;
       state.inviteAttendeeModal = action.payload.inviteAttendeeModal;
+      state.diaryModal = action.payload.diaryModal;
+      state.createDiaryModal = action.payload.createDiaryModal;
     },
   },
 });
