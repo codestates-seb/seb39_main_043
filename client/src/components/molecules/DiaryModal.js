@@ -4,9 +4,10 @@ import modalSlice from '../../slices/modalSlice';
 import atoms from '../atoms';
 import { Viewer } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor-viewer.css';
-import { useQuery, useQueryClient } from 'react-query';
+import { useQuery, useQueryClient, useMutation } from 'react-query';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import inputSlice from '../../slices/inputSlice';
 
 // <--- styled component --->
 const DiaryModalWrapper = styled.div`
@@ -61,33 +62,72 @@ const getDiary = async (diaryId) => {
   return data;
 };
 
+const deleteDiary = async (diaryId, scheduleId) => {
+  await axios.delete(`${process.env.REACT_APP_API_URL}/diaries/${diaryId}`).then((res) => {
+    axios.patch(`${process.env.REACT_APP_API_URL}/schedules/${scheduleId}`, { diaryInfo: 0 }).then((res) => {
+      console.log('patch schedule', res.data);
+    });
+  });
+};
+
+const getDiaryComment = async (diaryId) => {
+  const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/diarycomments/${diaryId}`);
+  return data;
+};
+
+const postDiaryComment = async (comment, diaryId, memberId) => {
+  await axios.post(`${process.env.REACT_APP_API_URL}/diarycomments`, {
+    diaryId,
+    memberId,
+    contents: comment,
+  });
+};
+
 // <--- DiaryModal --->
 const DiaryModal = ({ className }) => {
-  // 테스트 데이터
-  const dummyData = {
-    item: [
-      { id: 0, nickName: 'red', content: '댓글 1입니다.' },
-      { id: 1, nickName: 'orange', content: '댓글 2입니다.' },
-      { id: 2, nickName: 'banana', content: '댓글 3입니다.' },
-      { id: 3, nickName: 'green', content: '댓글 4입니다.' },
-      { id: 4, nickName: 'blue', content: '댓글 5입니다.' },
-      { id: 5, nickName: 'purple', content: '댓글 6입니다.' },
-    ],
-  };
   const modalState = useSelector((state) => state.modal);
   const userState = useSelector((state) => state.user);
   const selectedState = useSelector((state) => state.selected);
+  const inputState = useSelector((state) => state.input);
   const queryClient = useQueryClient();
   const dispatch = useDispatch();
-  queryClient.invalidateQueries('diary');
-  const diary = useQuery('diary', () => getDiary(selectedState.diaryId));
-
+  const diary = useQuery(['diary', selectedState.diaryId], () => getDiary(selectedState.diaryId));
+  const diaryComment = useQuery(['diaryComment', selectedState.diaryId], () => getDiaryComment(selectedState.diaryId));
+  const deleteDiaryMutation = useMutation(() => deleteDiary(selectedState.diaryId, selectedState.scheduleId), {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['diary', selectedState.diaryId]);
+      queryClient.invalidateQueries('schedule');
+      dispatch(modalSlice.actions.modal({ ...modalState, diaryModal: false }));
+    },
+  });
+  const postDiaryCommentMutation = useMutation(() => postDiaryComment(inputState.comment, selectedState.diaryId, userState.id), {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['diaryComment', selectedState.diaryId]);
+      dispatch(inputSlice.actions.input({ ...inputState, comment: '' }));
+    },
+  });
+  const deleteDiaryHandler = () => {
+    let result = window.confirm('기록을 삭제하시겠습니까?');
+    if (result) {
+      deleteDiaryMutation.mutate();
+      alert('기록이 삭제되었습니다');
+    } else {
+      alert('기록 삭제가 취소되었습니다');
+    }
+  };
   if (diary.isLoading) return <h3>Loading...</h3>;
   if (diary.isError)
     return (
       <>
-        <h3>diary error</h3>
-        <p>{diary.error.toString()}</p>
+        <h3>error</h3>
+      </>
+    );
+  if (diaryComment.isLoading) return <h3>Loading...</h3>;
+  if (diaryComment.isError)
+    return (
+      <>
+        <h3>diaryComment error</h3>
+        <p>{diaryComment.error.toString()}</p>
       </>
     );
   return (
@@ -102,8 +142,8 @@ const DiaryModal = ({ className }) => {
         {/* <atoms.DiaryTitle content={'회고 제목'} /> */}
 
         <IconWrapper>
-          <atoms.UpdateIcon />
-          <atoms.DeleteIcon />
+          <atoms.UpdateIcon onClick={() => dispatch(modalSlice.actions.modal({ ...modalState, updateDiaryModal: true, diaryModal: false }))} />
+          <atoms.DeleteIcon onClick={deleteDiaryHandler} />
           <atoms.CloseIcon onClick={() => dispatch(modalSlice.actions.modal({ ...modalState, diaryModal: false }))} />
         </IconWrapper>
       </atoms.DiaryNavigationBar>
@@ -119,19 +159,24 @@ const DiaryModal = ({ className }) => {
         {/* 댓글 입력창 */}
         <StyledCommentInputContainer>
           <atoms.CommentTextarea />
-          <atoms.CommentPutButton />
+          <atoms.CommentPutButton
+            onClick={() => {
+              postDiaryCommentMutation.mutate();
+              document.getElementById('comment-textarea').value = '';
+            }}
+          />
         </StyledCommentInputContainer>
 
         {/* 댓글 영역 */}
         <div className={'comment-container'}>
-          {dummyData.item.map((value) => {
+          {diaryComment.data.map((comment) => {
             return (
-              <atoms.UserCommentContainer key={value.id}>
+              <atoms.UserCommentContainer key={comment.diaryCommentId}>
                 <UserWrapper>
-                  <atoms.UserNickname content={value.nickName} />
+                  <atoms.UserNickname content={comment.name} />
                 </UserWrapper>
 
-                <StyledUserComment content={value.content} />
+                <StyledUserComment content={comment.contents} />
               </atoms.UserCommentContainer>
             );
           })}
