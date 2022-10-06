@@ -56,6 +56,7 @@ public class MemberMapper {
             memberResponseDto.setName(member.getName());
             memberResponseDto.setPassword(member.getPassword());
             memberResponseDto.setMemberImg(member.getMemberImg());
+            memberResponseDto.setStatusMessage(member.getStatusMessage());
 
             memberResponseDto.setAdminCalendars(adminCalendarsToAdminCalendarResponseDtos(adminCalendars));
             memberResponseDto.setAttendedCalendars(attendedCalendarsToAttendedCalendarResponseDtos(attendedCalendars));
@@ -96,6 +97,7 @@ public class MemberMapper {
                 .map(calendar -> AdminCalendarResponseDto
                         .builder()
                         .calendarId(calendar.getCalendarId())
+                        .memberId(calendar.getMemberId().getMemberId())
                         .title(calendar.getTitle())
                         .calendarImg(calendar.getCalendarImg())
                         .build())
@@ -109,6 +111,7 @@ public class MemberMapper {
                 .map(calendarAttendee -> AttendedCalendarResponseDto
                         .builder()
                         .calendarId(calendarAttendee.getCalendarId().getCalendarId())
+                        .memberId(calendarAttendee.getCalendarId().getMemberId().getMemberId())
                         .title(calendarAttendee.getCalendarId().getTitle())
                         .calendarImg(calendarAttendee.getCalendarId().getCalendarImg())
                         .build())

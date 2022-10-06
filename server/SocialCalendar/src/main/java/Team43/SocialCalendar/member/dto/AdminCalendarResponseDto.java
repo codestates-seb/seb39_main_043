@@ -8,6 +8,7 @@ import lombok.Getter;
 public class AdminCalendarResponseDto {
 
     private long calendarId;
+    private long memberId;
     private String title;
     private String calendarImg;
 }
