@@ -1,10 +1,10 @@
-import axios from 'axios';
-import { useState } from 'react';
-import { useMutation, useQueryClient } from 'react-query';
-import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
-import modalSlice from '../../slices/modalSlice';
-import atoms from '../atoms';
+import axios from "axios";
+import { useState } from "react";
+import { useMutation, useQueryClient } from "react-query";
+import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
+import modalSlice from "../../slices/modalSlice";
+import atoms from "../atoms";
 
 // <--- styled component --->
 const CreateEventModalWrapper = styled.div`
@@ -45,7 +45,7 @@ const CreateEventModal = ({ className }) => {
   const scheduleMutation = useMutation(() => postSchedule(obj, userId, selectedState.calendarId), {
     // 하드코딩 memberId, calendarId 수정 필요
     onSuccess: () => {
-      queryClient.invalidateQueries('schedules');
+      queryClient.invalidateQueries("schedules");
       dispatch(modalSlice.actions.modal({ ...modalState, createEventModal: false }));
     },
   });
@@ -73,10 +73,10 @@ const CreateEventModal = ({ className }) => {
   // 리덕스 툴킷 사용
   const dummyData = {
     item: [
-      { name: '일시', placeholder: 'yyyy.mm.dd hh:mm ~ yyyy.mm.dd hh:mm', onChange: handleDateChange, component: <atoms.ClockIcon /> },
-      { name: '참석자', placeholder: '참석자의 이메일을 입력하세요', onChange: handleAttendeeChange, component: <atoms.PeopleIcon /> },
-      { name: '위치', placeholder: '장소를 입력하세요', onChange: handleLocationChange, component: <atoms.PlaceIcon /> },
-      { name: '설명', placeholder: '설명을 입력하세요', onChange: handleExplainChange, component: <atoms.NoteIcon /> },
+      { name: "일시", placeholder: "yyyy.mm.dd hh:mm ~ yyyy.mm.dd hh:mm", onChange: handleDateChange, component: <atoms.ClockIcon /> },
+      { name: "참석자", placeholder: "참석자를 입력하세요", onChange: handleAttendeeChange, component: <atoms.PeopleIcon /> },
+      { name: "위치", placeholder: "장소를 입력하세요", onChange: handleLocationChange, component: <atoms.PlaceIcon /> },
+      { name: "설명", placeholder: "설명을 입력하세요", onChange: handleExplainChange, component: <atoms.NoteIcon /> },
     ],
   };
 
@@ -90,7 +90,7 @@ const CreateEventModal = ({ className }) => {
       {/*<--- 컨테이너 --->*/}
       <atoms.ModalContentContainer>
         <div>
-          <atoms.InputTitle placeholder={'제목을 입력하세요'} onChange={handleTitleChange} />
+          <atoms.InputTitle placeholder={"제목을 입력하세요"} onChange={handleTitleChange} />
         </div>
 
         {dummyData.item.map((value, index) => {
@@ -105,7 +105,7 @@ const CreateEventModal = ({ className }) => {
           );
         })}
 
-        <atoms.ModalButton color={'#007FDB'} value={'저장'} onClick={scheduleMutation.mutate} />
+        <atoms.ModalButton color={"#007FDB"} value={"저장"} onClick={scheduleMutation.mutate} />
       </atoms.ModalContentContainer>
     </CreateEventModalWrapper>
   );
