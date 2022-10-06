@@ -39,10 +39,10 @@ const CreateEventModal = ({ className }) => {
   const dispatch = useDispatch();
   // const localUser = JSON.parse(window.localStorage.getItem('user'));
   // const selectedState = useSelector((state) => state.selected);
-  const calendarId = useSelector((state) => state.calendar.id);
+  const selectedState = useSelector((state) => state.selected);
   const userId = useSelector((state) => state.user.id);
   const queryClient = useQueryClient();
-  const scheduleMutation = useMutation(() => postSchedule(obj, userId, calendarId), {
+  const scheduleMutation = useMutation(() => postSchedule(obj, userId, selectedState.calendarId), {
     // 하드코딩 memberId, calendarId 수정 필요
     onSuccess: () => {
       queryClient.invalidateQueries('schedules');
