@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import warningSlice from '../slices/warningSlice';
 import userSlice from '../slices/userSlice';
 import calendarSlice from '../slices/calendarSlice';
+import selectedSlice from '../slices/selectedSlice';
 
 const LoginPageWrapper = styled.div`
   display: flex;
@@ -75,8 +76,8 @@ const LoginPage = () => {
   //       {
   //         username: user.email,
   //         password: user.password,
-  //       },
-  //       { withCredentials: true }
+  //       }
+  //       // { withCredentials: true }
   //     )
   //     .then((res) => {
   //       console.log(res);
@@ -113,9 +114,9 @@ const LoginPage = () => {
       dispatch(userSlice.actions.user({ name: result[0].name, id: result[0].memberId, email: result[0].email, password: result[0].password }));
       let initialCalendar = result[0].adminCalendars.concat(result[0].attendedCalendars)[0];
       if (initialCalendar === undefined) {
-        dispatch(calendarSlice.actions.setCalendar({ id: '', title: '' }));
+        dispatch(selectedSlice.actions.selected({ calendarId: 0 }));
       } else {
-        dispatch(calendarSlice.actions.setCalendar({ id: initialCalendar.calendarId, title: initialCalendar.title }));
+        dispatch(selectedSlice.actions.selected({ calendarId: initialCalendar.calendarId }));
       }
       navigate('/mainpage'); // (memo)로그인 성공 시 메인페이지로 이동
     }
