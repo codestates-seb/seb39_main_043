@@ -13,6 +13,7 @@ import MyPageNavigation from './MyPageNavigation.js';
 import MypageSidebar from './MypageSidebar.js';
 import makeViewDays from './makeViewDays.js';
 import CreateDiaryModal from './CreateDiaryModal.js';
+import UpdateDiaryModal from './UpdateDiaryModal';
 
 export default {
   Calendar,
@@ -30,4 +31,5 @@ export default {
   MypageSidebar,
   makeViewDays,
   CreateDiaryModal,
+  UpdateDiaryModal,
 };
