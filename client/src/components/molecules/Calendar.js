@@ -31,9 +31,9 @@ const Calendar = ({ className, children }) => {
   const year = useSelector((state) => state.date.year);
   const month = useSelector((state) => state.date.month);
   const days = makeViewDays(`${year}-${month}-01`);
-  const calendarId = useSelector((state) => state.calendar.id);
+  const selectedState = useSelector((state) => state.selected);
 
-  const schedules = useQuery('schedules', () => getSchedules(calendarId));
+  const schedules = useQuery(['schedules', selectedState.calendarId], () => getSchedules(selectedState.calendarId));
   if (schedules.isLoading) return <h3>Loading...</h3>;
   if (schedules.isError)
     return (
@@ -62,7 +62,7 @@ const Calendar = ({ className, children }) => {
       event.push({ ...el, year: date[0], month: date[1], day: date[2] });
     });
   });
-  console.log('event', event);
+
   return (
     <CalendarWrapper className={className}>
       {children}
