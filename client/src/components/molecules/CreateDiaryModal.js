@@ -7,6 +7,7 @@ import '@toast-ui/editor/dist/toastui-editor.css';
 import axios from 'axios';
 import { useMutation, useQueryClient } from 'react-query';
 import { useRef } from 'react';
+import selectedSlice from '../../slices/selectedSlice';
 // <--- styled component --->
 const DiaryModalWrapper = styled.div``;
 
@@ -35,27 +36,6 @@ const CreateDiaryButton = styled(atoms.CreateDiaryButton)`
   margin-top: 10px;
 `;
 
-const postDiary = async (scheduleId, memberId, contents, title, diaryImg) => {
-  await axios
-    .post(`${process.env.REACT_APP_API_URL}/diaries`, {
-      scheduleId,
-      memberId,
-      contents,
-      title,
-      diaryImg,
-    })
-    .then((res) => {
-      console.log('res.data : ', res.data);
-      axios
-        .patch(`${process.env.REACT_APP_API_URL}/schedules/${scheduleId}`, {
-          diaryInfo: res.data.diaryId,
-        })
-        .then((res) => {
-          console.log('complete', res.data);
-        });
-    });
-};
-
 // <--- DiaryModal --->
 const CreateDiaryModal = ({ className }) => {
   const editorRef = useRef();
@@ -64,9 +44,30 @@ const CreateDiaryModal = ({ className }) => {
   const selectedState = useSelector((state) => state.selected);
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
+  const postDiary = async (scheduleId, memberId, contents, title, diaryImg) => {
+    await axios
+      .post(`${process.env.REACT_APP_API_URL}/diaries`, {
+        scheduleId,
+        memberId,
+        contents,
+        title,
+        diaryImg,
+      })
+      .then((res) => {
+        console.log('res.data : ', res.data);
+        // dispatch(selectedSlice.actions.selected({...selectedState, diaryId: res.data.diaryInfo}))
+        axios
+          .patch(`${process.env.REACT_APP_API_URL}/schedules/${scheduleId}`, {
+            diaryInfo: res.data.diaryId,
+          })
+          .then((res) => {
+            console.log('complete', res.data);
+          });
+      });
+  };
   const diaryMutation = useMutation(() => postDiary(selectedState.scheduleId, userState.id, editorRef.current.getInstance().getMarkdown(), 'title', 'diaryImg'), {
     onSuccess: () => {
-      queryClient.invalidateQueries('diary');
+      // queryClient.invalidateQueries('diary');
       queryClient.invalidateQueries('schedule');
       dispatch(modalSlice.actions.modal({}));
     },
