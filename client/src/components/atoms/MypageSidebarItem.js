@@ -1,4 +1,6 @@
-import styled from "styled-components";
+import { useDispatch } from 'react-redux';
+import styled from 'styled-components';
+import modalSlice from '../../slices/modalSlice';
 
 const Container = styled.div`
   display: flex;
@@ -15,7 +17,8 @@ const Container = styled.div`
 `;
 
 const MypageSidebarItem = ({ content }) => {
-  return <Container>{content}</Container>;
+  const dispatch = useDispatch();
+  return <Container onClick={() => dispatch(modalSlice.actions.modal({}))}>{content}</Container>;
 };
 
 export default MypageSidebarItem;
