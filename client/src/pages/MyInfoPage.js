@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import myInfoSlice from '../slices/myPage';
-import styled from 'styled-components';
-import atoms from '../components/atoms';
-import axios from 'axios';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
-import userSlice from '../slices/userSlice';
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import myInfoSlice from "../slices/myPage";
+import styled from "styled-components";
+import atoms from "../components/atoms";
+import axios from "axios";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import userSlice from "../slices/userSlice";
 
 // 내 정보 수정 페이지 (styled component)
 const MyInfoWrapper = styled.div`
@@ -52,19 +52,17 @@ const UpdateInput = styled.input`
 
 // <--------- MyInfoPage --------->
 const MyInfoPage = () => {
-  const myInfo = useSelector((state) => state.myInfo);
   const userState = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
 
   const [isName, setIsName] = useState(false);
   const [isStatusMessage, setIsStatusMessage] = useState(false);
-  console.log('isName : ', isName);
 
   // [기능] 사용자 이름 변경
   const updateUserName = async (e) => {
-    if (e.key === 'Enter') {
-      await axios.patch(`${process.env.REACT_APP_API_URL}/members/${userState.id}`, { memberImg: '', name: e.target.value, statusMessage: '' });
+    if (e.key === "Enter") {
+      await axios.patch(`${process.env.REACT_APP_API_URL}/members/${userState.id}`, { name: e.target.value });
       dispatch(userSlice.actions.user({ ...userState, name: e.target.value }));
       setIsName(false);
     }
@@ -72,13 +70,26 @@ const MyInfoPage = () => {
 
   const mutateUpdateUserName = useMutation(updateUserName, {
     onSuccess: () => {
-      console.log('실행중?');
-      queryClient.invalidateQueries('userInfo');
+      queryClient.invalidateQueries("userInfo");
+    },
+  });
+
+  // [기능] 사용자 상태메세지 변경
+  const updateUserStatusMsg = async (e) => {
+    if (e.key === "Enter") {
+      await axios.patch(`${process.env.REACT_APP_API_URL}/members/${userState.id}`, { statusMessage: e.target.value });
+      setIsStatusMessage(false);
+    }
+  };
+
+  const mutateUpdateUserStatusMsg = useMutation(updateUserStatusMsg, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("userInfo");
     },
   });
 
   // [기능] 사용자 정보 불러오기
-  const { isLoading, isError, error, data } = useQuery('userInfo', async () => {
+  const { isLoading, isError, error, data } = useQuery("userInfo", async () => {
     const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/members/${userState.id}`);
     return data;
   });
@@ -92,20 +103,6 @@ const MyInfoPage = () => {
       </>
     );
 
-  // 마이페이지 정보 수정 후
-  const afterUpdate = (e, target) => {
-    switch (target) {
-      case 'ProfileMessage':
-        if (e.key === 'Enter') {
-          dispatch(myInfoSlice.actions.changeProfileMessage({ statusMessage: e.target.value }));
-          setIsStatusMessage(false);
-        }
-        break;
-
-      default:
-    }
-  };
-
   // 이미지 변경 함수
   const handleChange = (e) => {
     if (e.target.files && e.target.files[0]) {
@@ -118,7 +115,7 @@ const MyInfoPage = () => {
   return (
     <MyInfoWrapper>
       <MypageItem content="프로필 정보" />
-      <UpdateProfile imgUrl={''} onChange={handleChange} />
+      <UpdateProfile imgUrl={""} onChange={handleChange} />
 
       <ProfileWrapper>
         {isName || (
@@ -133,11 +130,11 @@ const MyInfoPage = () => {
       <ProfileWrapper>
         {isStatusMessage || (
           <>
-            <atoms.ProfileMessage className="profile-name" content={myInfo.statusMessage} />
+            <atoms.ProfileMessage className="profile-name" content={data.statusMessage} />
             <atoms.UpdateIcon onClick={() => setIsStatusMessage(true)} />
           </>
         )}
-        {isStatusMessage && <UpdateInput defaultValue={myInfo.statusMessage} onKeyDown={(e) => afterUpdate(e, 'ProfileMessage')} spellcheck="false" />}
+        {isStatusMessage && <UpdateInput defaultValue={data.statusMessage} onKeyDown={(e) => mutateUpdateUserStatusMsg.mutate(e)} spellcheck="false" />}
       </ProfileWrapper>
     </MyInfoWrapper>
   );
