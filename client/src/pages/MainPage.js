@@ -1,11 +1,12 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import atoms from '../components/atoms';
 import molecules from '../components/molecules';
 import modalSlice from '../slices/modalSlice';
+import selectedSlice from '../slices/selectedSlice';
 
 // <------------------ STYLED COMPONENT ------------------>
 // 메인페이지 wrapper
@@ -86,46 +87,54 @@ const DiaryModal = styled(molecules.DiaryModal)`
   left: calc(50% - 420px);
 `;
 
+const UpdateDiaryModal = styled(molecules.UpdateDiaryModal)`
+  position: absolute;
+  top: 10vh;
+  left: calc(50% - 420px);
+`;
+
 const getMemberInfo = async (memberId) => {
   const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/members/${memberId}`);
   return data;
 };
-
-const getDiaries = async () => {};
 //<------------------ COMPONENT ------------------>
 const MainPage = () => {
   const modalState = useSelector((state) => state.modal);
-  const user = useSelector((state) => state.user);
+  const userState = useSelector((state) => state.user);
+  const selectedState = useSelector((state) => state.selected);
   const dispatch = useDispatch();
-  const memberInfo = useQuery('memberInfo', () => getMemberInfo(user.id));
-  if (memberInfo.isLoading) return <h3>Loading...</h3>;
-  if (memberInfo.isError)
+  const userInfo = useQuery('userInfo', () => getMemberInfo(userState.id));
+  if (userInfo.isLoading) return <h3>Loading...</h3>;
+  if (userInfo.isError)
     return (
       <>
-        <h3>memberInfo error</h3>
-        <p>{memberInfo.error.toString()}</p>
+        <h3>userInfo error</h3>
+        <p>{userInfo.error.toString()}</p>
       </>
     );
-  // console.log('memberInfodata', memberInfo.data);
-  const memberCalendars = memberInfo.data.adminCalendars.concat(memberInfo.data.attendedCalendars);
-  // console.log('memberCalendar', memberCalendars);
+  console.log('selectedState : ', selectedState);
+  console.log('userState : ', userState);
   return (
     <MainPageWrapper>
-      <molecules.MainPageNavigation />
-      {memberCalendars.length === 0 ? (
+      {selectedState.calendarId === 0 ? (
         <CreateCalendarModal />
       ) : (
-        <Calendar>
-          {modalState.eventCommentModal && <EventCommentModal />}
-          {modalState.eventModal && <EventModal className={modalState.eventCommentModal ? 'comment-mode' : ''} />}
-          {modalState.calendarSidebarModal && <CalendarSidebar />}
-          {modalState.createCalendarModal && <CreateCalendarModal />}
-          {modalState.mypageSidebarModal && <MypageSidebar />}
-          <PlusCircleButton color={'#007FDB'} onClick={() => dispatch(modalSlice.actions.modal({ ...modalState, createEventModal: true }))} />
-          {modalState.createEventModal && <CreateEventModal />}
-          {modalState.diaryModal && <DiaryModal />}
-          {modalState.createDiaryModal && <CreateDiaryModal />}
-        </Calendar>
+        <>
+          {/* {() => dispatch(selectedSlice.actions.selected({ calendarId: memberCalendars[0].calendarId }))} */}
+          <molecules.MainPageNavigation />
+          <Calendar>
+            {modalState.eventCommentModal && <EventCommentModal />}
+            {modalState.eventModal && <EventModal className={modalState.eventCommentModal ? 'comment-mode' : ''} />}
+            {modalState.calendarSidebarModal && <CalendarSidebar />}
+            {modalState.createCalendarModal && <CreateCalendarModal />}
+            {modalState.mypageSidebarModal && <MypageSidebar />}
+            <PlusCircleButton color={'#007FDB'} onClick={() => dispatch(modalSlice.actions.modal({ ...modalState, createEventModal: true }))} />
+            {modalState.createEventModal && <CreateEventModal />}
+            {modalState.diaryModal && <DiaryModal />}
+            {modalState.createDiaryModal && <CreateDiaryModal />}
+            {modalState.updateDiaryModal && <UpdateDiaryModal />}
+          </Calendar>
+        </>
       )}
     </MainPageWrapper>
   );
