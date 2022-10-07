@@ -188,8 +188,8 @@ const EventModal = ({ className }) => {
         </ItemWrapper>
 
         {event === 'updateSchedule' && <atoms.ModalButton color={'#EF9F04'} onClick={viewMode} value={'수정'} />}
-        {event !== 'updateSchedule' && schedule.data.diaryInfo === 0 && <atoms.ModalButton color={'#007FDB'} onClick={() => dispatch(modalSlice.actions.modal({ ...modalState, createDiaryModal: true }))} value={'회고 작성'} />}
-        {event !== 'updateSchedule' && schedule.data.diaryInfo !== 0 && <atoms.ModalButton color={'#EF9F04'} onClick={() => dispatch(modalSlice.actions.modal({ ...modalState, diaryModal: true }))} value={'회고 보기'} />}
+        {event !== 'updateSchedule' && schedule.data.diaryInfo === 0 && <atoms.ModalButton color={'#007FDB'} onClick={() => dispatch(modalSlice.actions.modal({ ...modalState, createDiaryModal: true }))} value={'기록 작성'} />}
+        {event !== 'updateSchedule' && schedule.data.diaryInfo !== 0 && <atoms.ModalButton color={'#EF9F04'} onClick={() => dispatch(modalSlice.actions.modal({ ...modalState, diaryModal: true }))} value={'기록 보기'} />}
       </atoms.ModalContentContainer>
     </EventModalWrapper>
   );
