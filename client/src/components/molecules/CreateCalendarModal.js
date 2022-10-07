@@ -30,7 +30,6 @@ const CreateCalendarModal = ({ className }) => {
     async () => {
       await axios.post(`${process.env.REACT_APP_API_URL}/calendars`, { memberId: user.id, title }).then((res) => {
         dispatch(selectedSlice.actions.selected({ ...selectedState, calendarId: res.data.calendarId }));
-        console.log('calendar : ', res.data);
       });
     },
     {

@@ -55,9 +55,7 @@ const Calendar = ({ className, children }) => {
       .split(' ')[0]
       .split('.')
       .map((el) => Number(el));
-    // console.log('start, end', startAt, endAt);
     let interval = calculateInterval(startAt, endAt);
-    // console.log('interval', interval);
     interval.forEach((date) => {
       event.push({ ...el, year: date[0], month: date[1], day: date[2] });
     });

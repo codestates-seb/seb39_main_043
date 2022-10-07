@@ -54,15 +54,9 @@ const CreateDiaryModal = ({ className }) => {
         diaryImg,
       })
       .then((res) => {
-        console.log('res.data : ', res.data);
-        // dispatch(selectedSlice.actions.selected({...selectedState, diaryId: res.data.diaryInfo}))
-        axios
-          .patch(`${process.env.REACT_APP_API_URL}/schedules/${scheduleId}`, {
-            diaryInfo: res.data.diaryId,
-          })
-          .then((res) => {
-            console.log('complete', res.data);
-          });
+        axios.patch(`${process.env.REACT_APP_API_URL}/schedules/${scheduleId}`, {
+          diaryInfo: res.data.diaryId,
+        });
       });
   };
   const diaryMutation = useMutation(() => postDiary(selectedState.scheduleId, userState.id, editorRef.current.getInstance().getMarkdown(), 'title', 'diaryImg'), {

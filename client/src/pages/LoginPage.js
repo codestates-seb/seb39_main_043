@@ -47,48 +47,15 @@ const SocialLoginButtonGoogle = styled(atoms.SocialLoginButtonGoogle)`
   margin-top: 32px;
 `;
 
-// const login = (username, password) => {
-//   fetch(`${process.env.REACT_APP_API_URL}/login`, {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//     body: JSON.stringify({ username, password }),
-//   }).then((res) => {
-//     console.log(res);
-//   });
-// };
-
 const LoginPage = () => {
   const user = useSelector((state) => state.user);
   const calendar = useSelector((state) => state.calendar);
   const loginWarning = useSelector((state) => state.warning.loginWarning);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  console.log(user);
-  console.log('email', user.email);
-  console.log('password', user.password);
 
-  // const login = () => {
-  //   axios
-  //     .post(
-  //       `${process.env.REACT_APP_API_URL}/login`,
-  //       {
-  //         username: user.email,
-  //         password: user.password,
-  //       }
-  //       // { withCredentials: true }
-  //     )
-  //     .then((res) => {
-  //       console.log(res);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
   const members = useQuery('members', async () => {
     const res = await axios.get(`${process.env.REACT_APP_API_URL}/members`);
-    // console.log('response : ', res);
     const data = res.data;
     return data;
   });
@@ -102,11 +69,9 @@ const LoginPage = () => {
     );
 
   if (!members.data) return <div></div>;
-  if (members.data) console.log('data : ', members.data);
 
   const isUser = (email, password, userData) => {
     let result = userData.filter((el) => el.email === email && el.password === password);
-    console.log('result', result);
 
     if (result.length === 0) {
       dispatch(warningSlice.actions.log({ loginWarning: '' }));

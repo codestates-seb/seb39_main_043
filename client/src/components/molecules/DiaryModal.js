@@ -64,9 +64,7 @@ const getDiary = async (diaryId) => {
 
 const deleteDiary = async (diaryId, scheduleId) => {
   await axios.delete(`${process.env.REACT_APP_API_URL}/diaries/${diaryId}`).then((res) => {
-    axios.patch(`${process.env.REACT_APP_API_URL}/schedules/${scheduleId}`, { diaryInfo: 0 }).then((res) => {
-      console.log('patch schedule', res.data);
-    });
+    axios.patch(`${process.env.REACT_APP_API_URL}/schedules/${scheduleId}`, { diaryInfo: 0 });
   });
 };
 

@@ -40,10 +40,7 @@ const makeViewDays = (standardDate) => {
   while (viewDays.length < 35) {
     viewDays.push({ year: year, month: month + 1, day: addEndCount++ });
   }
-  // console.log(viewDays);
   return viewDays;
 };
-
-// makeViewDays('2022-08-01');
 
 export default makeViewDays;

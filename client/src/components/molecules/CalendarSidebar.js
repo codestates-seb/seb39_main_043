@@ -35,8 +35,6 @@ const CalendarSideBar = ({ className }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // console.log('캘린더 사이드바에서 calendar 상태 : ', calendarState);
-
   // [함수] 캘린더 목록 GET
   const userInfo = useQuery('userInfo', () => getUserInfo(userState.id));
   const calendars = useQuery('calendars', () => getCalendars(userState.id));

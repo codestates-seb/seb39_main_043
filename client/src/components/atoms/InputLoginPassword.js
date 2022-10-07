@@ -27,8 +27,7 @@ const InputLoginPasswordWrapper = styled.div`
 const InputLoginPassword = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.user);
-  // let password = useSelector((state) => state.user.password);
-  // console.log('password', password);
+
   return (
     <InputLoginPasswordWrapper>
       <IoKeyOutline size={40} />

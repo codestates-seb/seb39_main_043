@@ -160,7 +160,6 @@ const MyCalendarPage = () => {
 
     const memberInfo = await axios.get(`${process.env.REACT_APP_API_URL}/members/${userState.id}`);
     let result = memberInfo.data.adminCalendars.concat(memberInfo.data.attendedCalendars);
-    console.log('result : ', result);
 
     // 4. 캘린더의 목록이 없다면 전역 상태 calendar의 값에 빈 값을 넣고 메인페이지로 이동하게 한다.
     if (result[0] === undefined) {
@@ -231,8 +230,6 @@ const MyCalendarPage = () => {
         <p>{error.toString()}</p>
       </>
     );
-
-  console.log('isAttendee : ', isAttendee);
 
   // 이미지 변경 함수
   const handleChange = (e) => {

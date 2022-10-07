@@ -112,8 +112,6 @@ const MainPage = () => {
         <p>{userInfo.error.toString()}</p>
       </>
     );
-  console.log('selectedState : ', selectedState);
-  console.log('userState : ', userState);
   return (
     <MainPageWrapper>
       {selectedState.calendarId === 0 ? (

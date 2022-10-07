@@ -45,11 +45,10 @@ const WarningBox = styled(atoms.WarningBox)`
 const JoinPage = () => {
   const join = useSelector((state) => state.join);
   const warningState = useSelector((state) => state.warning);
-  console.log(warningState);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const postMembers = async (name, email, password) => {
-    console.log('axios', name, email, password);
     await axios
       .post(`${process.env.REACT_APP_API_URL}/members`, { name: name, email: email, password: password })
       .then((res) => {

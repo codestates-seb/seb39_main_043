@@ -27,8 +27,7 @@ const InputLoginIdWrapper = styled.div`
 const InputLoginId = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.user);
-  // let id = useSelector((state) => state.user.id);
-  // console.log('id', id);
+
   return (
     <InputLoginIdWrapper>
       <CgProfile size={40} />

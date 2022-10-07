@@ -90,7 +90,6 @@ const EventModal = ({ className }) => {
   //   );
   // update 는 업데이트할 데이터
   dispatch(selectedSlice.actions.selected({ ...selectedState, diaryId: schedule.data.diaryInfo }));
-  console.log(selectedState);
 
   const updateObj = { ...schedule.data };
 
