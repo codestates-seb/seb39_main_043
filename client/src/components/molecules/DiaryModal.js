@@ -12,7 +12,7 @@ import inputSlice from '../../slices/inputSlice';
 // <--- styled component --->
 const DiaryModalWrapper = styled.div`
   .viewer-container {
-    height: 500px;
+    height: 300px;
     width: 800px;
     overflow-y: scroll;
     padding: 5px;
