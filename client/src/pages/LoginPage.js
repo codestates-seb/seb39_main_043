@@ -111,6 +111,7 @@ const LoginPage = () => {
     if (result.length === 0) {
       dispatch(warningSlice.actions.log({ loginWarning: '' }));
     } else {
+      dispatch(warningSlice.actions.log({ loginWarning: 'hidden' }));
       dispatch(userSlice.actions.user({ name: result[0].name, id: result[0].memberId, email: result[0].email, password: result[0].password }));
       let initialCalendar = result[0].adminCalendars.concat(result[0].attendedCalendars)[0];
       if (initialCalendar === undefined) {

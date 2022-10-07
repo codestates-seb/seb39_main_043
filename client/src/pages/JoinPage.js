@@ -54,6 +54,8 @@ const JoinPage = () => {
       .post(`${process.env.REACT_APP_API_URL}/members`, { name: name, email: email, password: password })
       .then((res) => {
         alert('회원가입 되셨습니다');
+        dispatch(warningSlice.actions.join({ ...warningState, joinWarning: 'hidden' }));
+        dispatch(warningSlice.actions.log({ loginWarning: 'hidden' }));
         navigate('/');
       })
       .catch((err) => {
