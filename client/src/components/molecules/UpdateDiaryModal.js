@@ -92,7 +92,7 @@ const UpdateDiaryModal = ({ className }) => {
       {/*<--- 컨테이너 --->*/}
       <atoms.DiaryModalContainer>
         {/* 회고 내용 */}
-        <Editor height="600px" initialEditType="markdown" useCommandShortcut={false} ref={editorRef} initialValue={diary.data.contents} />
+        <Editor height="300px" initialEditType="markdown" useCommandShortcut={false} ref={editorRef} initialValue={diary.data.contents} />
         <CreateDiaryButton title={'수정'} onClick={diaryUpdateMutation.mutate} />
       </atoms.DiaryModalContainer>
     </DiaryModalWrapper>
