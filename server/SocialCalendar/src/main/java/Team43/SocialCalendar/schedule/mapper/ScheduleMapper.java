@@ -64,6 +64,9 @@ public class ScheduleMapper {
             String location = schedule.getLocation();
             String contents = schedule.getContents();
             Long diaryInfo = schedule.getDiaryInfo();
+            if (diaryInfo == null) {
+                diaryInfo = 0L;
+            }
 
             ScheduleResponseDto scheduleResponseDto
                     = new ScheduleResponseDto(memberId, calendarId, scheduleId, title, scheduleAt, attendees, location, contents, diaryInfo);

@@ -4,7 +4,7 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-10-05T20:10:25+0900",
+    date = "2022-10-08T19:36:12+0900",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.jar, environment: Java 11.0.15 (Azul Systems, Inc.)"
 )
 public class DiaryCommentMapperImpl extends DiaryCommentMapper {
