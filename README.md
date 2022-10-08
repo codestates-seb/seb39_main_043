@@ -21,7 +21,8 @@ http://main-project-043.s3-website.ap-northeast-2.amazonaws.com/
 |메인페이지|마이페이지|기획, 배포|로그인, 회원가입|
 
 # 기술 스택
-<div align=center>FRONTEND</div>
+<h2 align=center>FRONTEND</h2>
+<br>
 <div align=center> 
   <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">   
   <img src="https://img.shields.io/badge/styled-component-DB7093?style=for-the-badge&logo=styled-component&logoColor=black">
@@ -31,7 +32,8 @@ http://main-project-043.s3-website.ap-northeast-2.amazonaws.com/
   <img src="https://img.shields.io/badge/reactrouter-CA4245?style=for-the-badge&logo=reactrouter&logoColor=black">
   <img src="https://img.shields.io/badge/axios-5A29E4?style=for-the-badge&logo=axios&logoColor=black">
   <br>
-<div align="center">BACKEND</div>  
+<h2 align="center">BACKEND</h2>
+<br>
   <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white">   
   <img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white"> 
   <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white"> 
