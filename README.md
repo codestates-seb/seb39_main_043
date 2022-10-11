@@ -12,7 +12,7 @@
 https://codestates.notion.site/39-Team043-Social-Calendar-952aa575da254ff0973f3813d50cffe4
 
 # 프로젝트 링크
-http://main-project-043.s3-website.ap-northeast-2.amazonaws.com/
+http://main-project-team-043.s3-website.ap-northeast-2.amazonaws.com/
 
 # 팀원
 |[김현수](https://github.com/Kim-Hyunsoo-96-kr)(FE, 팀장)|[홍미경](https://github.com/trolliSharkJelly)(FE)|[안중규](https://github.com/Luxahn)(BE)|[이진욱](https://github.com/Woogiemon)(BE)|
