@@ -1,0 +1,10 @@
+spring:
+  profiles:
+    default: mysql
+mail:
+  address:
+    admin: admin@gmail.com
+jwt:
+  secret-key: rlagustnghdalruddkswndrbdlwlsdnr
+  access-token-expiration-minutes: 30
+  refresh-token-expiration-minutes: 420
