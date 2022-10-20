@@ -1,16 +1,17 @@
 package project.member.entity;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import project.common.BaseEntity;
 
 import javax.persistence.*;
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
+@Setter
 @Entity
 @Table(name = "MEMBERS")
-public class Member {
+public class Member extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,16 +32,4 @@ public class Member {
 
     @Column(length = 50)
     private String statusMessage;
-
-    public Member(String email, String name, String password) {
-        this.email = email;
-        this.name = name;
-        this.password = password;
-    }
-
-    public void updateMemberInfo(String name, String memberImg, String statusMessage) {
-        this.name = name;
-        this.memberImg = memberImg;
-        this.statusMessage = statusMessage;
-    }
 }
