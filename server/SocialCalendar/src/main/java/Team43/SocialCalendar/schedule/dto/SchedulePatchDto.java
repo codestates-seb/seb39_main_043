@@ -18,10 +18,5 @@ public class SchedulePatchDto {
     private String location;
     private String contents;
 
-<<<<<<< HEAD
     private Long diaryInfo;
 }
-
-=======
-}
->>>>>>> 1c376a6 (back/refactor: merge 후 build)
