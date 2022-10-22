@@ -10,14 +10,12 @@ import Team43.SocialCalendar.calendar.mapper.CalendarAttendeeMapper;
 import Team43.SocialCalendar.calendar.mapper.CalendarMapper;
 import Team43.SocialCalendar.calendar.service.CalendarAttendeeService;
 import Team43.SocialCalendar.calendar.service.CalendarService;
-import Team43.SocialCalendar.member.service.MemberService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Positive;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/calendars")

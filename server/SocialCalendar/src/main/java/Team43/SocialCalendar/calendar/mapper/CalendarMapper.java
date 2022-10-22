@@ -8,8 +8,6 @@ import Team43.SocialCalendar.calendar.entity.Calendar;
 import Team43.SocialCalendar.calendar.entity.CalendarAttendee;
 import Team43.SocialCalendar.member.entity.Member;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,10 +17,6 @@ public interface CalendarMapper {
 
     List<CalendarResponseDto> calendarsToCalendarResponseDtos(List<Calendar> calendars);
 
-//    @Mapping(target = "member", ignore = true)
-//    @Mapping(target = "memberId", ignore = true)
-//    @Mapping(target = "createdAt", ignore = true)
-//    @Mapping(target = "modifiedAt", ignore = true)
     default Calendar calendarPatchDtoToCalendar(CalendarPatchDto calendarPatchDto) {
         if (calendarPatchDto == null) {
             return null;

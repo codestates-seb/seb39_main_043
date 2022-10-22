@@ -1,16 +1,13 @@
 package Team43.SocialCalendar.calendar.service;
 
 import Team43.SocialCalendar.calendar.entity.Calendar;
-import Team43.SocialCalendar.calendar.entity.CalendarAttendee;
 import Team43.SocialCalendar.calendar.repository.CalendarRepository;
 import Team43.SocialCalendar.exception.BusinessLogicException;
 import Team43.SocialCalendar.exception.ExceptionCode;
 import Team43.SocialCalendar.member.service.MemberService;
-import org.apache.catalina.mbeans.MBeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,8 +17,6 @@ public class CalendarService {
     private final MemberService memberService;
 
     private final CalendarRepository calendarRepository;
-
-//    private List<CalendarAttendee> calendarAttendees = new ArrayList<>();
 
     public CalendarService(MemberService memberService,
                            CalendarRepository calendarRepository) {
@@ -49,7 +44,6 @@ public class CalendarService {
 
         Optional.ofNullable(calendar.getTitle()).ifPresent(title -> findCalendar.setTitle(title));
         Optional.ofNullable(calendar.getCalendarImg()).ifPresent(image -> findCalendar.setCalendarImg(image));
-//        Optional.ofNullable(calendar.getCalendarAttendees()).ifPresent(attendee -> findCalendar.setCalendarAttendees(attendee));
         findCalendar.setModifiedAt(LocalDateTime.now());
 
         return calendarRepository.save(findCalendar);
