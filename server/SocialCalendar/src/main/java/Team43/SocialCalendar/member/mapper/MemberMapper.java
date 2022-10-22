@@ -7,7 +7,6 @@ import Team43.SocialCalendar.member.entity.Member;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -64,18 +63,6 @@ public class MemberMapper {
             memberResponseDto.setCreatedAt(member.getCreatedAt());
 
             return memberResponseDto;
-
-//            Long memberId = member.getMemberId();
-//            String name = member.getName();
-//            String email = member.getEmail();
-//            String password = member.getPassword();
-//            String memberImg = member.getMemberImg();
-//
-//            List<Calendar> adminCalendars = member.getAdminCalendars();
-//            LocalDateTime createdAt = member.getCreatedAt();
-//
-//            MemberResponseDto memberResponseDto = new MemberResponseDto(memberId, email, name, password, memberImg, adminCalendars, createdAt);
-//            return memberResponseDto;
         }
     }
 

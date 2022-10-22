@@ -2,9 +2,13 @@ package Team43.SocialCalendar.member.entity;
 
 import Team43.SocialCalendar.calendar.entity.Calendar;
 import Team43.SocialCalendar.calendar.entity.CalendarAttendee;
+<<<<<<< HEAD
 import Team43.SocialCalendar.diary.comment.entity.DiaryComment;
 import Team43.SocialCalendar.diary.entity.Diary;
 import Team43.SocialCalendar.schedule.comment.entity.ScheduleComment;
+=======
+import Team43.SocialCalendar.diary.entity.Diary;
+>>>>>>> 1c376a6 (back/refactor: merge 후 build)
 import Team43.SocialCalendar.schedule.entity.Schedule;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -8,7 +8,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+<<<<<<< HEAD
 import java.time.LocalDateTime;
+=======
+>>>>>>> 1c376a6 (back/refactor: merge 후 build)
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,9 +24,6 @@ public class Diary {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long diaryId;
-
-//    @Column(length = 100, nullable = false)
-//    private String title;
 
     @Column(length = 1000)
     private String contents;
@@ -39,7 +39,6 @@ public class Diary {
 
     public Diary(Long diaryId, String contents, String diaryImg) {
         this.diaryId = diaryId;
-//        this.title = title;
         this.contents = contents;
         this.diaryImg = diaryImg;
     }

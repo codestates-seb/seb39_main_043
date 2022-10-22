@@ -1,6 +1,5 @@
 package Team43.SocialCalendar.schedule.comment.entity;
 
-import Team43.SocialCalendar.common.BaseEntity;
 import Team43.SocialCalendar.member.entity.Member;
 import Team43.SocialCalendar.schedule.entity.Schedule;
 import lombok.Getter;

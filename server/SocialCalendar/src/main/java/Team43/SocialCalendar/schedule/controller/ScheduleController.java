@@ -73,4 +73,3 @@ public class ScheduleController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 }
-
