@@ -1,6 +1,5 @@
 package Team43.SocialCalendar.member.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,7 +13,6 @@ public class MemberResponseDto {
     private long memberId;
     private String email;
     private String name;
-    private String password;
     private String memberImg;
     private String statusMessage;
 

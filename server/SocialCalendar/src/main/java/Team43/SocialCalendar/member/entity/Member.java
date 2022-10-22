@@ -46,6 +46,9 @@ public class Member {
     @Column
     private LocalDateTime modifiedAt = LocalDateTime.now();
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles = new ArrayList<>();
+
     @OneToMany(mappedBy = "memberId", cascade = CascadeType.ALL)
     private List<CalendarAttendee> calendarAttendees = new ArrayList<>();
 

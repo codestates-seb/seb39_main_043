@@ -16,7 +16,6 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/schedules")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ScheduleController {
     private final ScheduleService scheduleService;
     private final ScheduleMapper mapper;
