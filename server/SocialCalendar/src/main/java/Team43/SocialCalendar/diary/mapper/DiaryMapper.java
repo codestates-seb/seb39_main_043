@@ -21,7 +21,6 @@ public interface DiaryMapper {
         } else {
             Diary diary = new Diary();
             diary.setDiaryId(diaryPatchDto.getDiaryId());
-//            diary.setTitle(diaryPatchDto.getTitle());
             diary.setContents(diaryPatchDto.getContents());
             diary.setDiaryImg(diaryPatchDto.getDiaryImg());
 
@@ -37,7 +36,6 @@ public interface DiaryMapper {
         member.setMemberId(diaryPostDto.getMemberId());
         diary.setSchedule(schedule);
         diary.setMember(member);
-//        diary.setTitle(diaryPostDto.getTitle());
         diary.setContents(diaryPostDto.getContents());
         diary.setDiaryImg(diaryPostDto.getDiaryImg());
 
@@ -48,7 +46,6 @@ public interface DiaryMapper {
         DiaryResponseDto diaryResponseDto = new DiaryResponseDto();
 
         diaryResponseDto.setDiaryId(diary.getDiaryId());
-//        diaryResponseDto.setTitle(diary.getTitle());
         diaryResponseDto.setContents(diary.getContents());
         diaryResponseDto.setDiaryImg(diary.getDiaryImg());
 

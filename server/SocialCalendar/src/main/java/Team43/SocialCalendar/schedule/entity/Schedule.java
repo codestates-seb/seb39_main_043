@@ -1,7 +1,6 @@
 package Team43.SocialCalendar.schedule.entity;
 
 import Team43.SocialCalendar.calendar.entity.Calendar;
-import Team43.SocialCalendar.common.BaseEntity;
 import Team43.SocialCalendar.diary.entity.Diary;
 import Team43.SocialCalendar.member.entity.Member;
 import Team43.SocialCalendar.schedule.comment.entity.ScheduleComment;
@@ -10,10 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-<<<<<<< HEAD
 import java.time.LocalDateTime;
-=======
->>>>>>> 1c376a6 (back/refactor: merge 후 build)
 import java.util.ArrayList;
 import java.util.List;
 

@@ -48,7 +48,6 @@ public class DiaryService {
     public Diary updateDiary(Diary diary) {
         Diary findDiary = findVerifiedDiary(diary.getDiaryId());
 
-//        Optional.ofNullable(diary.getTitle()).ifPresent(title -> findDiary.setTitle(title));
         Optional.ofNullable(diary.getContents()).ifPresent(contents -> findDiary.setContents(contents));
         Optional.ofNullable(diary.getDiaryImg()).ifPresent(diaryImg -> findDiary.setDiaryImg(diaryImg));
 
